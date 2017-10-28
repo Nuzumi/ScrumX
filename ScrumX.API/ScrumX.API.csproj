@@ -58,6 +58,10 @@
     <Compile Include="Migrations\201710281701308_Fix.Designer.cs">
       <DependentUpon>201710281701308_Fix.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201710281853586_Add field to HistoryJob.cs" />
+    <Compile Include="Migrations\201710281853586_Add field to HistoryJob.Designer.cs">
+      <DependentUpon>201710281853586_Add field to HistoryJob.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Model\HistoryJob.cs" />
     <Compile Include="Model\Project.cs" />
@@ -77,6 +81,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201710281701308_Fix.resx">
       <DependentUpon>201710281701308_Fix.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201710281853586_Add field to HistoryJob.resx">
+      <DependentUpon>201710281853586_Add field to HistoryJob.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
