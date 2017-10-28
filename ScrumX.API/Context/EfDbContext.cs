@@ -10,7 +10,7 @@ namespace ScrumX.API.Context
 {
     public class EfDbContext : DbContext
     {
-        public static string connString = "Data Source=LAPTOP-9BBKLGE9\\MILENA;Initial Catalog=Scrum;Integrated Security=True; App=EntityFramework";
+        public static string connString = "Data Source=MICHAŁ-KOMPUTER\\SQLEXPRESS;Initial Catalog=Scrum;Integrated Security=True; App=EntityFramework";
         public EfDbContext()
         : base(connString)
         {
