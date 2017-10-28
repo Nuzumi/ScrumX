@@ -37,8 +37,8 @@ namespace ScrumX.API.Repository
             get { return ctx.HistoryJobs.ToList(); }
         }
 
-        public string UserExists(string name) {
-            return Users.Exists(U => U.Name.Equals(name)) ? "Użytkownik istnieje w bazie" : "";
+        public bool UserExists(string name) {
+            return Users.Exists(U => U.Name.Equals(name));
         }
         
         public User GetUserByName(string name)
@@ -52,7 +52,7 @@ namespace ScrumX.API.Repository
         }
 
         public string UserLogin(string name, string password) {
-            if (UserExists(name).Equals(""))
+            if (UserExists(name))
             {
                 if (GetUserByName(name).Password.Equals(password))
                     return "Zalogowano";
@@ -80,7 +80,7 @@ namespace ScrumX.API.Repository
         /// <returns></returns>
         public string RegisterUser(string name, string password)
         {
-            if (!UserExists(name).Equals(""))
+            if (!UserExists(name))
             {
                 ctx.Set<User>().Add(new User { Name = name, Password = password });
                 return "Dodano";
