@@ -16,21 +16,23 @@ namespace ScrumX.API.Model
 
         [ForeignKey("IdSprint")]
         public virtual Sprint Sprint { get; set; }
+        [Index]
         public int IdSprint { get; set; }
 
         [ForeignKey("IdUser")]
         public virtual User User { get; set; }
         public int IdUser { get; set; }
 
-
         public string Title { get; set; }
         public string Desc { get; set; }
         public int? Priority { get; set; }
         public int? SP { get; set; }
-        
-        public int BacklogStatus { get; set; }
-       
-        public int TableStatus { get; set; }
+
+        [Index]
+        public int BacklogStatus { get; set; } = 0;
+
+        [Index]
+        public int TableStatus { get; set; } = 0;
 
         public virtual IList<HistoryJob> JobsHistoryJob { get; set; }
     }

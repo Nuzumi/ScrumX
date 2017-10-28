@@ -16,12 +16,14 @@ namespace ScrumX.API.Model
 
         [ForeignKey("IdProject")]
         public virtual Project Project { get; set; }
+        [Index]
         public int IdProject { get; set; }
 
         public virtual IList<Job> SprintJob { get; set; }
 
         public int NoSprint { get; set; }
-        public DateTime StartData { get; set; }
+        public string Title { get; set; }
+        public DateTime StartData { get; set; } = DateTime.Today;
         public DateTime? EndData { get; set; }
     }
 }

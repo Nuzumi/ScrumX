@@ -16,10 +16,12 @@ namespace ScrumX.API.Model
 
         [ForeignKey("IdJob")]
         public virtual Job Job { get; set; }
+        [Index]
         public int IdJob { get; set; }
 
         [ForeignKey("IdUser")]
         public virtual User User { get; set; }
+        [Index]
         public int IdUser { get; set; }
 
         public string Comment { get; set; }

@@ -13,6 +13,7 @@ namespace ScrumX.API.Model
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int IdUser { get; set; }
+        [MaxLength(20), MinLength(3)]
         public string Name { get; set; }
         public string Password { get; set; }
         

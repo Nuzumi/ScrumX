@@ -10,3 +10,16 @@ E:\Milena\V sem\NET\ScrumX\ScrumX.API\obj\Debug\ScrumX.API.pdb
 E:\Milena\V sem\NET\ScrumX\ScrumX.API\obj\Debug\ScrumX.API.Migrations.Init.resources
 E:\Milena\V sem\NET\ScrumX\ScrumX.API\obj\Debug\ScrumX.API.csproj.GenerateResource.Cache
 E:\Milena\V sem\NET\ScrumX\ScrumX.API\obj\Debug\ScrumX.API.csprojResolveAssemblyReference.cache
+E:\Milena\V sem\NET\Scrum\ScrumX\ScrumX.API\bin\Debug\ScrumX.API.dll.config
+E:\Milena\V sem\NET\Scrum\ScrumX\ScrumX.API\bin\Debug\ScrumX.API.dll
+E:\Milena\V sem\NET\Scrum\ScrumX\ScrumX.API\bin\Debug\ScrumX.API.pdb
+E:\Milena\V sem\NET\Scrum\ScrumX\ScrumX.API\bin\Debug\EntityFramework.dll
+E:\Milena\V sem\NET\Scrum\ScrumX\ScrumX.API\bin\Debug\EntityFramework.SqlServer.dll
+E:\Milena\V sem\NET\Scrum\ScrumX\ScrumX.API\bin\Debug\EntityFramework.xml
+E:\Milena\V sem\NET\Scrum\ScrumX\ScrumX.API\bin\Debug\EntityFramework.SqlServer.xml
+E:\Milena\V sem\NET\Scrum\ScrumX\ScrumX.API\obj\Debug\ScrumX.API.dll
+E:\Milena\V sem\NET\Scrum\ScrumX\ScrumX.API\obj\Debug\ScrumX.API.pdb
+E:\Milena\V sem\NET\Scrum\ScrumX\ScrumX.API\obj\Debug\ScrumX.API.csprojResolveAssemblyReference.cache
+E:\Milena\V sem\NET\Scrum\ScrumX\ScrumX.API\obj\Debug\ScrumX.API.Migrations.Add.resources
+E:\Milena\V sem\NET\Scrum\ScrumX\ScrumX.API\obj\Debug\ScrumX.API.csproj.GenerateResource.Cache
+E:\Milena\V sem\NET\Scrum\ScrumX\ScrumX.API\obj\Debug\ScrumX.API.Migrations.Fix.resources
