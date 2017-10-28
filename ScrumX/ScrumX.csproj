@@ -103,7 +103,7 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\..\ScrumX\ScrumX.API\ScrumX.API.csproj">
+    <ProjectReference Include="..\ScrumX.API\ScrumX.API.csproj">
       <Project>{63a42e90-a67d-4613-80a0-d047f7ca21a8}</Project>
       <Name>ScrumX.API</Name>
     </ProjectReference>
