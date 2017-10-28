@@ -1,5 +1,7 @@
 ﻿using Prism.Commands;
 using Prism.Mvvm;
+using ScrumX.API.Context;
+using ScrumX.API.Repository;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -12,8 +14,10 @@ namespace ScrumX.ViewModel
     class LoginVM : BindableBase
     {
         private bool loginMode = true;
+        private EfRepository repo;
 
         #region Properties
+
         private string labelContent;
         public string LabeleContent
         {
@@ -32,8 +36,42 @@ namespace ScrumX.ViewModel
                 (LoginCommand as DelegateCommand).RaiseCanExecuteChanged();
             }
         }
-        public string Login { get; set; }
-        public string Password { get; set; }
+
+        private bool passwordCorrect;
+        public bool PasswordCorrect
+        {
+            get { return passwordCorrect; }
+            set { SetProperty(ref passwordCorrect, value); }
+        }
+
+        private bool loginCorrect;
+        public bool LoginCorrect
+        {
+            get { return loginCorrect; }
+            set { SetProperty(ref loginCorrect, value); }
+        }
+
+        private string login;
+        public string Login
+        {
+            get { return login; }
+            set
+            {
+                SetProperty(ref login, value);
+                (OkComamnd as DelegateCommand).RaiseCanExecuteChanged();
+            }
+        }
+
+        private string password;
+        public string Password
+        {
+            get { return password; }
+            set
+            {
+                SetProperty(ref password, value);
+                (OkComamnd as DelegateCommand).RaiseCanExecuteChanged();
+            }
+        }
 
         public ICommand OkComamnd { get; set; }
         public ICommand RegisterCommand { get; set; }
@@ -47,6 +85,9 @@ namespace ScrumX.ViewModel
             RegisterCommand = new DelegateCommand(RegisterCommandExecute, RegisterCommandCanExecute);
             LoginCommand = new DelegateCommand(LoginCommandExecute, LoginCommandCanExecute);
             LabeleContent = "Logowanie";
+            repo = new EfRepository();
+            LoginCorrect = true;
+            PasswordCorrect = true;
         }
 
         #region commanadFunction
@@ -59,13 +100,23 @@ namespace ScrumX.ViewModel
             }
             else
             {
-
+                Console.WriteLine("OK");
             }
         }
 
         private bool OKCommandCanExecute()
         {
-            return true;
+            if (loginMode)
+            {
+                return true;
+            }
+            else
+            {
+                //PasswordCorrect = (Password != string.Empty && Password != null);
+                LoginCorrect = !repo.UserExists(Login);
+
+                return (!repo.UserExists(Login) && Login != string.Empty && Login !=null && Password != string.Empty && Password != null);
+            }
         }
 
         private void RegisterCommandExecute()
@@ -73,6 +124,7 @@ namespace ScrumX.ViewModel
             LabeleContent = "Rejestracja";
             loginMode = false;
             IsVisibleLogin = true;
+            (OkComamnd as DelegateCommand).RaiseCanExecuteChanged();
         }
 
         private bool RegisterCommandCanExecute()
@@ -85,6 +137,7 @@ namespace ScrumX.ViewModel
             LabeleContent = "Logowanie";
             loginMode = true;
             IsVisibleLogin = false;
+            (OkComamnd as DelegateCommand).RaiseCanExecuteChanged();
         }
 
         private bool LoginCommandCanExecute()

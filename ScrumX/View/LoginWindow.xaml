@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:ScrumX.View"
         xmlns:ViewModel="clr-namespace:ScrumX.ViewModel"
         mc:Ignorable="d"
-        Title="LoginWindow" Height="175" Width="250" MinHeight="175" MinWidth="200">
+        Title="LoginWindow" Height="220" Width="250" MinHeight="220" MinWidth="200">
     <Window.DataContext>
         <ViewModel:LoginVM/>
     </Window.DataContext>
@@ -30,6 +30,22 @@
                 </DataTrigger>
             </Style.Triggers>
         </Style>
+        <Style TargetType="Label" x:Key="login">
+            <Setter Property="Visibility" Value="Collapsed"/>
+            <Style.Triggers>
+                <DataTrigger Binding="{Binding LoginCorrect}" Value="False">
+                    <Setter Property="Visibility" Value="Visible"/>
+                </DataTrigger>
+            </Style.Triggers>
+        </Style>
+        <Style TargetType="Label" x:Key="password">
+            <Setter Property="Visibility" Value="Collapsed"/>
+            <Style.Triggers>
+                <DataTrigger Binding="{Binding PasswordCorrect}" Value="False">
+                    <Setter Property="Visibility" Value="Visible"/>
+                </DataTrigger>
+            </Style.Triggers>
+        </Style>
     </Window.Resources>
     <Grid Margin="8">
         <Grid.ColumnDefinitions>
@@ -41,13 +57,17 @@
             <RowDefinition Height="auto"/>
             <RowDefinition Height="auto"/>
             <RowDefinition Height="auto"/>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="auto"/>
         </Grid.RowDefinitions>
         <Label Content="{Binding LabeleContent}" Grid.ColumnSpan="2" Margin="1" HorizontalContentAlignment="Center" FontSize="14"/>
         <Label Content="Name" Grid.Row="1"/>
-        <Label Content="Password" Grid.Row="2"/>
-        <TextBox Grid.Column="1"  Grid.Row="1"/>
-        <TextBox Grid.Column="1" Grid.Row="2"/>
-        <WrapPanel Grid.Row="3" Grid.ColumnSpan="2" HorizontalAlignment="Center" Margin="5">
+        <Label Content="Użytkownik istnieje w bazie" Style="{StaticResource login}" Grid.Row="2" Grid.ColumnSpan="2" HorizontalContentAlignment="Center"/>
+        <Label Content="Password" Grid.Row="3"/>
+        <Label Content="NIepoprawne hasło" Style="{StaticResource password}" Grid.Row="4" Grid.ColumnSpan="2" HorizontalContentAlignment="Center"/>
+        <TextBox Grid.Column="1"  Grid.Row="1" Text="{Binding Login}"/>
+        <TextBox Grid.Column="1" Grid.Row="3" Text="{Binding Password}"/>
+        <WrapPanel Grid.Row="5" Grid.ColumnSpan="2" HorizontalAlignment="Center" Margin="5">
             <Button Content="OK" Margin=" 1,1,8,1" Command="{Binding OkComamnd}"/>
             <Button Content="Register" Margin="8,1,8,1" Style="{StaticResource RegisterVis}" Command="{Binding RegisterCommand}"/>
             <Button Content="Sign in" Margin="8,1,1,1" Style="{StaticResource loginVis}" Command="{Binding LoginCommand}"/>
