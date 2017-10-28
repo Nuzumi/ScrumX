@@ -25,10 +25,12 @@ namespace ScrumX.API.Model
         public int IdUser { get; set; }
 
         public string Comment { get; set; }
-        
+        public DateTime Date { get; set; }
+
         public int FromBacklog { get; set; }
         public int ToBacklog { get; set; }
         public int FromTable { get; set; }
         public int ToTable { get; set; }
+
     }
 }

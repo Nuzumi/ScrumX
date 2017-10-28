@@ -37,10 +37,10 @@ namespace ScrumX.API.Repository
             get { return ctx.HistoryJobs.ToList(); }
         }
 
-        public bool UserExists(string name) {
-            return Users.Exists(U => U.Name.Equals(name));
+        public string UserExists(string name) {
+            return Users.Exists(U => U.Name.Equals(name)) ? "Użytkownik istnieje w bazie" : "";
         }
-
+        
         public User GetUserByName(string name)
         {
             return Users.SingleOrDefault(U => U.Name.Equals(name));
@@ -52,7 +52,7 @@ namespace ScrumX.API.Repository
         }
 
         public string UserLogin(string name, string password) {
-            if (UserExists(name))
+            if (UserExists(name).Equals(""))
             {
                 if (GetUserByName(name).Password.Equals(password))
                     return "Zalogowano";
@@ -80,7 +80,7 @@ namespace ScrumX.API.Repository
         /// <returns></returns>
         public string RegisterUser(string name, string password)
         {
-            if (!UserExists(name))
+            if (!UserExists(name).Equals(""))
             {
                 ctx.Set<User>().Add(new User { Name = name, Password = password });
                 return "Dodano";
@@ -95,7 +95,19 @@ namespace ScrumX.API.Repository
         /// <returns></returns>
         public int AddJob(Job job)
         {
-            return ctx.Set<Job>().Add(job).IdJob;
+            int idJob = ctx.Set<Job>().Add(job).IdJob;
+            //W momencie utworzenia zadania tworzy sie log
+            HistoryJob hj = new HistoryJob();
+            hj.FromBacklog = 0;
+            hj.ToBacklog = 0;
+            hj.FromTable = 0;
+            hj.ToTable = 0;
+            hj.IdJob = idJob;
+            hj.IdUser = job.IdUser;
+            hj.Date = DateTime.Today;
+            hj.Comment = "Utworzono zadanie \"" + job.Title + "\" przez użytkownika " + Users.SingleOrDefault(U => U.IdUser == job.IdUser).Name;
+            
+            return idJob;
         }
 
         /// <summary>
@@ -111,11 +123,6 @@ namespace ScrumX.API.Repository
             return ctx.Set<Sprint>().Add(sprint).IdSprint;
         }
 
-        /// <summary>
-        /// Bez daty poczatkowej
-        /// </summary>
-        /// <param name="project"></param>
-        /// <returns></returns>
         public int AddProject(Project project)
         {
             return ctx.Set<Project>().Add(project).IdProject;
@@ -131,7 +138,57 @@ namespace ScrumX.API.Repository
             return Jobs.Where(J => J.IdSprint == sprint).Where(J => J.TableStatus == tableStatus).ToList();
         }
 
+        public void DeleteProject(Project obj)
+        {
+            ctx.Set<Project>().Remove(obj);
+        }
 
+        public void DeleteUser(User obj)
+        {
+            ctx.Set<User>().Remove(obj);
+        }
+
+        public void DeleteSprint(Sprint obj)
+        {
+            ctx.Set<Sprint>().Remove(obj);
+        }
+
+        public void DeleteJob(Job obj)
+        {
+            ctx.Set<Job>().Remove(obj);
+        }
+
+        public void DeleteHistoryJob(HistoryJob obj)
+        {
+            ctx.Set<HistoryJob>().Remove(obj);
+        }
+
+        public void EditUser(User obj)
+        {
+            ctx.Entry<User>(obj).CurrentValues.SetValues(obj);
+        }
+
+        public void EditProject(Project obj)
+        {
+            ctx.Entry<Project>(obj).CurrentValues.SetValues(obj);
+        }
+
+        public void EditSprint(Sprint obj)
+        {
+            ctx.Entry<Sprint>(obj).CurrentValues.SetValues(obj);
+        }
+
+        public void EditJob(Job obj)
+        {
+            ctx.Entry<Job>(obj).CurrentValues.SetValues(obj);
+            //Edit zadania robi wpis w HJ
+           // HistoryJob hj = new 
+        }
+
+        public void EditHistoryJob(HistoryJob obj)
+        {
+            ctx.Entry<HistoryJob>(obj).CurrentValues.SetValues(obj);
+        }
 
     }
 }
