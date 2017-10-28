@@ -1,0 +1,16 @@
+D:\Nowy folder\c#_programy\ScrumX\ScrumX\ScrumX\bin\Debug\ScrumX.exe.config
+D:\Nowy folder\c#_programy\ScrumX\ScrumX\ScrumX\bin\Debug\ScrumX.exe
+D:\Nowy folder\c#_programy\ScrumX\ScrumX\ScrumX\bin\Debug\ScrumX.pdb
+D:\Nowy folder\c#_programy\ScrumX\ScrumX\ScrumX\obj\Debug\ScrumX.csprojResolveAssemblyReference.cache
+D:\Nowy folder\c#_programy\ScrumX\ScrumX\ScrumX\obj\Debug\App.g.cs
+D:\Nowy folder\c#_programy\ScrumX\ScrumX\ScrumX\obj\Debug\ScrumX_MarkupCompile.cache
+D:\Nowy folder\c#_programy\ScrumX\ScrumX\ScrumX\obj\Debug\ScrumX_MarkupCompile.lref
+D:\Nowy folder\c#_programy\ScrumX\ScrumX\ScrumX\obj\Debug\ScrumX.g.resources
+D:\Nowy folder\c#_programy\ScrumX\ScrumX\ScrumX\obj\Debug\ScrumX.Properties.Resources.resources
+D:\Nowy folder\c#_programy\ScrumX\ScrumX\ScrumX\obj\Debug\ScrumX.csproj.GenerateResource.Cache
+D:\Nowy folder\c#_programy\ScrumX\ScrumX\ScrumX\obj\Debug\ScrumX.exe
+D:\Nowy folder\c#_programy\ScrumX\ScrumX\ScrumX\obj\Debug\ScrumX.pdb
+D:\Nowy folder\c#_programy\ScrumX\ScrumX\ScrumX\obj\Debug\View\MainWindow.g.cs
+D:\Nowy folder\c#_programy\ScrumX\ScrumX\ScrumX\obj\Debug\View\Table.g.cs
+D:\Nowy folder\c#_programy\ScrumX\ScrumX\ScrumX\obj\Debug\View\MainWindow.baml
+D:\Nowy folder\c#_programy\ScrumX\ScrumX\ScrumX\obj\Debug\View\Table.baml

@@ -1,0 +1,28 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 14
+VisualStudioVersion = 14.0.25420.1
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ScrumX", "ScrumX\ScrumX.csproj", "{00126B4D-360D-44BE-9718-4E90B805A398}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DragAndDrop", "DragAndDrop\DragAndDrop.csproj", "{06422D0B-8EC3-4AF9-810C-D468C2C6EA23}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{00126B4D-360D-44BE-9718-4E90B805A398}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{00126B4D-360D-44BE-9718-4E90B805A398}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{00126B4D-360D-44BE-9718-4E90B805A398}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{00126B4D-360D-44BE-9718-4E90B805A398}.Release|Any CPU.Build.0 = Release|Any CPU
+		{06422D0B-8EC3-4AF9-810C-D468C2C6EA23}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{06422D0B-8EC3-4AF9-810C-D468C2C6EA23}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{06422D0B-8EC3-4AF9-810C-D468C2C6EA23}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{06422D0B-8EC3-4AF9-810C-D468C2C6EA23}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal
