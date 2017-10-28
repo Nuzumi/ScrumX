@@ -7,6 +7,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ScrumX", "ScrumX\ScrumX.csp
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DragAndDrop", "DragAndDrop\DragAndDrop.csproj", "{06422D0B-8EC3-4AF9-810C-D468C2C6EA23}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ScrumX.API", "..\..\ScrumX\ScrumX.API\ScrumX.API.csproj", "{63A42E90-A67D-4613-80A0-D047F7CA21A8}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -21,6 +23,10 @@ Global
 		{06422D0B-8EC3-4AF9-810C-D468C2C6EA23}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{06422D0B-8EC3-4AF9-810C-D468C2C6EA23}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{06422D0B-8EC3-4AF9-810C-D468C2C6EA23}.Release|Any CPU.Build.0 = Release|Any CPU
+		{63A42E90-A67D-4613-80A0-D047F7CA21A8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{63A42E90-A67D-4613-80A0-D047F7CA21A8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{63A42E90-A67D-4613-80A0-D047F7CA21A8}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{63A42E90-A67D-4613-80A0-D047F7CA21A8}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
