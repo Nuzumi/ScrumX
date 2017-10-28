@@ -1,5 +1,4 @@
 E:\Milena\V sem\NET\Scrum\ScrumX\DragAndDrop\bin\Debug\DragAndDrop.dll
 E:\Milena\V sem\NET\Scrum\ScrumX\DragAndDrop\bin\Debug\DragAndDrop.pdb
-E:\Milena\V sem\NET\Scrum\ScrumX\DragAndDrop\obj\Debug\DragAndDrop.csprojResolveAssemblyReference.cache
 E:\Milena\V sem\NET\Scrum\ScrumX\DragAndDrop\obj\Debug\DragAndDrop.dll
 E:\Milena\V sem\NET\Scrum\ScrumX\DragAndDrop\obj\Debug\DragAndDrop.pdb

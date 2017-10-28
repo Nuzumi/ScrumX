@@ -15,7 +15,7 @@ namespace ScrumX.API.Model
         public int IdProject { get; set; }
         public string Name { get; set; }
 
-        public DateTime DayCreated { get; set; }
+        public DateTime DayCreated { get; set; } = DateTime.Today;
         
         public virtual IList<Sprint> ProjectSprint { get; set; }
         
