@@ -10,3 +10,15 @@ E:\Milena\V sem\NET\ScrumX\ScrumX.API\obj\Debug\ScrumX.API.pdb
 E:\Milena\V sem\NET\ScrumX\ScrumX.API\obj\Debug\ScrumX.API.Migrations.Init.resources
 E:\Milena\V sem\NET\ScrumX\ScrumX.API\obj\Debug\ScrumX.API.csproj.GenerateResource.Cache
 E:\Milena\V sem\NET\ScrumX\ScrumX.API\obj\Debug\ScrumX.API.csprojResolveAssemblyReference.cache
+D:\Nowy folder\Git\ScrumX\ScrumX.API\bin\Debug\ScrumX.API.dll.config
+D:\Nowy folder\Git\ScrumX\ScrumX.API\bin\Debug\ScrumX.API.dll
+D:\Nowy folder\Git\ScrumX\ScrumX.API\bin\Debug\ScrumX.API.pdb
+D:\Nowy folder\Git\ScrumX\ScrumX.API\bin\Debug\EntityFramework.dll
+D:\Nowy folder\Git\ScrumX\ScrumX.API\bin\Debug\EntityFramework.SqlServer.dll
+D:\Nowy folder\Git\ScrumX\ScrumX.API\bin\Debug\EntityFramework.xml
+D:\Nowy folder\Git\ScrumX\ScrumX.API\bin\Debug\EntityFramework.SqlServer.xml
+D:\Nowy folder\Git\ScrumX\ScrumX.API\obj\Debug\ScrumX.API.csprojResolveAssemblyReference.cache
+D:\Nowy folder\Git\ScrumX\ScrumX.API\obj\Debug\ScrumX.API.Migrations.Init.resources
+D:\Nowy folder\Git\ScrumX\ScrumX.API\obj\Debug\ScrumX.API.csproj.GenerateResource.Cache
+D:\Nowy folder\Git\ScrumX\ScrumX.API\obj\Debug\ScrumX.API.dll
+D:\Nowy folder\Git\ScrumX\ScrumX.API\obj\Debug\ScrumX.API.pdb
