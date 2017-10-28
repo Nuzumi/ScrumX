@@ -34,3 +34,6 @@ E:\Milena\V sem\NET\Scrum\ScrumX\ScrumX\obj\Debug\View\Table.baml
 E:\Milena\V sem\NET\Scrum\ScrumX\ScrumX\obj\Debug\ScrumX.g.resources
 E:\Milena\V sem\NET\Scrum\ScrumX\ScrumX\obj\Debug\ScrumX.Properties.Resources.resources
 E:\Milena\V sem\NET\Scrum\ScrumX\ScrumX\obj\Debug\ScrumX.csproj.GenerateResource.Cache
+D:\Nowy folder\Git\ScrumX\ScrumX\bin\Debug\ScrumX.exe.config
+D:\Nowy folder\Git\ScrumX\ScrumX\obj\Debug\ScrumX.exe
+D:\Nowy folder\Git\ScrumX\ScrumX\obj\Debug\ScrumX.pdb
