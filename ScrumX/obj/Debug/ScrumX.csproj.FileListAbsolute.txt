@@ -80,3 +80,4 @@ E:\Milena\V sem\NET\Scrum\ScrumX\ScrumX\obj\Debug\GeneratedInternalTypeHelper.g.
 E:\Milena\V sem\NET\Scrum\ScrumX\ScrumX\obj\Debug\View\LoginWindow.baml
 D:\Nowy folder\Git\ScrumX\ScrumX\obj\Debug\View\Backlog.g.cs
 D:\Nowy folder\Git\ScrumX\ScrumX\obj\Debug\View\Backlog.baml
+D:\Nowy folder\Git\ScrumX\ScrumX\obj\Debug\App.baml

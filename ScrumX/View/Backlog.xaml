@@ -66,15 +66,21 @@
         </Grid>
         <Separator DockPanel.Dock="Top" BorderThickness="1" BorderBrush="Black"/>
         <Grid Margin="8">
-            <ListView>
-                <ListView.ItemTemplate>
-                    <DataTemplate>
-                        <StackPanel>
-                           
-                        </StackPanel>
-                    </DataTemplate>
-                </ListView.ItemTemplate>
-            </ListView>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="2*"/><!--lista : numerek,projekt, tytul, storyPointy, prioytet-->
+                <ColumnDefinition Width="*"/><!--details-->
+            </Grid.ColumnDefinitions>
+            <Grid Margin="5">
+                <DataGrid AutoGenerateColumns="False">
+                    <DataGrid.Columns>
+                        <DataGridTextColumn Header="No."/>
+                        <DataGridTextColumn Header="Project" Binding="{Binding Sprint Converter, Converter={StaticResource SprintToProjecTitleConverter}}" />
+                        <DataGridTextColumn Header="Title" Binding="{Binding Title}"/>
+                        <DataGridComboBoxColumn Header="SP" SelectedItemBinding="{Binding SP}"/>
+                        <DataGridComboBoxColumn Header="Priority" SelectedValueBinding="{Binding Priority}"/>
+                    </DataGrid.Columns>
+                </DataGrid>
+            </Grid>
         </Grid>
     </DockPanel>
 </Window>

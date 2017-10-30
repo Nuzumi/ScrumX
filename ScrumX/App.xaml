@@ -2,8 +2,9 @@
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:local="clr-namespace:ScrumX"
+             xmlns:Converters ="clr-namespace:ScrumX.Converters"
              StartupUri="View/LoginWindow.xaml">
     <Application.Resources>
-         
+        <Converters:SprintToProjectTitleConverter x:Key="SprintToProjecTitleConverter"/>
     </Application.Resources>
 </Application>
