@@ -5,19 +5,39 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:ScrumX.View"
         mc:Ignorable="d"
-        Title="Table" Height="500" Width="750">
+        Title="Table" Height="500" Width="750" Name="Window">
     <DockPanel>
-        <WrapPanel DockPanel.Dock="Left"  Orientation="Vertical">
-            <TextBlock Text="ScrumX"  FontSize="35" Margin="7"/>
-            <Separator BorderThickness="1" BorderBrush="Black"/>
-        </WrapPanel>
+        <DockPanel DockPanel.Dock="Left"  >
+            <TextBlock Text="ScrumX"  FontSize="35" Margin="7" DockPanel.Dock="Top"/>
+            <Separator BorderThickness="1" BorderBrush="Black" DockPanel.Dock="Top"/>
+            <DockPanel Margin="0,1,0,1">
+                <StackPanel DockPanel.Dock="Top">
+                    <Label Content="aktualne" Margin="5" FontSize="15" HorizontalContentAlignment="Center"/>
+                    <Label Content="miejsce:" Margin="5" FontSize="15" HorizontalContentAlignment="Center"/>
+                    <Label Content="Table" Margin="8" FontSize="15" HorizontalContentAlignment="Center" FontWeight="Bold"/>
+                </StackPanel>
+                <Separator BorderBrush="Black" BorderThickness="1" Grid.Row="1" DockPanel.Dock="Top"/>
+                <StackPanel>
+                    <Label Content="Go to:" Margin="5" FontSize="17" HorizontalContentAlignment="Center"/>
+                    <Button Background="White" Command="{Binding GoToBacklogCommand}" CommandParameter="{Binding ElementName=Window}">
+                        <Label Content="Backlog" FontSize="18"/>
+                    </Button>
+                    <Button Background="White">
+                        <Label Content="Options" FontSize="18"/>
+                    </Button>
+                    <Button Background="White">
+                        <Label Content="Moze jeszcze" FontSize="18"/>
+                    </Button>
+                </StackPanel>
+            </DockPanel>
+        </DockPanel>
         <Border DockPanel.Dock="Left" BorderThickness="1" BorderBrush="Black"/>
         <Grid DockPanel.Dock="Top" Margin="7">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="*"/>
                 <ColumnDefinition Width="auto"/>
             </Grid.ColumnDefinitions>
-            <TextBlock Text="Jan Kowalski" FontSize="18" Grid.Column="1"/>
+            <TextBlock Text="{Binding UserName}" FontSize="18" Grid.Column="1"/>
         </Grid>
         <Separator DockPanel.Dock="Top" BorderThickness="1" BorderBrush="Black"/>
         <Grid DockPanel.Dock="Top" Margin="7,2,7,2">
