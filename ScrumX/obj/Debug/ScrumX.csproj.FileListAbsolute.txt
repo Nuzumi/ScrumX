@@ -45,13 +45,11 @@ D:\Nowy folder\Git\ScrumX\ScrumX\bin\Debug\ScrumX.API.pdb
 D:\Nowy folder\Git\ScrumX\ScrumX\bin\Debug\EntityFramework.xml
 D:\Nowy folder\Git\ScrumX\ScrumX\obj\Debug\ScrumX.csprojResolveAssemblyReference.cache
 D:\Nowy folder\Git\ScrumX\ScrumX\obj\Debug\View\LoginWindow.g.cs
-D:\Nowy folder\Git\ScrumX\ScrumX\obj\Debug\View\MainWindow.g.cs
 D:\Nowy folder\Git\ScrumX\ScrumX\obj\Debug\View\Table.g.cs
 D:\Nowy folder\Git\ScrumX\ScrumX\obj\Debug\App.g.cs
 D:\Nowy folder\Git\ScrumX\ScrumX\obj\Debug\ScrumX_MarkupCompile.cache
 D:\Nowy folder\Git\ScrumX\ScrumX\obj\Debug\ScrumX_MarkupCompile.lref
 D:\Nowy folder\Git\ScrumX\ScrumX\obj\Debug\View\LoginWindow.baml
-D:\Nowy folder\Git\ScrumX\ScrumX\obj\Debug\View\MainWindow.baml
 D:\Nowy folder\Git\ScrumX\ScrumX\obj\Debug\View\Table.baml
 D:\Nowy folder\Git\ScrumX\ScrumX\obj\Debug\ScrumX.g.resources
 D:\Nowy folder\Git\ScrumX\ScrumX\obj\Debug\ScrumX.Properties.Resources.resources
@@ -80,3 +78,5 @@ E:\Milena\V sem\NET\Scrum\ScrumX\ScrumX\bin\Debug\Prism.Wpf.xml
 E:\Milena\V sem\NET\Scrum\ScrumX\ScrumX\obj\Debug\View\LoginWindow.g.cs
 E:\Milena\V sem\NET\Scrum\ScrumX\ScrumX\obj\Debug\GeneratedInternalTypeHelper.g.cs
 E:\Milena\V sem\NET\Scrum\ScrumX\ScrumX\obj\Debug\View\LoginWindow.baml
+D:\Nowy folder\Git\ScrumX\ScrumX\obj\Debug\View\Backlog.g.cs
+D:\Nowy folder\Git\ScrumX\ScrumX\obj\Debug\View\Backlog.baml

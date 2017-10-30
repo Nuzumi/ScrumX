@@ -37,3 +37,4 @@ E:\Milena\V sem\NET\Scrum\ScrumX\ScrumX.API\obj\Debug\ScrumX.API.csproj.Generate
 E:\Milena\V sem\NET\Scrum\ScrumX\ScrumX.API\obj\Debug\ScrumX.API.dll
 E:\Milena\V sem\NET\Scrum\ScrumX\ScrumX.API\obj\Debug\ScrumX.API.pdb
 E:\Milena\V sem\NET\Scrum\ScrumX\ScrumX.API\obj\Debug\ScrumX.API.Migrations.AddfieldtoHistoryJob.resources
+D:\Nowy folder\Git\ScrumX\ScrumX.API\obj\Debug\ScrumX.API.Migrations.AddfieldtoHistoryJob.resources

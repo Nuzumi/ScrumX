@@ -1,18 +1,22 @@
 ﻿using Prism.Commands;
 using Prism.Mvvm;
 using ScrumX.API.Context;
+using ScrumX.API.Model;
 using ScrumX.API.Repository;
+using ScrumX.View;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 using System.Windows.Input;
 
 namespace ScrumX.ViewModel
 {
     class LoginVM : BindableBase
     {
+        private User user;
         private bool loginMode = true;
         private EfRepository repo;
 
@@ -58,7 +62,7 @@ namespace ScrumX.ViewModel
             set
             {
                 SetProperty(ref login, value);
-                (OkComamnd as DelegateCommand).RaiseCanExecuteChanged();
+                (OkComamnd as DelegateCommand<Window>).RaiseCanExecuteChanged();
             }
         }
 
@@ -69,7 +73,18 @@ namespace ScrumX.ViewModel
             set
             {
                 SetProperty(ref password, value);
-                (OkComamnd as DelegateCommand).RaiseCanExecuteChanged();
+                (OkComamnd as DelegateCommand<Window>).RaiseCanExecuteChanged();
+            }
+        }
+
+        private string passwordAgain;
+        public string PasswordAgain
+        {
+            get { return passwordAgain; }
+            set
+            {
+                SetProperty(ref passwordAgain, value);
+                (OkComamnd as DelegateCommand<Window>).RaiseCanExecuteChanged();
             }
         }
 
@@ -81,7 +96,7 @@ namespace ScrumX.ViewModel
 
         public LoginVM()
         {
-            OkComamnd = new DelegateCommand(OkCommandExecute,OKCommandCanExecute);
+            OkComamnd = new DelegateCommand<Window>(OkCommandExecute,OKCommandCanExecute);
             RegisterCommand = new DelegateCommand(RegisterCommandExecute, RegisterCommandCanExecute);
             LoginCommand = new DelegateCommand(LoginCommandExecute, LoginCommandCanExecute);
             LabeleContent = "Logowanie";
@@ -92,11 +107,15 @@ namespace ScrumX.ViewModel
 
         #region commanadFunction
 
-        private void OkCommandExecute()
+        private void OkCommandExecute(Window window)
         {
             if (loginMode)
             {
-
+                BacklogVM dataContext = new BacklogVM(new User() { Name = "Michal",Password="JestemGłodny"});
+                Backlog backlog = new Backlog();
+                backlog.DataContext = dataContext;
+                backlog.Show();
+                window.Close(); 
             }
             else
             {
@@ -104,7 +123,7 @@ namespace ScrumX.ViewModel
             }
         }
 
-        private bool OKCommandCanExecute()
+        private bool OKCommandCanExecute(Window dummyWindow)
         {
             if (loginMode)
             {
@@ -124,7 +143,7 @@ namespace ScrumX.ViewModel
             LabeleContent = "Rejestracja";
             loginMode = false;
             IsVisibleLogin = true;
-            (OkComamnd as DelegateCommand).RaiseCanExecuteChanged();
+            (OkComamnd as DelegateCommand<Window>).RaiseCanExecuteChanged();
         }
 
         private bool RegisterCommandCanExecute()
@@ -137,7 +156,7 @@ namespace ScrumX.ViewModel
             LabeleContent = "Logowanie";
             loginMode = true;
             IsVisibleLogin = false;
-            (OkComamnd as DelegateCommand).RaiseCanExecuteChanged();
+            (OkComamnd as DelegateCommand<Window>).RaiseCanExecuteChanged();
         }
 
         private bool LoginCommandCanExecute()
