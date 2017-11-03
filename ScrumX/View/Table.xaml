@@ -17,7 +17,7 @@
                     <Label Content="Table" Margin="8" FontSize="15" HorizontalContentAlignment="Center" FontWeight="Bold"/>
                 </StackPanel>
                 <Separator BorderBrush="Black" BorderThickness="1" Grid.Row="1" DockPanel.Dock="Top"/>
-                <StackPanel>
+                <StackPanel DockPanel.Dock="Top">
                     <Label Content="Go to:" Margin="5" FontSize="17" HorizontalContentAlignment="Center"/>
                     <Button Background="White" Command="{Binding GoToBacklogCommand}" CommandParameter="{Binding ElementName=Window}">
                         <Label Content="Backlog" FontSize="18"/>
@@ -25,8 +25,15 @@
                     <Button Background="White">
                         <Label Content="Options" FontSize="18"/>
                     </Button>
+                </StackPanel>
+                <Separator BorderBrush="Black" BorderThickness="1" DockPanel.Dock="Top"/>
+                <StackPanel>
+                    <Label  Content="Add:" HorizontalContentAlignment="Center" FontSize="17"/>
+                    <Button Background="White" Command="{Binding AddTaskCommand}">
+                        <Label Content="Task" FontSize="17"/>
+                    </Button>
                     <Button Background="White">
-                        <Label Content="Moze jeszcze" FontSize="18"/>
+                        <Label Content="Project" FontSize="17"/>
                     </Button>
                 </StackPanel>
             </DockPanel>

@@ -16,8 +16,8 @@
                     <Label Content="miejsce:" Margin="5" FontSize="15" HorizontalContentAlignment="Center"/>
                     <Label Content="Backlog" Margin="8" FontSize="15" HorizontalContentAlignment="Center" FontWeight="Bold"/>
                 </StackPanel>
-                <Separator BorderBrush="Black" BorderThickness="1" Grid.Row="1" DockPanel.Dock="Top"/>
-                <StackPanel>
+                <Separator BorderBrush="Black" BorderThickness="1" DockPanel.Dock="Top"/>
+                <StackPanel DockPanel.Dock="Top">
                     <Label Content="Go to:" Margin="5" FontSize="17" HorizontalContentAlignment="Center"/>
                     <Button Background="White" Command="{Binding GoToTableCommand}" CommandParameter="{Binding ElementName=Window}">
                         <Label Content="Table" FontSize="18"/>
@@ -25,8 +25,15 @@
                     <Button Background="White">
                         <Label Content="Options" FontSize="18"/>
                     </Button>
+                </StackPanel>
+                <Separator BorderBrush="Black" BorderThickness="1" DockPanel.Dock="Top"/>
+                <StackPanel>
+                    <Label  Content="Add:" HorizontalContentAlignment="Center" FontSize="17"/>
+                    <Button Background="White" Command="{Binding AddTaskCommand}">
+                        <Label Content="Task" FontSize="17"/>
+                    </Button>
                     <Button Background="White">
-                        <Label Content="Moze jeszcze" FontSize="18"/>
+                        <Label Content="Project" FontSize="17"/>
                     </Button>
                 </StackPanel>
             </DockPanel>
@@ -71,7 +78,7 @@
                 <ColumnDefinition Width="*"/><!--details-->
             </Grid.ColumnDefinitions>
             <Grid Margin="5">
-                <DataGrid AutoGenerateColumns="False">
+                <DataGrid AutoGenerateColumns="False" SelectionMode="Single" SelectionUnit="FullRow" CanUserAddRows="False" CanUserDeleteRows="False" CanUserSortColumns="False" CanUserReorderColumns="True" CanUserResizeColumns="False">
                     <DataGrid.Columns>
                         <DataGridTextColumn Header="No."/>
                         <DataGridTextColumn Header="Project" Binding="{Binding Sprint Converter, Converter={StaticResource SprintToProjecTitleConverter}}" />
