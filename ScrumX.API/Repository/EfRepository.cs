@@ -1,4 +1,5 @@
 ﻿using ScrumX.API.Context;
+using ScrumX.API.Interfaces;
 using ScrumX.API.Logic;
 using ScrumX.API.Model;
 using System;
@@ -24,7 +25,7 @@ namespace ScrumX.API.Repository
             HistoryJobsRepo = new HistoryJobRepo(ctx);
             JobsRepo = new JobRepo(ctx);
             UsersRepo = new UserRepo(ctx);
-             ProjectsRepo = new ProjectRepo(ctx);
+            ProjectsRepo = new ProjectRepo(ctx);
             SprintsRepo = new SprintRepo(ctx);
 
         }

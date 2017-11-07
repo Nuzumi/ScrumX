@@ -24,12 +24,10 @@ E:\Milena\V sem\NET\Scrum\ScrumX\ScrumX\bin\Debug\EntityFramework.dll
 E:\Milena\V sem\NET\Scrum\ScrumX\ScrumX\bin\Debug\ScrumX.API.pdb
 E:\Milena\V sem\NET\Scrum\ScrumX\ScrumX\bin\Debug\EntityFramework.xml
 E:\Milena\V sem\NET\Scrum\ScrumX\ScrumX\obj\Debug\ScrumX.csprojResolveAssemblyReference.cache
-E:\Milena\V sem\NET\Scrum\ScrumX\ScrumX\obj\Debug\View\MainWindow.g.cs
 E:\Milena\V sem\NET\Scrum\ScrumX\ScrumX\obj\Debug\View\Table.g.cs
 E:\Milena\V sem\NET\Scrum\ScrumX\ScrumX\obj\Debug\App.g.cs
 E:\Milena\V sem\NET\Scrum\ScrumX\ScrumX\obj\Debug\ScrumX_MarkupCompile.cache
 E:\Milena\V sem\NET\Scrum\ScrumX\ScrumX\obj\Debug\ScrumX_MarkupCompile.lref
-E:\Milena\V sem\NET\Scrum\ScrumX\ScrumX\obj\Debug\View\MainWindow.baml
 E:\Milena\V sem\NET\Scrum\ScrumX\ScrumX\obj\Debug\View\Table.baml
 E:\Milena\V sem\NET\Scrum\ScrumX\ScrumX\obj\Debug\ScrumX.g.resources
 E:\Milena\V sem\NET\Scrum\ScrumX\ScrumX\obj\Debug\ScrumX.Properties.Resources.resources
@@ -87,3 +85,12 @@ D:\Nowy folder\Git\ScrumX\ScrumX\obj\Debug\View\AddProject.g.cs
 D:\Nowy folder\Git\ScrumX\ScrumX\obj\Debug\View\AddSprint.g.cs
 D:\Nowy folder\Git\ScrumX\ScrumX\obj\Debug\View\AddProject.baml
 D:\Nowy folder\Git\ScrumX\ScrumX\obj\Debug\View\AddSprint.baml
+E:\Milena\V sem\NET\Scrum\ScrumX\ScrumX\obj\Debug\View\AddProject.g.cs
+E:\Milena\V sem\NET\Scrum\ScrumX\ScrumX\obj\Debug\View\AddSprint.g.cs
+E:\Milena\V sem\NET\Scrum\ScrumX\ScrumX\obj\Debug\View\AddTask.g.cs
+E:\Milena\V sem\NET\Scrum\ScrumX\ScrumX\obj\Debug\View\Backlog.g.cs
+E:\Milena\V sem\NET\Scrum\ScrumX\ScrumX\obj\Debug\App.baml
+E:\Milena\V sem\NET\Scrum\ScrumX\ScrumX\obj\Debug\View\AddProject.baml
+E:\Milena\V sem\NET\Scrum\ScrumX\ScrumX\obj\Debug\View\AddSprint.baml
+E:\Milena\V sem\NET\Scrum\ScrumX\ScrumX\obj\Debug\View\AddTask.baml
+E:\Milena\V sem\NET\Scrum\ScrumX\ScrumX\obj\Debug\View\Backlog.baml

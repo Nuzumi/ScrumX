@@ -1,4 +1,5 @@
 ﻿using ScrumX.API.Context;
+using ScrumX.API.Interfaces;
 using ScrumX.API.Model;
 using ScrumX.API.Repository;
 using System;
@@ -9,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace ScrumX.API.Logic
 {
-    public class UserRepo
+    public class UserRepo : IUserRepo
     {
         EfDbContext ctx;
 
@@ -39,17 +40,17 @@ namespace ScrumX.API.Logic
             return Users.SingleOrDefault(U => U.IdUser == idUser);
         }
 
-        public string UserLogin(string name, string password)
+        public bool UserLogin(string name, string password)
         {
             if (UserExists(name))
             {
                 if (GetUserByName(name).Password.Equals(password))
-                    return "Zalogowano";
+                    return true;
                 else
-                    return "Błędne hasło";
+                    return false;
             }
             else
-                return "Użytkownik nie istnieje";
+                return false;
         }
 
         /// <summary>

@@ -50,6 +50,12 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Context\EfDbContext.cs" />
+    <Compile Include="Interfaces\IEfRepository.cs" />
+    <Compile Include="Interfaces\IHistoryJobRepo.cs" />
+    <Compile Include="Interfaces\IJobRepo.cs" />
+    <Compile Include="Interfaces\IProjectRepo.cs" />
+    <Compile Include="Interfaces\ISprintRepo.cs" />
+    <Compile Include="Interfaces\IUserRepo.cs" />
     <Compile Include="Logic\HistoryJobRepo.cs" />
     <Compile Include="Logic\JobRepo.cs" />
     <Compile Include="Logic\ProjectRepo.cs" />
