@@ -28,20 +28,50 @@ namespace ScrumX.ViewModel
             set
             {
                 SetProperty(ref canAddTask, value);
-                (AddTaskCommand as DelegateCommand).RaiseCanExecuteChanged();
+                riseCanExecuteForDialog();
+                (GoToTableCommand as DelegateCommand<Window>).RaiseCanExecuteChanged();
+            }
+        }
+
+        private bool canAddSprint;
+        public bool CanAddSprint
+        {
+            get { return canAddSprint; }
+            set
+            {
+                SetProperty(ref canAddSprint, value);
+                riseCanExecuteForDialog();
+                (GoToTableCommand as DelegateCommand<Window>).RaiseCanExecuteChanged();
+            }
+        }
+
+        private bool canAddProject;
+        public bool CanAddProject
+        {
+            get { return canAddProject; }
+            set
+            {
+                SetProperty(ref canAddProject, value);
+                riseCanExecuteForDialog();
                 (GoToTableCommand as DelegateCommand<Window>).RaiseCanExecuteChanged();
             }
         }
 
         public ICommand GoToTableCommand { get; set; }
         public ICommand AddTaskCommand { get; set; }
+        public ICommand AddSprintCommand { get; set; }
+        public ICommand AddProjectCommand { get; set; }
         #endregion
 
         public BacklogVM(User user)
         {
             GoToTableCommand = new DelegateCommand<Window>(GoToTableCommandExecute,GoToTableCommandCanExecute);
             AddTaskCommand = new DelegateCommand(AddTaskCommandExecute, AddTaskCommandCanExecute);
+            AddSprintCommand = new DelegateCommand(AddSprintCommandExecuted, AddSprintCommandCanExecute);
+            AddProjectCommand = new DelegateCommand(AddProjectCommandExecute, AddProjectCommandCanExecute);
             CanAddTask = true;
+            CanAddSprint = true;
+            CanAddProject = true;
             logedUser = user;
             UserName = user.Name;
         }
@@ -49,6 +79,23 @@ namespace ScrumX.ViewModel
         public void changeCanAddTaskToTrue()
         {
             CanAddTask = true;
+        }
+
+        public void changeCanAddSprintToTrue()
+        {
+            CanAddSprint = true;
+        }
+
+        public void changeCanAddProjectToTrue()
+        {
+            CanAddProject = true;
+        }
+
+        private void riseCanExecuteForDialog()
+        {
+            (AddTaskCommand as DelegateCommand).RaiseCanExecuteChanged();
+            (AddSprintCommand as DelegateCommand).RaiseCanExecuteChanged();
+            (AddProjectCommand as DelegateCommand).RaiseCanExecuteChanged();
         }
 
         #region CommandFunctions
@@ -64,7 +111,7 @@ namespace ScrumX.ViewModel
 
         private bool GoToTableCommandCanExecute(Window dummy)
         {
-            return CanAddTask;
+            return CanAddTask && CanAddProject && CanAddSprint;
         }
 
         private void AddTaskCommandExecute()
@@ -78,7 +125,35 @@ namespace ScrumX.ViewModel
 
         private bool AddTaskCommandCanExecute()
         {
-            return CanAddTask;
+            return CanAddTask && CanAddSprint && CanAddProject;
+        }
+
+        private void AddSprintCommandExecuted()
+        {
+            CanAddSprint = false;
+            AddSprintVM dataContext = new AddSprintVM(changeCanAddSprintToTrue);
+            AddSprint dialog = new AddSprint();
+            dialog.DataContext = dataContext;
+            dialog.Show();
+        }
+
+        private bool AddSprintCommandCanExecute()
+        {
+            return CanAddSprint && CanAddTask && CanAddProject;
+        }
+
+        private void AddProjectCommandExecute()
+        {
+            CanAddProject = false;
+            AddProjectVM dataContext = new AddProjectVM(changeCanAddProjectToTrue);
+            AddProject dialog = new AddProject();
+            dialog.DataContext = dataContext;
+            dialog.Show();
+        }
+
+        private bool AddProjectCommandCanExecute()
+        {
+            return CanAddProject && CanAddSprint && CanAddTask;
         }
         #endregion
     }

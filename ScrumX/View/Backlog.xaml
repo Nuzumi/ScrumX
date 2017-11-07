@@ -32,7 +32,10 @@
                     <Button Background="White" Command="{Binding AddTaskCommand}">
                         <Label Content="Task" FontSize="17"/>
                     </Button>
-                    <Button Background="White">
+                    <Button Background="White" Command="{Binding AddSprintCommand}">
+                        <Label Content="Sprint" FontSize="17"/>
+                    </Button>
+                    <Button Background="White" Command="{Binding AddProjectCommand}">
                         <Label Content="Project" FontSize="17"/>
                     </Button>
                 </StackPanel>
