@@ -132,9 +132,9 @@ namespace ScrumX.ViewModel
             else
             {
                 //PasswordCorrect = (Password != string.Empty && Password != null);
-                LoginCorrect = !repo.UserExists(Login);
+                LoginCorrect = !repo.UsersRepo.UserExists(Login);
 
-                return (!repo.UserExists(Login) && Login != string.Empty && Login !=null && Password != string.Empty && Password != null);
+                return (!repo.UsersRepo.UserExists(Login) && Login != string.Empty && Login !=null && Password != string.Empty && Password != null);
             }
         }
 

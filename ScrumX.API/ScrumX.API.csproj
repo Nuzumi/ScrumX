@@ -50,6 +50,11 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Context\EfDbContext.cs" />
+    <Compile Include="Logic\HistoryJobRepo.cs" />
+    <Compile Include="Logic\JobRepo.cs" />
+    <Compile Include="Logic\ProjectRepo.cs" />
+    <Compile Include="Logic\SprintRepo.cs" />
+    <Compile Include="Logic\UserRepo.cs" />
     <Compile Include="Migrations\201710281621006_Add.cs" />
     <Compile Include="Migrations\201710281621006_Add.Designer.cs">
       <DependentUpon>201710281621006_Add.cs</DependentUpon>

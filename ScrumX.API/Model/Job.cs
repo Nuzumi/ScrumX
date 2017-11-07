@@ -29,7 +29,7 @@ namespace ScrumX.API.Model
         public int? SP { get; set; }
 
         [Index]
-        public int BacklogStatus { get; set; } = 0;
+        public int BacklogStatus { get; set; } = 1;
 
         [Index]
         public int TableStatus { get; set; } = 0;
