@@ -20,6 +20,13 @@
         <Label Content="projekt" Grid.Row="1" Margin="10,6,10,6"/>
         <TextBox Grid.Column="1" Margin="10,8,10,8"/>
         <ComboBox Grid.Column="1" Grid.Row="1" Margin="10,6,10,6"/>
-        <Button Content="ok" Margin="10,2,10,2" Grid.Row="2" Grid.ColumnSpan="2" Command="{Binding AddSprintCommand}" CommandParameter="{Binding ElementName=Window}" />
+        <Grid Grid.ColumnSpan="2" Grid.Row="2">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+            <Button Content="ok" Margin="10" Command="{Binding AddSprintCommand}" CommandParameter="{Binding ElementName=Window}" />
+            <Button Content="Cancle" Margin="10"  Grid.Column="1"/>
+        </Grid>   
     </Grid> 
 </Window>

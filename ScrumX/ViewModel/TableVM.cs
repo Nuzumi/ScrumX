@@ -9,10 +9,11 @@ using System.Windows.Input;
 using System.Windows;
 using Prism.Commands;
 using ScrumX.View;
+using ScrumX.HelperClasses;
 
 namespace ScrumX.ViewModel
 {
-    class TableVM : BindableBase
+    class TableVM : DialogDisplay
     {
         private User logedUser;
 
@@ -20,46 +21,7 @@ namespace ScrumX.ViewModel
 
         public string UserName { get; set; }
 
-        private bool canAddTask;
-        public bool CanAddTask
-        {
-            get { return canAddTask; }
-            set
-            {
-                SetProperty(ref canAddTask, value);
-                riseCanExecuteForDialog();
-                (GoToBacklogCommand as DelegateCommand<Window>).RaiseCanExecuteChanged();
-            }
-        }
-
-        private bool canAddSprint;
-        public bool CanAddSprint
-        {
-            get { return canAddSprint; }
-            set
-            {
-                SetProperty(ref canAddSprint, value);
-                riseCanExecuteForDialog();
-                (GoToBacklogCommand as DelegateCommand<Window>).RaiseCanExecuteChanged();
-            }
-        }
-
-        private bool canAddProject;
-        public bool CanAddProject
-        {
-            get { return canAddProject; }
-            set
-            {
-                SetProperty(ref canAddProject, value);
-                riseCanExecuteForDialog();
-                (GoToBacklogCommand as DelegateCommand<Window>).RaiseCanExecuteChanged();
-            }
-        }
-
         public ICommand GoToBacklogCommand { get; set; }
-        public ICommand AddTaskCommand { get; set; }
-        public ICommand AddSprintCommand { get; set; }
-        public ICommand AddProjectCommand { get; set; }
 
         #endregion
 
@@ -67,36 +29,16 @@ namespace ScrumX.ViewModel
         public TableVM(User user)
         {
             GoToBacklogCommand = new DelegateCommand<Window>(GoToBacklogCommandExecute,GoToBacklogCommandCanExecute);
-            AddTaskCommand = new DelegateCommand(AddTaskCommandExecute, AddTaskCommandCanExecute);
-            AddSprintCommand = new DelegateCommand(AddSprintCommandExecuted, AddSprintCommandCanExecute);
-            AddProjectCommand = new DelegateCommand(AddProjectCommandExecute, AddProjectCommandCanExecute);
-            CanAddTask = true;
-            CanAddSprint = true;
-            CanAddProject = true;
             logedUser = user;
             UserName = user.Name;
         }
 
-        public void changeCanAddTaskToTrue()
+        protected override void riseGoToCommands()
         {
-            CanAddTask = true;
-        }
-
-        public void changeCanAddSprintToTrue()
-        {
-            CanAddSprint = true;
-        }
-
-        public void changeCanAddProjectToTrue()
-        {
-            CanAddProject = true;
-        }
-
-        private void riseCanExecuteForDialog()
-        {
-            (AddTaskCommand as DelegateCommand).RaiseCanExecuteChanged();
-            (AddSprintCommand as DelegateCommand).RaiseCanExecuteChanged();
-            (AddProjectCommand as DelegateCommand).RaiseCanExecuteChanged();
+            if(GoToBacklogCommand != null)
+            {
+                (GoToBacklogCommand as DelegateCommand<Window>).RaiseCanExecuteChanged();
+            }
         }
 
         #region CommandFunctions
@@ -114,50 +56,6 @@ namespace ScrumX.ViewModel
         {
             return CanAddTask;
         }
-
-        #region DialogCommand
-        private void AddTaskCommandExecute()
-        {
-            CanAddTask = false;
-            AddTaskVM dataContext = new AddTaskVM(changeCanAddTaskToTrue);
-            AddTask dialog = new AddTask();
-            dialog.DataContext = dataContext;
-            dialog.Show();
-        }
-
-        private bool AddTaskCommandCanExecute()
-        {
-            return CanAddTask && CanAddSprint && CanAddProject;
-        }
-
-        private void AddSprintCommandExecuted()
-        {
-            CanAddSprint = false;
-            AddSprintVM dataContext = new AddSprintVM(changeCanAddSprintToTrue);
-            AddSprint dialog = new AddSprint();
-            dialog.DataContext = dataContext;
-            dialog.Show();
-        }
-
-        private bool AddSprintCommandCanExecute()
-        {
-            return CanAddSprint && CanAddTask && CanAddProject;
-        }
-
-        private void AddProjectCommandExecute()
-        {
-            CanAddProject = false;
-            AddProjectVM dataContext = new AddProjectVM(changeCanAddProjectToTrue);
-            AddProject dialog = new AddProject();
-            dialog.DataContext = dataContext;
-            dialog.Show();
-        }
-
-        private bool AddProjectCommandCanExecute()
-        {
-            return CanAddProject && CanAddSprint && CanAddTask;
-        }
-        #endregion
         #endregion
     }
 }

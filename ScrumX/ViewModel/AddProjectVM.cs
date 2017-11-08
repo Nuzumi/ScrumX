@@ -14,8 +14,6 @@ namespace ScrumX.ViewModel
     {
         private Action changeCanAddProjectToTrue;
 
-        private delegate void canShowThisWindowToTrue();
-
         #region Properties
 
         public ICommand AddProjectCommand { get; set; }
