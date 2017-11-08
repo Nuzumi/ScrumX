@@ -12,15 +12,78 @@ namespace ScrumX.Tests
     public class UserLogicTests
     {
         [TestMethod]
+        public void UserExists()
+        {
+            EfRepository repo = new EfRepository();
+            
+            Assert.IsTrue(repo.UsersRepo.UserExists("admin"));
+            Assert.IsFalse(repo.UsersRepo.UserExists("Kasia"));
+        }
+
+        [TestMethod]
         public void UserLogin()
         {
-            Mock<IUserRepo> mock = new Mock<IUserRepo>();
-            mock.Setup(m => m.Users).Returns(new User[] {
-                new User { Name = "Admin", Password = "Admin" }
-            });
-            mock.Setup(m => m.UserExists("Admin")).Returns(true);
+            EfRepository repo = new EfRepository();
+
+            Assert.IsTrue(repo.UsersRepo.UserLogin("admin", "admin"));
+            Assert.IsFalse(repo.UsersRepo.UserLogin("Admin", "admin"));
+        }
+
+        [TestMethod]
+        public void UserRegister()
+        {
+            EfRepository repo = new EfRepository();
+
+            Assert.IsFalse(repo.UsersRepo.RegisterUser("admin", "admin"));
+
+            Assert.IsTrue(repo.UsersRepo.RegisterUser("Admin1", "Admin1"));
             
-            Assert.IsTrue(mock.Object.UserExists("Admin"));
+        }
+
+        [TestMethod]
+        public void GetUserById()
+        {
+            EfRepository repo = new EfRepository();
+
+            Assert.IsNotNull(repo.UsersRepo.GetUserById(1));
+            Assert.IsNull(repo.UsersRepo.GetUserById(10542));
+
+        }
+
+        [TestMethod]
+        public void GetUserByName()
+        {
+            EfRepository repo = new EfRepository();
+            repo.UsersRepo.RegisterUser("Admin1", "Admin1");
+            repo.UsersRepo.SaveChanges();
+            Assert.IsNotNull(repo.UsersRepo.GetUserByName("Admin1"));
+            Assert.IsNull(repo.UsersRepo.GetUserByName("Roenna"));
+
+        }
+
+        [TestMethod]
+        public void EditUser()
+        {
+            EfRepository repo = new EfRepository();
+            User user = repo.UsersRepo.GetUserByName("Admin1");
+            user.Password = "pass";
+
+            repo.UsersRepo.EditUser(user);
+            repo.UsersRepo.SaveChanges();
+
+            Assert.IsTrue(repo.UsersRepo.GetUserByName("Admin1").Password.Equals("pass"));
+        }
+
+        [TestMethod]
+        public void DeleteUser()
+        {
+            EfRepository repo = new EfRepository();
+            User user = repo.UsersRepo.GetUserByName("Admin1");
+
+            repo.UsersRepo.DeleteUser(user);
+            repo.UsersRepo.SaveChanges();
+
+            Assert.IsNull(repo.UsersRepo.GetUserByName("Admin1"));
         }
     }
 }

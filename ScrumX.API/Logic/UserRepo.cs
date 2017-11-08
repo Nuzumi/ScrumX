@@ -32,12 +32,12 @@ namespace ScrumX.API.Logic
 
         public User GetUserByName(string name)
         {
-            return Users.SingleOrDefault(U => U.Name.Equals(name));
+            return Users.ToList().SingleOrDefault(U => U.Name.Equals(name));
         }
 
         public User GetUserById(int idUser)
         {
-            return Users.SingleOrDefault(U => U.IdUser == idUser);
+            return Users.ToList().SingleOrDefault(U => U.IdUser == idUser);
         }
 
         public bool UserLogin(string name, string password)
@@ -59,14 +59,14 @@ namespace ScrumX.API.Logic
         /// <param name="name"></param>
         /// <param name="password"></param>
         /// <returns></returns>
-        public string RegisterUser(string name, string password)
+        public bool RegisterUser(string name, string password)
         {
             if (!UserExists(name))
             {
                 ctx.Set<User>().Add(new User { Name = name, Password = password });
-                return "Dodano";
+                return true;
             }
-            else return "Uzytkownik o danym nicku istnieje w bazie";
+            else return false;
         }
 
         public void DeleteUser(User obj)

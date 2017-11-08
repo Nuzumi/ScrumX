@@ -19,7 +19,7 @@ namespace ScrumX.API.Interfaces
 
          bool UserLogin(string name, string password);
         
-         string RegisterUser(string name, string password);
+         bool RegisterUser(string name, string password);
          void DeleteUser(User obj);
 
          void EditUser(User obj);
