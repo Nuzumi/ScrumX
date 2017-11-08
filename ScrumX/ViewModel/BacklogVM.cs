@@ -11,16 +11,65 @@ using System.Windows;
 using ScrumX.ViewModel;
 using ScrumX.View;
 using ScrumX.HelperClasses;
+using System.Collections.ObjectModel;
+using System.Windows.Controls;
+using ScrumX.API.Repository;
 
 namespace ScrumX.ViewModel
 {
     class BacklogVM : DialogDisplay
     {
         private User logedUser;
-
+        private EfRepository repo;
         #region Properties
 
         public string UserName { get; set; }
+        public List<string> TypeList { get; set; }
+
+        private ObservableCollection<Project> projects;
+        public ObservableCollection<Project> Projects
+        {
+            get { return projects; }
+            set { SetProperty(ref projects, value); }
+        }
+
+        private Project selectedProject;
+        public Project SelectedProject
+        {
+            get { return selectedProject; }
+            set { SetProperty(ref selectedProject, value); }
+        }
+
+        private type selectedType;
+        public string SelectedType
+        {
+            get { return selectedType.ToString(); }
+            set
+            {
+                switch (value)
+                {
+                    case "None":
+                        SetProperty(ref selectedType, type.None);
+                        break;
+
+                    case "New":
+                        SetProperty(ref selectedType, type.New);
+                        break;
+
+                    case "Ready":
+                        SetProperty(ref selectedType, type.Ready);
+                        break;
+
+                    case "Scheduled":
+                        SetProperty(ref selectedType, type.Scheduled);
+                        break;
+
+                    case "Completed":
+                        SetProperty(ref selectedType, type.Completed);
+                        break;
+                }
+            }
+        }
 
         public ICommand GoToTableCommand { get; set; }
         #endregion
@@ -28,8 +77,12 @@ namespace ScrumX.ViewModel
         public BacklogVM(User user) :base()
         {
             GoToTableCommand = new DelegateCommand<Window>(GoToTableCommandExecute,GoToTableCommandCanExecute);
+            projects = new ObservableCollection<Project>();
+            TypeList = new List<string> { "None", "New", "Ready", "Scheduled", "Completed" };
+            repo = new EfRepository();
             logedUser = user;
             UserName = user.Name;
+            Projects = new ObservableCollection<Project>(repo.ProjectsRepo.Projects);
         }
 
         protected override void riseGoToCommands()

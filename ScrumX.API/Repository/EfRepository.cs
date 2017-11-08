@@ -29,5 +29,10 @@ namespace ScrumX.API.Repository
             SprintsRepo = new SprintRepo(ctx);
 
         }
+
+        public void SaveChanges()
+        {
+            ctx.SaveChanges();
+        }
     }
 }
