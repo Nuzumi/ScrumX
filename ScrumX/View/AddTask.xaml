@@ -30,13 +30,25 @@
             <RowDefinition Height="auto"/>
         </Grid.RowDefinitions>
         <Label Content="tytul" Margin="10,6,10,6"/>
-        <TextBox Grid.Column="1"/>
+        <TextBox Grid.Column="1" Text="{Binding TaskTitle}"/>
         <Label Content="Projekt" Grid.Row="1"/>
-        <ComboBox Grid.Column="1" Grid.Row="1" />
+        <ComboBox Grid.Column="1" Grid.Row="1" SelectedItem="{Binding TaskProject}" ItemsSource="{Binding Projects}" MinHeight="35">
+            <ComboBox.ItemTemplate>
+                <DataTemplate >
+                    <Label Content="{Binding Name}" FontSize="10"/>
+                </DataTemplate>
+            </ComboBox.ItemTemplate>
+        </ComboBox>
         <Label Content="Sprint" Grid.Row="2"/>
-        <ComboBox Grid.Column="1" Grid.Row="2"/>
+        <ComboBox Grid.Column="1" Grid.Row="2" SelectedItem="{Binding TaskSprint}" ItemsSource="{Binding Sprints}"  MinHeight="35">
+            <ComboBox.ItemTemplate>
+                <DataTemplate>
+                    <Label Content="{Binding Title}" FontSize="10"/>
+                </DataTemplate>
+            </ComboBox.ItemTemplate>
+        </ComboBox>
         <Label Content="Opis" Grid.Row="3"  VerticalContentAlignment="Center"/>
-        <TextBox Grid.Column="1" Grid.Row="3" TextWrapping="Wrap" Height="70" AcceptsReturn="True" AcceptsTab="True"/>
+        <TextBox Grid.Column="1" Grid.Row="3" Text="{Binding TaskDescription}" TextWrapping="Wrap" Height="70" AcceptsReturn="True" AcceptsTab="True"/>
         <Grid Grid.ColumnSpan="2" Grid.Row="4">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="*"/>
@@ -44,7 +56,7 @@
             </Grid.ColumnDefinitions>
 
             <Button Content="ok" Margin="10" Command="{Binding AddTaskCommand}" CommandParameter="{Binding ElementName=Window}" />
-            <Button Content="Cancle" Margin="10"  Grid.Column="1"/>
+            <Button Content="Cancle" Margin="10"  Grid.Column="1" Command="{Binding CancleCommand}" CommandParameter="{Binding ElementName=Window}"/>
         </Grid>
         
     </Grid>

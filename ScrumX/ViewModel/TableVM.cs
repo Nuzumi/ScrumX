@@ -15,7 +15,6 @@ namespace ScrumX.ViewModel
 {
     class TableVM : DialogDisplay
     {
-        private User logedUser;
 
         #region Properties
 
@@ -26,7 +25,7 @@ namespace ScrumX.ViewModel
         #endregion
 
 
-        public TableVM(User user)
+        public TableVM(User user) :base(user)
         {
             GoToBacklogCommand = new DelegateCommand<Window>(GoToBacklogCommandExecute,GoToBacklogCommandCanExecute);
             logedUser = user;

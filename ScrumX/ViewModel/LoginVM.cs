@@ -111,7 +111,7 @@ namespace ScrumX.ViewModel
         {
             if (loginMode)
             {
-                BacklogVM dataContext = new BacklogVM(new User() { Name = "Michal",Password="JestemGłodny"});
+                BacklogVM dataContext = new BacklogVM(repo.UsersRepo.GetUserById(1));
                 Backlog backlog = new Backlog();
                 backlog.DataContext = dataContext;
                 backlog.Show();

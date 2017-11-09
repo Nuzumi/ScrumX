@@ -16,6 +16,7 @@ namespace ScrumX.ViewModel
     {
         private Action changeCanAddSprintToTrue;
         private EfRepository repo;
+        private User logedUser;
 
         #region Properties
 
@@ -46,8 +47,9 @@ namespace ScrumX.ViewModel
 
         #endregion
 
-        public AddSprintVM(Action changeCanAddSprintToTrue)
+        public AddSprintVM(Action changeCanAddSprintToTrue, User user)
         {
+            logedUser = user;
             AddSprintCommand = new DelegateCommand<Window>(AddSprintCommandExecute);
             this.changeCanAddSprintToTrue = changeCanAddSprintToTrue;
             EndDate = DateTime.Today;

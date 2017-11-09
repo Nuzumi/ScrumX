@@ -1,5 +1,6 @@
 ﻿using Prism.Commands;
 using Prism.Mvvm;
+using ScrumX.API.Model;
 using ScrumX.API.Repository;
 using System;
 using System.Collections.Generic;
@@ -15,6 +16,7 @@ namespace ScrumX.ViewModel
     {
         private Action changeCanAddProjectToTrue;
         private EfRepository repo;
+        private User logedUser;
 
         #region Properties
 
@@ -34,8 +36,9 @@ namespace ScrumX.ViewModel
 
         #endregion
 
-        public AddProjectVM(Action changeCanAddProjectToTrue)
+        public AddProjectVM(Action changeCanAddProjectToTrue, User user)
         {
+            logedUser = user;
             AddProjectCommand = new DelegateCommand<Window>(AddProjectCommandExecute,AddProjectCommandCanExecute);
             CancleCommand = new DelegateCommand<Window>(CancleCommandExecute);
             this.changeCanAddProjectToTrue = changeCanAddProjectToTrue;
