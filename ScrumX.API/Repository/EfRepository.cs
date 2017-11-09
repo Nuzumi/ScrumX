@@ -1,7 +1,9 @@
-﻿using ScrumX.API.Context;
+﻿using Ninject;
+using ScrumX.API.Context;
 using ScrumX.API.Interfaces;
 using ScrumX.API.Logic;
 using ScrumX.API.Model;
+using ScrumX.API.Ninject;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -12,22 +14,29 @@ namespace ScrumX.API.Repository
 {
     public class EfRepository
     {
+        IKernel kernel = new StandardKernel(new RepoModule());
+        
         EfDbContext ctx = new EfDbContext();
 
-        public HistoryJobRepo HistoryJobsRepo;
-        public JobRepo JobsRepo;
-        public UserRepo UsersRepo;
-        public ProjectRepo ProjectsRepo;
-        public SprintRepo SprintsRepo;
+        public IHistoryJobRepo HistoryJobsRepo { get; }
+        public IJobRepo JobsRepo { get; }
+        public IUserRepo UsersRepo { get; }
+        public IProjectRepo ProjectsRepo { get; }
+        public ISprintRepo SprintsRepo { get; }
 
         public EfRepository()
         {
-            HistoryJobsRepo = new HistoryJobRepo(ctx);
-            JobsRepo = new JobRepo(ctx);
-            UsersRepo = new UserRepo(ctx);
-            ProjectsRepo = new ProjectRepo(ctx);
-            SprintsRepo = new SprintRepo(ctx);
+            HistoryJobsRepo = kernel.Get<IHistoryJobRepo>();
+            JobsRepo = kernel.Get<IJobRepo>();
+            UsersRepo = kernel.Get<IUserRepo>();
+            SprintsRepo = kernel.Get<ISprintRepo>();
+            ProjectsRepo = kernel.Get<IProjectRepo>();
 
+        }
+
+        public void SaveChanges()
+        {
+            ctx.SaveChanges();
         }
     }
 }

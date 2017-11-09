@@ -16,3 +16,5 @@ E:\Milena\V sem\NET\Scrum\ScrumX\ScrumX.Tests\obj\Debug\ScrumX.Tests.pdb
 E:\Milena\V sem\NET\Scrum\ScrumX\ScrumX.Tests\bin\Debug\ScrumX.Tests.dll.config
 E:\Milena\V sem\NET\Scrum\ScrumX\ScrumX.Tests\bin\Debug\EntityFramework.SqlServer.dll
 E:\Milena\V sem\NET\Scrum\ScrumX\ScrumX.Tests\bin\Debug\EntityFramework.SqlServer.xml
+E:\Milena\V sem\NET\Scrum\ScrumX\ScrumX.Tests\bin\Debug\Ninject.dll
+E:\Milena\V sem\NET\Scrum\ScrumX\ScrumX.Tests\bin\Debug\Ninject.xml

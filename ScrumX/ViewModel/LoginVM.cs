@@ -103,6 +103,7 @@ namespace ScrumX.ViewModel
             repo = new EfRepository();
             LoginCorrect = true;
             PasswordCorrect = true;
+            Console.WriteLine(repo.UsersRepo.GetUserById(1).Name);
         }
 
         #region commanadFunction

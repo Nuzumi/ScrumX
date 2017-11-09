@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace ScrumX.API.Logic
 {
-    public class SprintRepo
+    public class SprintRepo : ISprintRepo
     {
         EfDbContext ctx;
         ProjectRepo projectRepo;
@@ -40,9 +40,12 @@ namespace ScrumX.API.Logic
         /// </summary>
         /// <param name="sprint"></param>
         /// <returns></returns>
-        public int AddSprint(Project project)
+        public int AddSprint(Project project, DateTime data)
         {
-            Sprint sprint = new Sprint();
+            Sprint sprint = new Sprint
+            {
+                EndData = data
+            };
             IEnumerable<Sprint> sprints = GetSprintsForProject(project.IdProject);
             sprint.NoSprint = sprints.ToList().Count == 0 ? 1 : sprints.Max(q => q.NoSprint) + 1;
             sprint.Title = projectRepo.Projects.SingleOrDefault(P => P.IdProject == sprint.IdProject).Name + " - Sprint " + sprint.NoSprint;

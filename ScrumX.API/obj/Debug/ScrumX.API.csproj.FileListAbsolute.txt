@@ -38,3 +38,5 @@ E:\Milena\V sem\NET\Scrum\ScrumX\ScrumX.API\obj\Debug\ScrumX.API.pdb
 E:\Milena\V sem\NET\Scrum\ScrumX\ScrumX.API\obj\Debug\ScrumX.API.Migrations.AddfieldtoHistoryJob.resources
 D:\Nowy folder\Git\ScrumX\ScrumX.API\obj\Debug\ScrumX.API.Migrations.AddfieldtoHistoryJob.resources
 E:\Milena\V sem\NET\Scrum\ScrumX\ScrumX.API\obj\Debug\ScrumX.API.csprojResolveAssemblyReference.cache
+E:\Milena\V sem\NET\Scrum\ScrumX\ScrumX.API\bin\Debug\Ninject.dll
+E:\Milena\V sem\NET\Scrum\ScrumX\ScrumX.API\bin\Debug\Ninject.xml

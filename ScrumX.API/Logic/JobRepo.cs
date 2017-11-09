@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace ScrumX.API.Logic
 {
-    public class JobRepo
+    public class JobRepo : IJobRepo
     {
         EfDbContext ctx;
         HistoryJobRepo hjRepo;
@@ -117,6 +117,36 @@ namespace ScrumX.API.Logic
             else
                 return null;
         }
+
+
+        /// <summary>
+        /// Nie mozna zmienic SP zadania, ktore jest Completed.
+        /// </summary>
+        /// <param name="obj"></param>
+        /// <param name="SP"></param>
+        /// <param name="user"></param>
+        /// <returns></returns>
+        public Job ChangeJobPriority(Job obj, int priority, User user)
+        {
+            //Jak nie jest completed
+            if (obj.BacklogStatus != 3)
+            {
+                //Edit zadania robi wpis w HJ
+                HistoryJob hj = new HistoryJob();
+                hj.Date = DateTime.Today;
+                hj.IdJob = obj.IdJob;
+                hj.IdUser = user.IdUser;
+                int? pr = obj.Priority.HasValue ? obj.Priority.Value : 0;
+                hj.Comment = "Zmiana priorytetu zadania " + obj.Title + " z " + pr + " na " + priority + " przez " + user.Name;
+                obj.Priority = priority;
+                hjRepo.AddHistoryJob(hj);
+                EditJob(obj);
+                return obj;
+            }
+            else
+                return null;
+        }
+
 
         public void EndJob(Job job, User user)
         {

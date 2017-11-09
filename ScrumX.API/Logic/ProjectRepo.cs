@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace ScrumX.API.Logic
 {
-    public class ProjectRepo
+    public class ProjectRepo : IProjectRepo
     {
         EfDbContext ctx;
 

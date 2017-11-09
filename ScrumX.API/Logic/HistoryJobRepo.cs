@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace ScrumX.API.Repository
 {
-    public class HistoryJobRepo
+    public class HistoryJobRepo : IHistoryJobRepo
     {
         EfDbContext ctx;
 
