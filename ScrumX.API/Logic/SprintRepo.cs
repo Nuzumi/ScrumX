@@ -104,5 +104,23 @@ namespace ScrumX.API.Logic
                 .Where(s=>s.EndData > DateTime.Today) //starczy, zabezpieczenie -> zamykam sprint -> EndData.
                 .SingleOrDefault();
         }
+
+        public Sprint GetLastSprintForProject(int project)
+        {
+            return Sprints.Where(s => s.IdProject == project)
+                .Where(s => s.StartData <= DateTime.Today)
+                .Where(s => s.EndData > DateTime.Today) //starczy, zabezpieczenie -> zamykam sprint -> EndData.
+                .SingleOrDefault();
+        }
+
+        public void CloseSprint(Sprint sprint)
+        {
+            sprint.EndData = DateTime.Today;
+        }
+
+        public bool IsSprintOpen(Sprint sprint)
+        {
+            return sprint.EndData.HasValue ? sprint.EndData.Value < DateTime.Today : false;
+        }
     }
 }

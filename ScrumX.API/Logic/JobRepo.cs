@@ -16,12 +16,14 @@ namespace ScrumX.API.Logic
         EfDbContext ctx;
         HistoryJobRepo hjRepo;
         UserRepo userRepo;
+        SprintRepo sprintRepo;
 
         public JobRepo(EfDbContext ctx)
         {
             this.ctx = ctx;
             hjRepo = new HistoryJobRepo(ctx);
             userRepo = new UserRepo(ctx);
+            sprintRepo = new SprintRepo(ctx);
         }
 
         public IEnumerable<Job> Jobs
@@ -133,6 +135,7 @@ namespace ScrumX.API.Logic
                 }
                 hj.Comment = (hj.Comment == null ? "" : hj.Comment) + "Zmiana SP na " + SP + " przez użytkownika " + user.Name;
                 obj.SP = SP;
+                obj.IdSprint = sprintRepo.GetLastSprintForProject(obj.IdProject).IdSprint;
                 hjRepo.AddHistoryJob(hj);
                 EditJob(obj);
                 return obj;

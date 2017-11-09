@@ -20,8 +20,10 @@ namespace ScrumX.API.Logic
          IEnumerable<Sprint> GetSprintsForProject(int idProject);
          int AddSprint(Project project, DateTime data);
         Sprint GetLastSprintForProject(Project project);
+        Sprint GetLastSprintForProject(int project);
          int EditSprint(Sprint obj);
-
+        void CloseSprint(Sprint sprint);
+        bool IsSprintOpen(Sprint sprint);
          void DeleteSprint(Sprint obj);
 
     }
