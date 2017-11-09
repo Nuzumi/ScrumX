@@ -31,8 +31,8 @@
                 <ColumnDefinition Width="*"/>
                 <ColumnDefinition Width="*"/>
             </Grid.ColumnDefinitions>
-            <Button Content="ok" Margin="10" Command="{Binding AddSprintCommand}" CommandParameter="{Binding ElementName=Window}" />
-            <Button Content="Cancle" Margin="10"  Grid.Column="1" Command="{Binding CancleCommand}" CommandParameter="{Binding ElementName=Window}"/>
+            <Button Content="Ok" Margin="10" Command="{Binding AddSprintCommand}" CommandParameter="{Binding ElementName=Window}" />
+            <Button Content="Cancel" Margin="10"  Grid.Column="1" Command="{Binding CancleCommand}" CommandParameter="{Binding ElementName=Window}"/>
         </Grid>   
     </Grid> 
 </Window>

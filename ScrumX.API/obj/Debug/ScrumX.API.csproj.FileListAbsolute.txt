@@ -59,4 +59,3 @@ D:\Nowy folder\Git\ScrumX\ScrumX.API\bin\Debug\Ninject.dll
 D:\Nowy folder\Git\ScrumX\ScrumX.API\bin\Debug\Ninject.xml
 D:\Nowy folder\Git\ScrumX\ScrumX.API\obj\Debug\ScrumX.API.csprojResolveAssemblyReference.cache
 D:\Nowy folder\Git\ScrumX\ScrumX.API\obj\Debug\ScrumX.API.Migrations.AddProjecttoJob.resources
-E:\Milena\V sem\NET\CopyScrum\Scrum\ScrumX\ScrumX.API\obj\Debug\ScrumX.API.csprojResolveAssemblyReference.cache

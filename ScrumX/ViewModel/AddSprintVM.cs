@@ -73,7 +73,7 @@ namespace ScrumX.ViewModel
 
         private bool AddSprintCommandCanExecute(Window window)
         {
-            return SelectedProject != null && EndDate != null;
+            return SelectedProject != null && EndDate != null && EndDate > DateTime.Today;
         }
 
         private void CancleCommandExecute(Window window)

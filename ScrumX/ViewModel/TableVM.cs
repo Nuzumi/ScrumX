@@ -256,7 +256,7 @@ namespace ScrumX.ViewModel
             if(getJobForUser == false)
             {
                 getJobForUser = true;
-                jobsForUser = "Wszystkie zadania";
+                JobsForUser = "Wszystkie zadania";
                 ToDoJobs = new ObservableCollection<Job>(repo.JobsRepo.GetJobsForUser(SelectedSprint, logedUser, (int)typeTable.ToDo));
                 DoingJobs = new ObservableCollection<Job>(repo.JobsRepo.GetJobsForUser(SelectedSprint, logedUser, (int)typeTable.Doing));
                 ReviewJobs = new ObservableCollection<Job>(repo.JobsRepo.GetJobsForUser(SelectedSprint, logedUser, (int)typeTable.Review));
@@ -266,7 +266,7 @@ namespace ScrumX.ViewModel
             else
             {
                 getJobForUser = false;
-                jobsForUser = "Tylko moje zadania";
+                JobsForUser = "Tylko moje zadania";
                 SetJobs();
             }
         }

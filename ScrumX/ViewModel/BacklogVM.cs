@@ -66,9 +66,9 @@ namespace ScrumX.ViewModel
             {
                 switch (value)
                 {
-                    case "None":
-                        SetProperty(ref selectedType, typeBacklog.None);
-                        Jobs = new ObservableCollection<Job>(repo.JobsRepo.GetJobsInBacklog(SelectedProject,(int)typeBacklog.None));
+                    case "All":
+                        SetProperty(ref selectedType, typeBacklog.All);
+                        Jobs = new ObservableCollection<Job>(repo.JobsRepo.GetJobsInBacklog(SelectedProject,(int)typeBacklog.All));
                         break;
 
                     case "New":
@@ -132,7 +132,10 @@ namespace ScrumX.ViewModel
 
 
         public ICommand DeleteProjectCommand { get; set; }
-        public ICommand DeleteJobCommand { get; set; }        private int selectedPriority;
+        public ICommand DeleteJobCommand { get; set; }
+        public ICommand EndJobCommand { get; set; }
+
+        private int selectedPriority;
         public int SelectedPriority
         {
             get { return selectedPriority; }
@@ -165,9 +168,10 @@ namespace ScrumX.ViewModel
             GoToTableCommand = new DelegateCommand<Window>(GoToTableCommandExecute,GoToTableCommandCanExecute);
             DeleteProjectCommand = new DelegateCommand(DeleteProjectCommandExecute);
             DeleteJobCommand = new DelegateCommand(DeleteJobCommandExecute);
+            EndJobCommand = new DelegateCommand(EndJobCommandExecute);
             SearchCommand = new DelegateCommand(SearchJobCommandExecute);
-            TypeList = new List<string> { "None", "New", "Ready", "Scheduled", "Completed" };
-            StoryPointValues = new List<int> { 0, 1, 2, 3, 5, 8, 13, 20, 40, 100 };
+            TypeList = new List<string> { "All", "New", "Ready", "Scheduled", "Completed" };
+            StoryPointValues = new List<int> { 1, 2, 3, 5, 8, 13, 20, 40, 100 };
             PriorityValues = new List<int> { 1, 2, 3, 4, 5 };
             repo = new EfRepository();
             logedUser = user;
@@ -219,6 +223,13 @@ namespace ScrumX.ViewModel
             SetProperties();
         }
 
+        private void EndJobCommandExecute()
+        {
+            Console.WriteLine("Kończę zadanie");
+            repo.JobsRepo.EndJob(SelectedJob, logedUser);
+            SetProperties();
+        }
+
         private void DeleteJobCommandExecute()
         {
             Console.WriteLine("Usuwam zadanie");
@@ -228,8 +239,10 @@ namespace ScrumX.ViewModel
 
         private void SearchJobCommandExecute()
         {
-            Jobs = new ObservableCollection<Job>(repo.JobsRepo.SearchJob(SelectedProject, Tag));
-            Console.Write(Jobs.Count());
+            if (Tag == null || Tag.Equals(""))
+                SetProperties();
+            else 
+                Jobs = new ObservableCollection<Job>(repo.JobsRepo.SearchJob(SelectedProject, Tag));
         }
 
         private bool GoToTableCommandCanExecute(Window dummy)

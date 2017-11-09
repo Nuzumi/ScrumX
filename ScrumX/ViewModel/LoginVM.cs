@@ -111,7 +111,8 @@ namespace ScrumX.ViewModel
         {
             if (loginMode)
             {
-                if (repo.UsersRepo.UserLogin(Login, Password) == 1)
+                int log = repo.UsersRepo.UserLogin(Login, Password);
+                if (log == 1)
                 {
                     BacklogVM dataContext = new BacklogVM(repo.UsersRepo.GetUserByName(login));
                     Backlog backlog = new Backlog();
@@ -119,21 +120,28 @@ namespace ScrumX.ViewModel
                     backlog.Show();
                     window.Close();
                 }
+                else if (log == 0)
+                {
+                    MessageBox.Show("Użytkownik o danym nicku nie istnieje!");
+                    ClearTextBoxes();
+                }
                 else
                 {
-                    MessageBox.Show("dupa");
+                    MessageBox.Show("Błędne hasło!");
+                    ClearTextBoxes();
                 }
             }
             else
             {
                 if(repo.UsersRepo.RegisterUser(Login, Password))
                 {
-                    MessageBox.Show("Zarejestrowano");
+                    MessageBox.Show("Zarejestrowano!");
                     LoginCommandExecute();
                 }
                 else
                 {
-                    MessageBox.Show("dupa");
+                    MessageBox.Show("Użytkownik o danym nicku juz istnieje!");
+                    ClearTextBoxes();
                 }
             }
         }
@@ -158,6 +166,7 @@ namespace ScrumX.ViewModel
             LabeleContent = "Rejestracja";
             loginMode = false;
             IsVisibleLogin = true;
+            ClearTextBoxes();
             (OkComamnd as DelegateCommand<Window>).RaiseCanExecuteChanged();
         }
 
@@ -171,6 +180,8 @@ namespace ScrumX.ViewModel
             LabeleContent = "Logowanie";
             loginMode = true;
             IsVisibleLogin = false;
+
+            ClearTextBoxes();
             (OkComamnd as DelegateCommand<Window>).RaiseCanExecuteChanged();
         }
 
@@ -178,6 +189,12 @@ namespace ScrumX.ViewModel
         {
             return !loginMode;
         }
+
         #endregion
+
+        public void ClearTextBoxes()
+        {
+            Password = PasswordAgain = Login = "";
+        }
     }
 }

@@ -131,7 +131,7 @@ namespace ScrumX.API.Logic
                     hj.FromBacklog = hj.ToBacklog = obj.BacklogStatus;
                     hj.FromTable = hj.ToTable = obj.TableStatus;
                 }
-                hj.Comment = (hj.Comment==null?"":hj.Comment) + "Zmiana SP na " + SP + " przez uzytkownika " + userRepo.Users.SingleOrDefault(U => U.IdUser == user.IdUser).Name;
+                hj.Comment = (hj.Comment == null ? "" : hj.Comment) + "Zmiana SP na " + SP + " przez użytkownika " + user.Name;
                 obj.SP = SP;
                 hjRepo.AddHistoryJob(hj);
                 EditJob(obj);
@@ -215,6 +215,16 @@ namespace ScrumX.API.Logic
                     hj.ToBacklog = (int)typeBacklog.Scheduled;
                     job.BacklogStatus = (int)typeBacklog.Scheduled;
                 }
+                if (table == (int)typeTable.ToDo)
+                {
+                    hj.ToBacklog = (int)typeBacklog.Ready;
+                    job.BacklogStatus = (int)typeBacklog.Ready;
+                }
+                if (table == (int)typeTable.Review)
+                {
+                    hj.ToBacklog = (int)typeBacklog.Scheduled;
+                    job.BacklogStatus = (int)typeBacklog.Scheduled;
+                }
                 hjRepo.AddHistoryJob(hj);
                 job.TableStatus = table;
                 return EditJob(job);
@@ -229,7 +239,7 @@ namespace ScrumX.API.Logic
             foreach (string st in split){
                 if (st != "")
                 {
-                    var list = Jobs.Where(p => p.IdProject == project.IdProject).Where(p => p.Title.Contains(tag));
+                    var list = Jobs.Where(p => p.IdProject == project.IdProject).Where(p => p.Title.ToLower().Contains(st));
                     listJob = listJob.Union(list);
                 }
             }
@@ -241,13 +251,24 @@ namespace ScrumX.API.Logic
             return Jobs    // your starting point - table in the "from" statement
                        .Join(hjRepo.HistoryJobs, // the source table of the inner join
                           p => p.IdJob,       // Select the primary key (the first part of the "on" clause in an sql "join" statement)
-                          h => h.IdUser,  // Select the foreign key (the second part of the "on" clause)
-                          (p, h) => new { Job = p, HistoryJob = h }) // selection
-                       .Where(r => r.Job.IdUser == user.IdUser)
-                       .Where(r => r.Job.TableStatus == table)
-                       .GroupBy(r=>r.HistoryJob.IdUser)
-                       .First()
-                       .Select(p => p.Job);
+                          h => h.IdJob,  // Select the foreign key (the second part of the "on" clause)
+                          (p, h) => new { Job = p, HistoryJob = h })// selection
+                          .Where(h => h.HistoryJob.IdUser == user.IdUser)
+                          .Where(r=>r.Job.TableStatus == table)
+                       .Select(r => r.Job)
+                       .Distinct<Job>(); 
+
+            /*return Jobs    // your starting point - table in the "from" statement
+                       .Join(hjRepo.HistoryJobs, // the source table of the inner join
+                          p => p.IdJob,       // Select the primary key (the first part of the "on" clause in an sql "join" statement)
+                          h => h.IdJob,  // Select the foreign key (the second part of the "on" clause)
+                          (p, h) => new { Job = p, HistoryJob = h })// selection
+                          .Where(h => h.HistoryJob.IdUser == user.IdUser)
+                          .Where(r => r.Job.TableStatus == table)
+                          .GroupBy(r => r.HistoryJob.IdUser)
+                          .First()
+                       .Select(r => r.Job)
+                       .Distinct<Job>(); */
         }
     }
     

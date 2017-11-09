@@ -33,22 +33,22 @@ namespace ScrumX.API.Repository
 
         public IEnumerable<HistoryJob> GetHistoryJobsForJob(Job job)
         {
-            return HistoryJobs.Where(h => h.IdJob == job.IdJob).ToList();
+            return HistoryJobs.Where(h => h.IdJob == job.IdJob).OrderByDescending(h=>h.Date).ToList();
         }
 
         public IEnumerable<HistoryJob> GetHistoryJobsForJob(int job)
         {
-            return HistoryJobs.Where(h => h.IdJob == job).ToList();
+            return HistoryJobs.Where(h => h.IdJob == job).OrderByDescending(h => h.Date).ToList();
         }
 
         public IEnumerable<HistoryJob> GetHistoryJobsForUser(User user)
         {
-            return HistoryJobs.Where(h => h.IdUser == user.IdUser).ToList();
+            return HistoryJobs.Where(h => h.IdUser == user.IdUser).OrderByDescending(h => h.Date).ToList();
         }
 
         public IEnumerable<HistoryJob> GetHistoryJobsForUser(int user)
         {
-            return HistoryJobs.Where(h => h.IdUser == user).ToList();
+            return HistoryJobs.Where(h => h.IdUser == user).OrderByDescending(h => h.Date).ToList();
         }
 
         public bool AddHistoryJob(string comment, Job job, User user)

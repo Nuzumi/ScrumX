@@ -10,7 +10,7 @@
         Title="Backlog" Height="500" Width="750" Name="Window">
     <Window.Resources>
         <converters:ProjectToProjectNameConverter x:Key="projectToProjectName"/>
-        <converters:UserToUserNameConverter x:Key="userTpUserNameConverter"/>
+        <converters:UserToUserNameConverter x:Key="userToUserNameConverter"/>
         <converters:IntToDoubleConverter x:Key="intToDoubleConverter"/>
         <helper:BindingProxy x:Key="proxy" Data="{Binding}"/>
     </Window.Resources>
@@ -87,9 +87,7 @@
                     <KeyBinding Key="Enter" Command="{Binding SearchJobCommandExecute}"/>
                     </TextBox.InputBindings>
             </TextBox>
-            <Button Grid.Column="3" Margin="0,5,5,5">
-                <TextBlock Text="szukaj" Margin="2"/>
-            </Button>
+           
         </Grid>
         <Separator DockPanel.Dock="Top" BorderThickness="1" BorderBrush="Black"/>
         <Grid Margin="8">
@@ -107,6 +105,7 @@
                     <DataGrid.ContextMenu>
                         <ContextMenu>
                             <MenuItem Header="Usuń zadanie" Command="{Binding Data.DeleteJobCommand, Source={StaticResource proxy}}" />
+                            <MenuItem Header="Zakończ zadanie" Command="{Binding Data.EndJobCommand, Source={StaticResource proxy}}" />
                         </ContextMenu>
                     </DataGrid.ContextMenu>
                     <DataGrid.Columns>
@@ -169,14 +168,15 @@
                 <Label Content="Title"/>
                 <TextBlock Text="{Binding Title, Mode=OneWay}" Grid.Column="1"/>
                 <Label Content="Story Points" Grid.Row="1"/>
+                
+                <TextBlock Text="{Binding Project, Converter={StaticResource projectToProjectName}}" Grid.Column="1" Grid.Row="3"/>
+                <Label Content="Created by" Grid.Row="4"/>
+                <TextBlock Text="{Binding User, Converter={StaticResource userToUserNameConverter}}" Grid.Column="1" Grid.Row="4"/>
+                <Label Content="Description" Grid.Row="5"/>
                 <TextBlock Text="{Binding SP, Mode=OneWay}" Grid.Column="1" Grid.Row="1"/>
                 <Label Content="Priority" Grid.Row="2"/>
                 <TextBlock Text="{Binding Priority}" Grid.Column="1" Grid.Row="2"/>
                 <Label Content="Project" Grid.Row="3"/>
-                <TextBlock Text="{Binding Project, Converter={StaticResource projectToProjectName}}" Grid.Column="1" Grid.Row="3"/>
-                <Label Content="Created by" Grid.Row="4"/>
-                <TextBlock Text="{Binding User, Converter={StaticResource userTpUserNameConverter}}" Grid.Column="1" Grid.Row="4"/>
-                <Label Content="Description" Grid.Row="5"/>
                 <TextBlock Text="{Binding Desc}" Grid.Column="1" Grid.Row="5"/>
                 <StackPanel Grid.Row="6" Grid.ColumnSpan="2">
                     <Label Content="Logs" HorizontalContentAlignment="Center"/>
