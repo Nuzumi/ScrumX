@@ -85,6 +85,7 @@ namespace ScrumX.API.Logic
         public Job ChangeJobSP(Job obj, int SP, User user)
         {
             //Jak nie jest completed
+
             if (obj.BacklogStatus != 3)
             {
                 //Edit zadania robi wpis w HJ

@@ -5,6 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:ScrumX"
         mc:Ignorable="d"
+        xmlns:helper ="clr-namespace:ScrumX.HelperClasses"
         Title="Backlog" Height="500" Width="750" Name="Window">
     <DockPanel>
         <DockPanel DockPanel.Dock="Left">
@@ -50,26 +51,23 @@
             <TextBlock Text="{Binding UserName}" FontSize="18" Grid.Column="1"/>
         </Grid>
         <Separator DockPanel.Dock="Top" BorderThickness="1" BorderBrush="Black"/>
-        <Grid DockPanel.Dock="Top" Margin="7,2,7,2">
+        <Grid DockPanel.Dock="Top" Margin="7,2,7,2" MinHeight="43">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="*"/>
                 <ColumnDefinition Width="*"/>
                 <ColumnDefinition Width="*"/>
                 <ColumnDefinition Width="auto"/>
             </Grid.ColumnDefinitions>
-            <ComboBox Margin="5" >
-                <ComboBoxItem Content="Non"/>
-                <ComboBoxItem Content="New"/>
-                <ComboBoxItem Content="Ready"/>
-                <ComboBoxItem Content="Scheduled"/>
-                <ComboBoxItem Content="Completed"/>
+            <ComboBox Margin="5"  SelectedItem="{Binding SelectedType}" ItemsSource="{Binding TypeList}" FontSize="12" VerticalContentAlignment="Center">
             </ComboBox>
-            <ComboBox Margin="5" Grid.Column="1">
-                <ComboBoxItem Content="Non"/>
-                <ComboBoxItem Content="projekt 1"/>
-                <ComboBoxItem Content="projekt 2"/>
+            <ComboBox Margin="5" Grid.Column="1" ItemsSource="{Binding Projects}" SelectedItem="{Binding SelectedProject}">
+                <ComboBox.ItemTemplate>
+                    <DataTemplate>
+                        <Label Content="{Binding Name}" FontSize="12"/>
+                    </DataTemplate>
+                </ComboBox.ItemTemplate>
             </ComboBox>
-            <TextBox Margin="5,5,0,5" Grid.Column="2"/>
+            <TextBox Margin="5,5,0,5" Grid.Column="2" VerticalContentAlignment="Center" HorizontalContentAlignment="Center"/>
             <Button Grid.Column="3" Margin="0,5,5,5">
                 <TextBlock Text="szukaj" Margin="2"/>
             </Button>
@@ -81,13 +79,16 @@
                 <ColumnDefinition Width="*"/><!--details-->
             </Grid.ColumnDefinitions>
             <Grid Margin="5">
-                <DataGrid AutoGenerateColumns="False" SelectionMode="Single" SelectionUnit="FullRow" CanUserAddRows="False" CanUserDeleteRows="False" CanUserSortColumns="False" CanUserReorderColumns="True" CanUserResizeColumns="False">
+                <DataGrid ItemsSource="{Binding Jobs}" Margin="6,3,6,3" AutoGenerateColumns="False" SelectionMode="Single" SelectionUnit="FullRow" CanUserAddRows="False" CanUserDeleteRows="False" CanUserSortColumns="False" CanUserReorderColumns="True" CanUserResizeColumns="False">
+                    <DataGrid.Resources>
+                        <helper:BindingProxy x:Key="proxy" Data="{Binding}"/>
+                    </DataGrid.Resources>
                     <DataGrid.Columns>
-                        <DataGridTextColumn Header="No."/>
-                        <DataGridTextColumn Header="Project" Binding="{Binding Sprint Converter, Converter={StaticResource SprintToProjecTitleConverter}}" />
-                        <DataGridTextColumn Header="Title" Binding="{Binding Title}"/>
-                        <DataGridComboBoxColumn Header="SP" SelectedItemBinding="{Binding SP}"/>
-                        <DataGridComboBoxColumn Header="Priority" SelectedValueBinding="{Binding Priority}"/>
+                        <DataGridTextColumn Header="No." IsReadOnly="True"/>
+                        <DataGridTextColumn Width="3*" Header="Project" Binding="{Binding Sprint, Converter={StaticResource SprintToProjecTitleConverter}}" IsReadOnly="True"/>
+                        <DataGridTextColumn Width="3*" Header="Title" Binding="{Binding Title}" IsReadOnly="True"/>
+                        <DataGridComboBoxColumn Header="SP" Width="*" SelectedItemBinding="{Binding Data.SelectedSP, Source={StaticResource proxy}}" ItemsSource="{Binding Data.StoryPointValues, Source={StaticResource proxy}}"/>
+                        <DataGridComboBoxColumn Header="Priority" Width="*" SelectedValueBinding="{Binding Priority}" ItemsSource="{Binding Data.PriorityValues, Source={StaticResource proxy}}"/>
                     </DataGrid.Columns>
                 </DataGrid>
             </Grid>

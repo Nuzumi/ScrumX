@@ -1,5 +1,6 @@
 ﻿using Prism.Commands;
 using Prism.Mvvm;
+using ScrumX.API.Model;
 using ScrumX.View;
 using ScrumX.ViewModel;
 using System.Windows.Input;
@@ -8,6 +9,8 @@ namespace ScrumX.HelperClasses
 {
     abstract class DialogDisplay : BindableBase
     {
+
+        protected User logedUser;
 
         #region properties
         private bool canAddTask;
@@ -76,8 +79,9 @@ namespace ScrumX.HelperClasses
 
         protected abstract void riseGoToCommands();
 
-        public DialogDisplay()
+        public DialogDisplay(User user)
         {
+            logedUser = user;
             AddTaskCommand = new DelegateCommand(AddTaskCommandExecute, AddTaskCommandCanExecute);
             AddSprintCommand = new DelegateCommand(AddSprintCommandExecuted, AddSprintCommandCanExecute);
             AddProjectCommand = new DelegateCommand(AddProjectCommandExecute, AddProjectCommandCanExecute);
@@ -91,7 +95,7 @@ namespace ScrumX.HelperClasses
         private void AddTaskCommandExecute()
         {
             CanAddTask = false;
-            AddTaskVM dataContext = new AddTaskVM(changeCanAddTaskToTrue);
+            AddTaskVM dataContext = new AddTaskVM(changeCanAddTaskToTrue,logedUser);
             AddTask dialog = new AddTask();
             dialog.DataContext = dataContext;
             dialog.Show();
@@ -105,7 +109,7 @@ namespace ScrumX.HelperClasses
         private void AddSprintCommandExecuted()
         {
             CanAddSprint = false;
-            AddSprintVM dataContext = new AddSprintVM(changeCanAddSprintToTrue);
+            AddSprintVM dataContext = new AddSprintVM(changeCanAddSprintToTrue,logedUser);
             AddSprint dialog = new AddSprint();
             dialog.DataContext = dataContext;
             dialog.Show();
@@ -119,7 +123,7 @@ namespace ScrumX.HelperClasses
         private void AddProjectCommandExecute()
         {
             CanAddProject = false;
-            AddProjectVM dataContext = new AddProjectVM(changeCanAddProjectToTrue);
+            AddProjectVM dataContext = new AddProjectVM(changeCanAddProjectToTrue, logedUser);
             AddProject dialog = new AddProject();
             dialog.DataContext = dataContext;
             dialog.Show();

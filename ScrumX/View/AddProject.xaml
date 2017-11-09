@@ -16,14 +16,14 @@
             <RowDefinition Height="auto"/>
         </Grid.RowDefinitions>
         <Label Content="Nazwa" Margin="10"/>
-        <TextBox  Grid.Column="1" Margin="10"/>
+        <TextBox  Grid.Column="1" Margin="10" Text="{Binding ProjectName}"/>
         <Grid Grid.ColumnSpan="2" Grid.Row="1">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="*"/>
                 <ColumnDefinition Width="*"/>
             </Grid.ColumnDefinitions>
             <Button Content="ok" Margin="10" Command="{Binding AddProjectCommand}" CommandParameter="{Binding ElementName=Window}" />
-            <Button Content="Cancle" Margin="10"  Grid.Column="1"/>
+            <Button Content="Cancle" Margin="10"  Grid.Column="1" Command="{Binding CancleCommand}" CommandParameter="{Binding ElementName=Window}"/>
         </Grid>
     </Grid>
 </Window>
