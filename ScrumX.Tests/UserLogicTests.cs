@@ -85,5 +85,6 @@ namespace ScrumX.Tests
 
             Assert.IsNull(repo.UsersRepo.GetUserByName("Admin1"));
         }
+        
     }
 }

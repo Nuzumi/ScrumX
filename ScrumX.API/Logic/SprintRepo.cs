@@ -39,22 +39,46 @@ namespace ScrumX.API.Logic
         /// Bez numeru i tytułu, sprintu, wyliczalny
         /// </summary>
         /// <param name="sprint"></param>
-        /// <returns></returns>
+        /// <returns>
+        /// Id sprintu, -1 w przypadku istniejacego otwartego sprintu dla projektu</returns>
         public int AddSprint(Project project, DateTime data)
         {
-            Sprint sprint = new Sprint
+            //Otwarty sprint
+            if (GetLastSprintForProject(project) == null)
             {
-                EndData = data
-            };
-            IEnumerable<Sprint> sprints = GetSprintsForProject(project.IdProject);
-            sprint.NoSprint = sprints.ToList().Count == 0 ? 1 : sprints.Max(q => q.NoSprint) + 1;
-            sprint.Title = projectRepo.Projects.SingleOrDefault(P => P.IdProject == sprint.IdProject).Name + " - Sprint " + sprint.NoSprint;
-            return ctx.Set<Sprint>().Add(sprint).IdSprint;
+                Sprint sprint = new Sprint
+                {
+                    EndData = data
+                };
+                IEnumerable<Sprint> sprints = GetSprintsForProject(project.IdProject);
+                sprint.NoSprint = sprints.ToList().Count == 0 ? 1 : sprints.Max(q => q.NoSprint) + 1;
+                sprint.Title = projectRepo.Projects.SingleOrDefault(P => P.IdProject == sprint.IdProject).Name + " - Sprint " + sprint.NoSprint;
+                return ctx.Set<Sprint>().Add(sprint).IdSprint;
+            }
+            else return -1;
         }
 
-        public void EditSprint(Sprint obj)
+        /// <summary>
+        /// Brak mozliwosci otwarcia zamknietego sprintu 
+        /// </summary>
+        /// <param name="obj"></param>
+        /// <returns> IdSprintu/ -1 </returns>
+        public int EditSprint(Sprint obj)
         {
-            ctx.Entry<Sprint>(obj).CurrentValues.SetValues(obj);
+            //nie można otworzyć sprintu
+            if (Sprints.Where(s => s.IdSprint == obj.IdSprint).SingleOrDefault().EndData <= DateTime.Today)
+                return -1;
+            else
+            {
+                ctx.Entry<Sprint>(obj).CurrentValues.SetValues(obj);
+                return obj.IdSprint;
+            }
+        }
+
+        public void EndSprint(Sprint sprint)
+        {
+            sprint.EndData = DateTime.Today;
+            EditSprint(sprint);
         }
         
         public void DeleteSprint(Sprint obj)
@@ -62,5 +86,12 @@ namespace ScrumX.API.Logic
             ctx.Set<Sprint>().Remove(obj);
         }
 
+        public Sprint GetLastSprintForProject(Project project)
+        {
+            return Sprints.Where(s => s.IdProject == project.IdProject)
+                .Where(s => s.StartData >= DateTime.Today)
+                .Where(s=> !s.EndData.HasValue) //starczy, zabezpieczenie -> zamykam sprint -> EndData.
+                .SingleOrDefault();
+        }
     }
 }
