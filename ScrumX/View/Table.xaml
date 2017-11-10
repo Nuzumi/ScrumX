@@ -5,6 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:ScrumX.View"
         mc:Ignorable="d"
+        xmlns:dd="urn:gong-wpf-dragdrop"
         Title="Table" Height="500" Width="750" Name="Window">
     <DockPanel>
         <DockPanel DockPanel.Dock="Left"  >
@@ -59,19 +60,9 @@
                 <ColumnDefinition Width="auto"/>
                 <ColumnDefinition Width="auto"/>
             </Grid.ColumnDefinitions>
-            <ComboBox Margin="5" >
-                <ComboBoxItem Content="Non"/>
-                <ComboBoxItem Content="New"/>
-                <ComboBoxItem Content="Ready"/>
-                <ComboBoxItem Content="Scheduled"/>
-                <ComboBoxItem Content="Completed"/>
-            </ComboBox>
-            <ComboBox Margin="5" Grid.Column="1">
-                
-            </ComboBox>
-            <ComboBox Margin="5" Grid.Column="2">
-                
-            </ComboBox>
+            <ComboBox Margin="5" ItemsSource="{Binding TypeList}" SelectedItem="{Binding SelectedType}"/>
+            <ComboBox Margin="5" Grid.Column="1"/>
+            <ComboBox Margin="5" Grid.Column="2"/>
             <Border Grid.Column="3" BorderThickness="0.8" BorderBrush="Black" Margin="0,4,4,4"/>
             <RadioButton Grid.Column="4" Margin="5,9,5,4"/>
             <Label Content="tylko twoje zadania" Grid.Column="5" FontSize="15"/>
@@ -89,19 +80,31 @@
             </Grid.RowDefinitions>
             <DockPanel  Grid.RowSpan="2" Margin="2,6,6,6">
                 <Label Content="To Do" DockPanel.Dock="Top" HorizontalContentAlignment="Center" FontSize="15"/>
-                <ListView>
+                <ListView ItemsSource="{Binding toDoJobs}" dd:DragDrop.IsDragSource="True" dd:DragDrop.IsDropTarget="True">
                     <ListView.ItemTemplate>
                         <DataTemplate>
-                            <StackPanel>
-                                
-                            </StackPanel>
+                            <DockPanel>
+                                <Label Content="{Binding Priority}" DockPanel.Dock="Right"/>
+                                <Label Content="{Binding SP}" DockPanel.Dock="Right"/>
+                                <Label Content="{Binding Title}" />
+                            </DockPanel>
                         </DataTemplate>
                     </ListView.ItemTemplate>
                 </ListView>
             </DockPanel>
             <DockPanel Grid.Column="1" Margin="6" >
                 <Label Content="Doing" DockPanel.Dock="Top" HorizontalContentAlignment="Center" FontSize="15"/>
-                <ListView/>
+                <ListView ItemsSource="{Binding DoingJobs}" dd:DragDrop.IsDragSource="True" dd:DragDrop.IsDropTarget="True">
+                    <ListView.ItemTemplate>
+                        <DataTemplate>
+                            <DockPanel>
+                                <Label Content="{Binding Priority}" DockPanel.Dock="Right"/>
+                                <Label Content="{Binding SP}" DockPanel.Dock="Right"/>
+                                <Label Content="{Binding Title}" />
+                            </DockPanel>
+                        </DataTemplate>
+                    </ListView.ItemTemplate>
+                </ListView>
             </DockPanel>
             <DockPanel Grid.Column="1" Grid.Row="1" Margin="6" >
                 <Label Content="Testing" DockPanel.Dock="Top" HorizontalContentAlignment="Center" FontSize="15"/>

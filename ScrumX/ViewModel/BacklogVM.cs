@@ -14,7 +14,6 @@ using ScrumX.HelperClasses;
 using System.Collections.ObjectModel;
 using System.Windows.Controls;
 using ScrumX.API.Repository;
-using ScrumX.API.Content;
 
 namespace ScrumX.ViewModel
 {
@@ -39,10 +38,14 @@ namespace ScrumX.ViewModel
         public Project SelectedProject
         {
             get { return selectedProject; }
-            set { SetProperty(ref selectedProject, value); }
+            set
+            {
+                SetProperty(ref selectedProject, value);
+                Jobs = new ObservableCollection<Job>(repo.JobsRepo.GetJobsInBacklog(SelectedProject, (int)selectedType));
+            }
         }
 
-        private typeBacklog selectedType;
+        private type selectedType;
         public string SelectedType
         {
             get { return selectedType.ToString(); }
@@ -51,25 +54,28 @@ namespace ScrumX.ViewModel
                 switch (value)
                 {
                     case "None":
-                        SetProperty(ref selectedType, typeBacklog.None);
-                        Jobs = new ObservableCollection<Job>(repo.JobsRepo.Jobs);
+                        SetProperty(ref selectedType, type.None);
+                        Jobs = new ObservableCollection<Job>(repo.JobsRepo.GetJobsInBacklog(SelectedProject,(int)type.None));
                         break;
 
                     case "New":
-                        SetProperty(ref selectedType, typeBacklog.New);
-                        //Jobs = new ObservableCollection<Job>(repo.JobsRepo.GetJobsInBacklog())
+                        SetProperty(ref selectedType, type.New);
+                        Jobs = new ObservableCollection<Job>(repo.JobsRepo.GetJobsInBacklog(SelectedProject, (int)type.New));
                         break;
 
                     case "Ready":
-                        SetProperty(ref selectedType, typeBacklog.Ready);
+                        SetProperty(ref selectedType, type.Ready);
+                        Jobs = new ObservableCollection<Job>(repo.JobsRepo.GetJobsInBacklog(SelectedProject, (int)type.Ready));
                         break;
 
                     case "Scheduled":
-                        SetProperty(ref selectedType, typeBacklog.Scheduled);
+                        SetProperty(ref selectedType, type.Scheduled);
+                        Jobs = new ObservableCollection<Job>(repo.JobsRepo.GetJobsInBacklog(SelectedProject, (int)type.Scheduled));
                         break;
 
                     case "Completed":
-                        SetProperty(ref selectedType, typeBacklog.Completed);
+                        SetProperty(ref selectedType, type.Completed);
+                        Jobs = new ObservableCollection<Job>(repo.JobsRepo.GetJobsInBacklog(SelectedProject, (int)type.Completed));
                         break;
                 }
             }
@@ -89,33 +95,11 @@ namespace ScrumX.ViewModel
             set
             {
                 SetProperty(ref selectedJob, value);
-                Console.WriteLine(value.Title);
-                repo.JobsRepo.ChangeJobSP(selectedJob, selectedSP, logedUser);
             }
         }
 
-        private int selectedSP;
-        public int SelectedSP
-        {
-            get { return selectedSP; }
-            set
-            {
-                SetProperty(ref selectedSP, value);
-                repo.JobsRepo.ChangeJobSP(SelectedJob, value, logedUser);
-                repo.SaveChanges();
-            }
-        }
 
-        private int selectedPriority;
-        public int SelectedPriority
-        {
-            get { return selectedPriority; }
-            set
-            {
-                SetProperty(ref selectedPriority, value);
-            }
-        }
-
+        public ICommand SearchCommand { get; set; }
         public ICommand GoToTableCommand { get; set; }
         #endregion
 
@@ -129,8 +113,15 @@ namespace ScrumX.ViewModel
             logedUser = user;
             UserName = user.Name;
             Projects = new ObservableCollection<Project>(repo.ProjectsRepo.Projects);
-            Jobs = new ObservableCollection<Job>(repo.JobsRepo.Jobs);
-            
+            if(Projects[0] != null)
+            {
+                SelectedProject = Projects[0];
+                Jobs = new ObservableCollection<Job>(repo.JobsRepo.GetJobsForProject(SelectedProject));
+            }
+            else
+            {
+                Jobs = new ObservableCollection<Job>();
+            }
         }
 
         protected override void riseGoToCommands()
@@ -138,7 +129,7 @@ namespace ScrumX.ViewModel
             if(GoToTableCommand != null)
             {
                 (GoToTableCommand as DelegateCommand<Window>).RaiseCanExecuteChanged();
-                Jobs = new ObservableCollection<Job>(repo.JobsRepo.Jobs);
+                Jobs = new ObservableCollection<Job>(repo.JobsRepo.GetJobsInBacklog(SelectedProject,(int)selectedType));
                 Projects = new ObservableCollection<Project>(repo.ProjectsRepo.Projects);
             }
         }
