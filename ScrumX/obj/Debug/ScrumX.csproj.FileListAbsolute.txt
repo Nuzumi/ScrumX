@@ -96,3 +96,5 @@ E:\Milena\V sem\NET\Scrum\ScrumX\ScrumX\obj\Debug\View\AddTask.baml
 E:\Milena\V sem\NET\Scrum\ScrumX\ScrumX\obj\Debug\View\Backlog.baml
 E:\Milena\V sem\NET\Scrum\ScrumX\ScrumX\bin\Debug\Ninject.dll
 E:\Milena\V sem\NET\Scrum\ScrumX\ScrumX\bin\Debug\Ninject.xml
+D:\Nowy folder\Git\ScrumX\ScrumX\bin\Debug\Ninject.dll
+D:\Nowy folder\Git\ScrumX\ScrumX\bin\Debug\Ninject.xml

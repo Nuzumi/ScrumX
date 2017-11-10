@@ -60,8 +60,8 @@ namespace ScrumX.ViewModel
 
         private void AddSprintCommandExecute(Window window)
         {
-            //repo.SprintsRepo.AddSprint()
-            //repo.SaveChanges(); 
+            repo.SprintsRepo.AddSprint(SelectedProject, EndDate);
+            repo.SaveChanges(); 
             changeCanAddSprintToTrue.DynamicInvoke();
             window.Close();
         }

@@ -39,3 +39,7 @@ D:\Nowy folder\Git\ScrumX\ScrumX.API\obj\Debug\ScrumX.API.Migrations.AddfieldtoH
 E:\Milena\V sem\NET\Scrum\ScrumX\ScrumX.API\obj\Debug\ScrumX.API.csprojResolveAssemblyReference.cache
 E:\Milena\V sem\NET\Scrum\ScrumX\ScrumX.API\bin\Debug\Ninject.dll
 E:\Milena\V sem\NET\Scrum\ScrumX\ScrumX.API\bin\Debug\Ninject.xml
+D:\Nowy folder\Git\ScrumX\ScrumX.API\bin\Debug\Ninject.dll
+D:\Nowy folder\Git\ScrumX\ScrumX.API\bin\Debug\Ninject.xml
+D:\Nowy folder\Git\ScrumX\ScrumX.API\obj\Debug\ScrumX.API.csprojResolveAssemblyReference.cache
+D:\Nowy folder\Git\ScrumX\ScrumX.API\obj\Debug\ScrumX.API.Migrations.AddIdProjectinJob.resources

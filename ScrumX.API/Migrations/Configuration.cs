@@ -28,17 +28,7 @@ namespace ScrumX.API.Migrations
             //      new Person { FullName = "Rowan Miller" }
             //    );
             //
-
-            context.Projects.AddOrUpdate(
-                p => p.IdProject,
-                new Project
-                {
-                    Name = "Project1",
-                    DayCreated = DateTime.Today,
-                    ProjectSprint = new List<Sprint> { new Sprint { Title = "Sprint 1", StartData = DateTime.Today,
-                        SprintJob = new List<Job> { new Job { Title = "Ogarnac baze", Desc = "Mocno", User = new User { Name = "admin", Password = "admin" } } } } }
-                }
-                );
+            
         }
     }
 }

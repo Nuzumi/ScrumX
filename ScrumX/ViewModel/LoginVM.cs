@@ -103,7 +103,6 @@ namespace ScrumX.ViewModel
             repo = new EfRepository();
             LoginCorrect = true;
             PasswordCorrect = true;
-            Console.WriteLine(repo.UsersRepo.GetUserById(1).Name);
         }
 
         #region commanadFunction
@@ -112,7 +111,7 @@ namespace ScrumX.ViewModel
         {
             if (loginMode)
             {
-                BacklogVM dataContext = new BacklogVM(repo.UsersRepo.GetUserById(1));
+                BacklogVM dataContext = new BacklogVM(repo.UsersRepo.GetUserByName("admin"));
                 Backlog backlog = new Backlog();
                 backlog.DataContext = dataContext;
                 backlog.Show();

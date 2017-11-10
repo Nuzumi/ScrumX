@@ -14,12 +14,14 @@ namespace ScrumX.API.Logic
         EfDbContext ctx;
         HistoryJobRepo hjRepo;
         UserRepo userRepo;
+        ProjectRepo projectRepo;
         
         public JobRepo(EfDbContext ctx)
         {
             this.ctx = ctx;
             hjRepo = new HistoryJobRepo(ctx);
             userRepo = new UserRepo(ctx);
+            projectRepo = new ProjectRepo(ctx);
         }
 
         public IEnumerable<Job> Jobs
@@ -54,9 +56,9 @@ namespace ScrumX.API.Logic
             return idJob;
         }
 
-        public IEnumerable<Job> GetJobsInBacklog(int sprint, int backlogStatus)
+        public IEnumerable<Job> GetJobsInBacklog(Project project, int backlogStatus)
         {
-            var list = Jobs.Where(J => J.IdSprint == sprint);
+            var list = Jobs.Where(J => J.IdProject == project.IdProject);
             return backlogStatus == 0 ? list.ToList() : list.Where(J => J.BacklogStatus == backlogStatus).ToList();
         }
 
@@ -85,8 +87,7 @@ namespace ScrumX.API.Logic
         public Job ChangeJobSP(Job obj, int SP, User user)
         {
             //Jak nie jest completed
-
-            if (obj.BacklogStatus != 3)
+            if (obj.BacklogStatus != 3 && SP != 0)
             {
                 //Edit zadania robi wpis w HJ
                 HistoryJob hj = new HistoryJob();

@@ -51,10 +51,12 @@ namespace ScrumX.ViewModel
                 {
                     case "None":
                         SetProperty(ref selectedType, type.None);
+                        Jobs = new ObservableCollection<Job>(repo.JobsRepo.Jobs);
                         break;
 
                     case "New":
                         SetProperty(ref selectedType, type.New);
+                        //Jobs = new ObservableCollection<Job>(repo.JobsRepo.GetJobsInBacklog())
                         break;
 
                     case "Ready":
@@ -86,6 +88,8 @@ namespace ScrumX.ViewModel
             set
             {
                 SetProperty(ref selectedJob, value);
+                Console.WriteLine(value.Title);
+                repo.JobsRepo.ChangeJobSP(selectedJob, selectedSP, logedUser);
             }
         }
 
