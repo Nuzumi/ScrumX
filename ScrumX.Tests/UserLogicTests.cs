@@ -55,7 +55,6 @@ namespace ScrumX.Tests
         {
             EfRepository repo = new EfRepository();
             repo.UsersRepo.RegisterUser("Admin1", "Admin1");
-            repo.UsersRepo.SaveChanges();
             Assert.IsNotNull(repo.UsersRepo.GetUserByName("Admin1"));
             Assert.IsNull(repo.UsersRepo.GetUserByName("Roenna"));
 
@@ -69,7 +68,6 @@ namespace ScrumX.Tests
             user.Password = "pass";
 
             repo.UsersRepo.EditUser(user);
-            repo.UsersRepo.SaveChanges();
 
             Assert.IsTrue(repo.UsersRepo.GetUserByName("Admin1").Password.Equals("pass"));
         }
@@ -81,9 +79,8 @@ namespace ScrumX.Tests
             User user = repo.UsersRepo.GetUserByName("Admin1");
 
             repo.UsersRepo.DeleteUser(user);
-            repo.UsersRepo.SaveChanges();
-
             Assert.IsNull(repo.UsersRepo.GetUserByName("Admin1"));
         }
+        
     }
 }

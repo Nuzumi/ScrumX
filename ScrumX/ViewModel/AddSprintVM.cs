@@ -4,6 +4,7 @@ using ScrumX.API.Model;
 using ScrumX.API.Repository;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -19,6 +20,8 @@ namespace ScrumX.ViewModel
         private User logedUser;
 
         #region Properties
+
+        public ObservableCollection<Project> Projects { get; set; }
 
         private Project selectedProject;
         public Project SelectedProject
@@ -53,6 +56,8 @@ namespace ScrumX.ViewModel
             AddSprintCommand = new DelegateCommand<Window>(AddSprintCommandExecute);
             this.changeCanAddSprintToTrue = changeCanAddSprintToTrue;
             EndDate = DateTime.Today;
+            repo = new EfRepository();
+            Projects = new ObservableCollection<Project>(repo.ProjectsRepo.Projects);
 
         }
 
@@ -60,8 +65,7 @@ namespace ScrumX.ViewModel
 
         private void AddSprintCommandExecute(Window window)
         {
-            repo.SprintsRepo.AddSprint(SelectedProject, EndDate);
-            repo.SaveChanges(); 
+            repo.SprintsRepo.AddSprint(SelectedProject,EndDate); 
             changeCanAddSprintToTrue.DynamicInvoke();
             window.Close();
         }

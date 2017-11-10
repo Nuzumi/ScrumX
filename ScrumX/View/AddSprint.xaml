@@ -17,7 +17,7 @@
             <RowDefinition Height="auto"/>
         </Grid.RowDefinitions>
         <Label Content="projekt"  Margin="10,6,10,6"/>
-        <ComboBox Grid.Column="1"  Margin="10,6,10,6" SelectedItem="{Binding SelectedProject}"/>
+        <ComboBox Grid.Column="1"  Margin="10,6,10,6" ItemsSource="{Binding Projects}" SelectedItem="{Binding SelectedProject}"/>
         <Label Content="Data Zakończenia" Grid.Row="1" Margin="10,6,10,6"/>
         <DatePicker Grid.Column="1" Grid.Row="1" Margin="10,6,10,6" SelectedDate="{Binding EndDate}" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"/>
         <Grid Grid.ColumnSpan="2" Grid.Row="2">

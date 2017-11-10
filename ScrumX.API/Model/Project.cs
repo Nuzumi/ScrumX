@@ -13,6 +13,7 @@ namespace ScrumX.API.Model
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int IdProject { get; set; }
+        
         public string Name { get; set; }
 
         public DateTime DayCreated { get; set; } = DateTime.Today;
@@ -20,6 +21,9 @@ namespace ScrumX.API.Model
         public virtual IList<Sprint> ProjectSprint { get; set; }
 
         public virtual IList<Job> ProjectJob { get; set; }
+
         //chyba by sie keszcze przydal dlugosc sprintu bo sa takie same dlugosci wiec mozna by tu podac
+
+
     }
 }

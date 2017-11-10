@@ -23,6 +23,5 @@ namespace ScrumX.API.Interfaces
          void DeleteUser(User obj);
 
          void EditUser(User obj);
-         void SaveChanges();
     }
 }
