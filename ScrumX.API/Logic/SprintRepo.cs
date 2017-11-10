@@ -95,8 +95,8 @@ namespace ScrumX.API.Logic
         public Sprint GetLastSprintForProject(Project project)
         {
             return Sprints.Where(s => s.IdProject == project.IdProject)
-                .Where(s => s.StartData >= DateTime.Today)
-                .Where(s=> !s.EndData.HasValue) //starczy, zabezpieczenie -> zamykam sprint -> EndData.
+                .Where(s => s.StartData <= DateTime.Today)
+                .Where(s=>s.EndData > DateTime.Today) //starczy, zabezpieczenie -> zamykam sprint -> EndData.
                 .SingleOrDefault();
         }
     }
