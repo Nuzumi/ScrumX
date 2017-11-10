@@ -39,6 +39,7 @@ namespace ScrumX.API.Model
         public int TableStatus { get; set; } = 0;
 
         public virtual IList<HistoryJob> JobsHistoryJob { get; set; }
+
     }
 
 }

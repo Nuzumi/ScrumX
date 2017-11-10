@@ -138,3 +138,5 @@ E:\Milena\V sem\NET\CopyScrum\Scrum\ScrumX\ScrumX\obj\Debug\View\Table.baml
 E:\Milena\V sem\NET\CopyScrum\Scrum\ScrumX\ScrumX\obj\Debug\ScrumX.g.resources
 E:\Milena\V sem\NET\CopyScrum\Scrum\ScrumX\ScrumX\obj\Debug\ScrumX.Properties.Resources.resources
 E:\Milena\V sem\NET\CopyScrum\Scrum\ScrumX\ScrumX\obj\Debug\ScrumX.csproj.GenerateResource.Cache
+D:\Nowy folder\Git\ScrumX\ScrumX\bin\Debug\Ninject.dll
+D:\Nowy folder\Git\ScrumX\ScrumX\bin\Debug\Ninject.xml

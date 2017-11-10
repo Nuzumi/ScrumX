@@ -87,7 +87,7 @@
                         <DataGridTextColumn Header="No." IsReadOnly="True"/>
                         <DataGridTextColumn Width="3*" Header="Project" Binding="{Binding Sprint, Converter={StaticResource SprintToProjecTitleConverter}}" IsReadOnly="True"/>
                         <DataGridTextColumn Width="3*" Header="Title" Binding="{Binding Title}" IsReadOnly="True"/>
-                        <DataGridComboBoxColumn Header="SP" Width="*" SelectedItemBinding="{Binding Data.SelectedSP, Source={StaticResource proxy}}" ItemsSource="{Binding Data.StoryPointValues, Source={StaticResource proxy}}"/>
+                        <DataGridComboBoxColumn Header="SP" Width="*" SelectedItemBinding="{Binding SP}" ItemsSource="{Binding Data.StoryPointValues, Source={StaticResource proxy}}"/>
                         <DataGridComboBoxColumn Header="Priority" Width="*" SelectedValueBinding="{Binding Priority}" ItemsSource="{Binding Data.PriorityValues, Source={StaticResource proxy}}"/>
                     </DataGrid.Columns>
                 </DataGrid>
