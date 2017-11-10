@@ -23,6 +23,10 @@ namespace ScrumX.API.Model
         public virtual User User { get; set; }
         public int IdUser { get; set; }
 
+        [ForeignKey("IdProject")]
+        public virtual Project Project { get; set; }
+        public int IdProject { get; set; }
+
         public string Title { get; set; }
         public string Desc { get; set; }
         public int? Priority { get; set; }

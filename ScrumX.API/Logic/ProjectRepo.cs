@@ -26,7 +26,9 @@ namespace ScrumX.API.Logic
 
         public int AddProject(Project project)
         {
-            return ctx.Set<Project>().Add(project).IdProject;
+            int id = ctx.Set<Project>().Add(project).IdProject;
+            ctx.SaveChanges();
+            return id;
         }
 
         public bool AddProject(string name)
@@ -43,12 +45,16 @@ namespace ScrumX.API.Logic
         public void DeleteProject(Project obj)
         {
             ctx.Set<Project>().Remove(obj);
+            ctx.SaveChanges();
         }
         
         public void EditProject(Project obj)
         {
-            if(obj.Name != null && obj.Name.Equals(""))
+            if (obj.Name != null && obj.Name.Equals(""))
+            {
                 ctx.Entry<Project>(obj).CurrentValues.SetValues(obj);
+                ctx.SaveChanges();
+            }
         }
 
     }

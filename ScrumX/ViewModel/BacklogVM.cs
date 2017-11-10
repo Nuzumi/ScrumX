@@ -116,6 +116,7 @@ namespace ScrumX.ViewModel
 
         public BacklogVM(User user) :base(user)
         {
+            
             GoToTableCommand = new DelegateCommand<Window>(GoToTableCommandExecute,GoToTableCommandCanExecute);
             projects = new ObservableCollection<Project>();
             TypeList = new List<string> { "None", "New", "Ready", "Scheduled", "Completed" };

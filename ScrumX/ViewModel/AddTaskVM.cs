@@ -98,7 +98,7 @@ namespace ScrumX.ViewModel
 
         private void AddTaskCommandExecute(Window window)
         {
-            Job task = new Job { IdUser = logedUser.IdUser, IdSprint = TaskSprint.IdSprint, Title = TaskTitle, Desc = TaskDescription };
+            Job task = new Job { IdUser = logedUser.IdUser, IdSprint = TaskSprint.IdSprint, Title = TaskTitle, Desc = TaskDescription, IdProject = TaskProject.IdProject};
             repo.JobsRepo.AddJob(task);
             repo.SaveChanges();
             changeCanAddTaskToTrue.DynamicInvoke();

@@ -20,8 +20,10 @@ namespace ScrumX.API.Model
         
         public virtual IList<Sprint> ProjectSprint { get; set; }
 
+        public virtual IList<Job> ProjectJob { get; set; }
+
         //chyba by sie keszcze przydal dlugosc sprintu bo sa takie same dlugosci wiec mozna by tu podac
-        
+
 
     }
 }

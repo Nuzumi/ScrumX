@@ -48,12 +48,15 @@ namespace ScrumX.API.Logic
             {
                 Sprint sprint = new Sprint
                 {
+                    IdProject = project.IdProject,
                     EndData = data
                 };
                 IEnumerable<Sprint> sprints = GetSprintsForProject(project.IdProject);
                 sprint.NoSprint = sprints.ToList().Count == 0 ? 1 : sprints.Max(q => q.NoSprint) + 1;
                 sprint.Title = projectRepo.Projects.SingleOrDefault(P => P.IdProject == sprint.IdProject).Name + " - Sprint " + sprint.NoSprint;
-                return ctx.Set<Sprint>().Add(sprint).IdSprint;
+                int id = ctx.Set<Sprint>().Add(sprint).IdSprint;
+                ctx.SaveChanges(); ;
+                return id;
             }
             else return -1;
         }
@@ -71,6 +74,7 @@ namespace ScrumX.API.Logic
             else
             {
                 ctx.Entry<Sprint>(obj).CurrentValues.SetValues(obj);
+                ctx.SaveChanges();
                 return obj.IdSprint;
             }
         }
@@ -84,6 +88,7 @@ namespace ScrumX.API.Logic
         public void DeleteSprint(Sprint obj)
         {
             ctx.Set<Sprint>().Remove(obj);
+            ctx.SaveChanges();
         }
 
         public Sprint GetLastSprintForProject(Project project)

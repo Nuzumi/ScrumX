@@ -39,19 +39,21 @@ namespace ScrumX.API.Logic
         /// <returns></returns>
         public int AddJob(Job job)
         {
-            int idJob = ctx.Set<Job>().Add(job).IdJob;
+            ctx.Set<Job>().Add(job);
             //W momencie utworzenia zadania tworzy sie log
             HistoryJob hj = new HistoryJob();
             hj.FromBacklog = 0;
             hj.ToBacklog = 0;
             hj.FromTable = 0;
             hj.ToTable = 0;
-            hj.IdJob = idJob;
+            hj.IdJob = Jobs.Max(p => p.IdJob);
             hj.IdUser = job.IdUser;
             hj.Date = DateTime.Today;
             hj.Comment = "Utworzono zadanie \"" + job.Title + "\" przez użytkownika " + userRepo.Users.SingleOrDefault(U => U.IdUser == job.IdUser).Name;
+            
+            ctx.SaveChanges();
             hjRepo.AddHistoryJob(hj);
-            return idJob;
+            return 0;
         }
 
         public IEnumerable<Job> GetJobsInBacklog(int sprint, int backlogStatus)
@@ -69,12 +71,9 @@ namespace ScrumX.API.Logic
         public void DeleteJob(Job obj)
         {
             ctx.Set<Job>().Remove(obj);
-        }
-
-        public void SaveChanges()
-        {
             ctx.SaveChanges();
         }
+        
         /// <summary>
         /// Nie mozna zmienic SP zadania, ktore jest Completed.
         /// </summary>
@@ -176,6 +175,7 @@ namespace ScrumX.API.Logic
             else
             {
                 ctx.Entry<Job>(obj).CurrentValues.SetValues(obj);
+                ctx.SaveChanges();
                 return true;
             }
         }

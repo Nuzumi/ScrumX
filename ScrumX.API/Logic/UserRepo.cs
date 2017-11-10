@@ -64,6 +64,7 @@ namespace ScrumX.API.Logic
             if (!UserExists(name))
             {
                 ctx.Set<User>().Add(new User { Name = name, Password = password });
+                ctx.SaveChanges();
                 return true;
             }
             else return false;
@@ -72,15 +73,12 @@ namespace ScrumX.API.Logic
         public void DeleteUser(User obj)
         {
             ctx.Set<User>().Remove(obj);
+            ctx.SaveChanges();
         }
 
         public void EditUser(User obj)
         {
             ctx.Entry<User>(obj).CurrentValues.SetValues(obj);
-        }
-        
-        public void SaveChanges()
-        {
             ctx.SaveChanges();
         }
     }

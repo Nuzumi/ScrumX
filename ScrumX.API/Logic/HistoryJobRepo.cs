@@ -25,8 +25,9 @@ namespace ScrumX.API.Repository
 
         public int AddHistoryJob(HistoryJob hj)
         {
-            
-            return ctx.Set<HistoryJob>().Add(hj).IdHistoryJob;
+            int id = ctx.Set<HistoryJob>().Add(hj).IdHistoryJob;
+            ctx.SaveChanges();
+            return id;
         }
 
         public bool AddHistoryJob(string comment, Job job, User user)
@@ -47,16 +48,13 @@ namespace ScrumX.API.Repository
         public void DeleteHistoryJob(HistoryJob obj)
         {
             ctx.Set<HistoryJob>().Remove(obj);
-        }
-
-        public void SaveChanges()
-        {
             ctx.SaveChanges();
         }
-
+        
         public void EditHistoryJob(HistoryJob obj)
         {
             ctx.Entry<HistoryJob>(obj).CurrentValues.SetValues(obj);
+            ctx.SaveChanges(); ;
         }
 
     }
