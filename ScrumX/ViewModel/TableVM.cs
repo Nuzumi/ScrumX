@@ -6,6 +6,7 @@ using ScrumX.HelperClasses;
 using System.Collections.ObjectModel;
 using System.Collections.Generic;
 using ScrumX.API.Repository;
+using ScrumX.API.Content;
 
 namespace ScrumX.ViewModel
 {
@@ -71,7 +72,7 @@ namespace ScrumX.ViewModel
             }
         }
 
-        private type selectedType;
+        private typeBacklog selectedType;
         public string SelectedType
         {
             get { return selectedType.ToString(); }
@@ -80,23 +81,23 @@ namespace ScrumX.ViewModel
                 switch (value)
                 {
                     case "None":
-                        SetProperty(ref selectedType, type.None);
+                        SetProperty(ref selectedType, typeBacklog.None);
                         break;
 
                     case "New":
-                        SetProperty(ref selectedType, type.New);
+                        SetProperty(ref selectedType, typeBacklog.New);
                         break;
 
                     case "Ready":
-                        SetProperty(ref selectedType, type.Ready);
+                        SetProperty(ref selectedType, typeBacklog.Ready);
                         break;
 
                     case "Scheduled":
-                        SetProperty(ref selectedType, type.Scheduled);
+                        SetProperty(ref selectedType, typeBacklog.Scheduled);
                         break;
 
                     case "Completed":
-                        SetProperty(ref selectedType, type.Completed);
+                        SetProperty(ref selectedType, typeBacklog.Completed);
                         break;
                 }
             }

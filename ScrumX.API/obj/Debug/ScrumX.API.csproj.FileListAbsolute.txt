@@ -48,7 +48,6 @@ E:\Milena\V sem\NET\CopyScrum\Scrum\ScrumX\ScrumX.API\bin\Debug\Ninject.dll
 E:\Milena\V sem\NET\CopyScrum\Scrum\ScrumX\ScrumX.API\bin\Debug\EntityFramework.xml
 E:\Milena\V sem\NET\CopyScrum\Scrum\ScrumX\ScrumX.API\bin\Debug\EntityFramework.SqlServer.xml
 E:\Milena\V sem\NET\CopyScrum\Scrum\ScrumX\ScrumX.API\bin\Debug\Ninject.xml
-E:\Milena\V sem\NET\CopyScrum\Scrum\ScrumX\ScrumX.API\obj\Debug\ScrumX.API.csprojResolveAssemblyReference.cache
 E:\Milena\V sem\NET\CopyScrum\Scrum\ScrumX\ScrumX.API\obj\Debug\ScrumX.API.Migrations.Add.resources
 E:\Milena\V sem\NET\CopyScrum\Scrum\ScrumX\ScrumX.API\obj\Debug\ScrumX.API.Migrations.Fix.resources
 E:\Milena\V sem\NET\CopyScrum\Scrum\ScrumX\ScrumX.API\obj\Debug\ScrumX.API.Migrations.AddfieldtoHistoryJob.resources

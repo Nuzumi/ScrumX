@@ -38,3 +38,5 @@ E:\Milena\V sem\NET\CopyScrum\Scrum\ScrumX\ScrumX.Tests\bin\Debug\EntityFramewor
 E:\Milena\V sem\NET\CopyScrum\Scrum\ScrumX\ScrumX.Tests\bin\Debug\Moq.pdb
 E:\Milena\V sem\NET\CopyScrum\Scrum\ScrumX\ScrumX.Tests\bin\Debug\Moq.xml
 E:\Milena\V sem\NET\CopyScrum\Scrum\ScrumX\ScrumX.Tests\bin\Debug\Ninject.xml
+E:\Milena\V sem\NET\CopyScrum\Scrum\ScrumX\ScrumX.Tests\bin\Debug\nunit.framework.dll
+E:\Milena\V sem\NET\CopyScrum\Scrum\ScrumX\ScrumX.Tests\bin\Debug\nunit.framework.xml

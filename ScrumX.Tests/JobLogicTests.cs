@@ -16,34 +16,38 @@ namespace ScrumX.Tests
     public class JobLogicTests
     {
 
-        Mock<IJobRepo> repo = new Mock<IJobRepo>();
-        
-        [TestMethod]
-        public void Setup()
+        EfRepository repo;
+
+        [TestInitialize]
+        public void BeforeTest()
         {
-            //repo.Setup(m => m.Jobs).Returns<List<Job>>()
+            repo = new EfRepository();
+            Console.WriteLine("BeforeTest");
+        }
+
+        [TestCleanup]
+        public void AfterTest()
+        {
+            Console.WriteLine("AfterTest");
         }
 
         [TestMethod]
         public void GetJobs()
         {
-            Setup();
-            Console.Write(repo.Object.Jobs.Count());
+            Assert.IsNotNull(repo.JobsRepo.Jobs);
         }
-
+        
         [TestMethod]
         public void SearchJob()
         {
-            Setup();
-            Assert.AreEqual(repo.Object.SearchJob("e").Count(),3);            
+            Assert.AreEqual(repo.JobsRepo.SearchJob("test").Count(),1);            
         }
 
         [TestMethod]
         public void AddJob()
         {
-            Setup();
-            repo.Object.AddJob(new Job { Title = "Test zadanie", IdProject = 6, IdUser = 1, Priority = 0 });
-            Assert.AreEqual(repo.Object.GetJobById(repo.Object.Jobs.Max(j => j.IdJob)).Title, "Test zadanie");
+            repo.JobsRepo.AddJob(new Job { Title = "Test zadanie", IdProject = 6, IdUser = 1, Priority = 0, IdSprint = 0});
+            Assert.AreEqual(repo.JobsRepo.GetJobById(repo.JobsRepo.Jobs.Max(j => j.IdJob)).Title, "Test zadanie");
         }
 
         [TestMethod]

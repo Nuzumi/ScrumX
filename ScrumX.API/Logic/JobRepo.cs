@@ -70,13 +70,17 @@ namespace ScrumX.API.Logic
         public IEnumerable<Job> GetJobsInBacklog(Project project, int backlogStatus)
         {
             var list = Jobs.Where(J => J.IdProject == project.IdProject );
-            return backlogStatus == 0 ? list.ToList() : list.Where(J => J.BacklogStatus == backlogStatus).ToList();
+            if (list != null)
+                return backlogStatus == 0 ? list.ToList() : list.Where(J => J.BacklogStatus == backlogStatus).ToList();
+            else return null;
         }
 
         public IEnumerable<Job> GetJobsInTable(Sprint sprint, int tableStatus)
         {
             var list = Jobs.Where(J => J.IdSprint == sprint.IdSprint);
-            return tableStatus == 0 ? list.ToList() : list.Where(J => J.TableStatus == tableStatus).ToList();
+            if (list != null)
+                return tableStatus == 0 ? list.ToList() : list.Where(J => J.TableStatus == tableStatus).ToList();
+            else return null;
         }
 
         public void DeleteJob(Job obj)

@@ -14,6 +14,7 @@ using ScrumX.HelperClasses;
 using System.Collections.ObjectModel;
 using System.Windows.Controls;
 using ScrumX.API.Repository;
+using ScrumX.API.Content;
 
 namespace ScrumX.ViewModel
 {
@@ -45,7 +46,7 @@ namespace ScrumX.ViewModel
             }
         }
 
-        private type selectedType;
+        private typeBacklog selectedType;
         public string SelectedType
         {
             get { return selectedType.ToString(); }
@@ -54,28 +55,28 @@ namespace ScrumX.ViewModel
                 switch (value)
                 {
                     case "None":
-                        SetProperty(ref selectedType, type.None);
-                        Jobs = new ObservableCollection<Job>(repo.JobsRepo.GetJobsInBacklog(SelectedProject,(int)type.None));
+                        SetProperty(ref selectedType, typeBacklog.None);
+                        Jobs = new ObservableCollection<Job>(repo.JobsRepo.GetJobsInBacklog(SelectedProject,(int)typeBacklog.None));
                         break;
 
                     case "New":
-                        SetProperty(ref selectedType, type.New);
-                        Jobs = new ObservableCollection<Job>(repo.JobsRepo.GetJobsInBacklog(SelectedProject, (int)type.New));
+                        SetProperty(ref selectedType, typeBacklog.New);
+                        Jobs = new ObservableCollection<Job>(repo.JobsRepo.GetJobsInBacklog(SelectedProject, (int)typeBacklog.New));
                         break;
 
                     case "Ready":
-                        SetProperty(ref selectedType, type.Ready);
-                        Jobs = new ObservableCollection<Job>(repo.JobsRepo.GetJobsInBacklog(SelectedProject, (int)type.Ready));
+                        SetProperty(ref selectedType, typeBacklog.Ready);
+                        Jobs = new ObservableCollection<Job>(repo.JobsRepo.GetJobsInBacklog(SelectedProject, (int)typeBacklog.Ready));
                         break;
 
                     case "Scheduled":
-                        SetProperty(ref selectedType, type.Scheduled);
-                        Jobs = new ObservableCollection<Job>(repo.JobsRepo.GetJobsInBacklog(SelectedProject, (int)type.Scheduled));
+                        SetProperty(ref selectedType, typeBacklog.Scheduled);
+                        Jobs = new ObservableCollection<Job>(repo.JobsRepo.GetJobsInBacklog(SelectedProject, (int)typeBacklog.Scheduled));
                         break;
 
                     case "Completed":
-                        SetProperty(ref selectedType, type.Completed);
-                        Jobs = new ObservableCollection<Job>(repo.JobsRepo.GetJobsInBacklog(SelectedProject, (int)type.Completed));
+                        SetProperty(ref selectedType, typeBacklog.Completed);
+                        Jobs = new ObservableCollection<Job>(repo.JobsRepo.GetJobsInBacklog(SelectedProject, (int)typeBacklog.Completed));
                         break;
                 }
             }
