@@ -120,9 +120,7 @@ namespace ScrumX.ViewModel
 
         public BacklogVM(User user) :base(user)
         {
-            
             GoToTableCommand = new DelegateCommand<Window>(GoToTableCommandExecute,GoToTableCommandCanExecute);
-            projects = new ObservableCollection<Project>();
             TypeList = new List<string> { "None", "New", "Ready", "Scheduled", "Completed" };
             StoryPointValues = new List<int> { 0, 1, 2, 3, 5, 8, 13, 20, 40, 100 };
             PriorityValues = new List<int> { 1, 2, 3, 4, 5 };
@@ -139,6 +137,7 @@ namespace ScrumX.ViewModel
             {
                 (GoToTableCommand as DelegateCommand<Window>).RaiseCanExecuteChanged();
                 Jobs = new ObservableCollection<Job>(repo.JobsRepo.Jobs);
+                Projects = new ObservableCollection<Project>(repo.ProjectsRepo.Projects);
             }
         }
 
