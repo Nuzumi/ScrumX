@@ -50,6 +50,10 @@ namespace ScrumX.ViewModel
             {
                 SetProperty(ref selectedProject, value);
                 Sprints = new ObservableCollection<Sprint>(repo.SprintsRepo.GetSprintsForProject(value.IdProject));
+                if(Sprints.Count != 0)
+                {
+                    SelectedSprint = repo.SprintsRepo.GetLastSprintForProject(SelectedProject);
+                }
             }
         }
 
@@ -67,8 +71,16 @@ namespace ScrumX.ViewModel
             set
             {
                 SetProperty(ref selectedSprint, value);
-                ToDoJobs = new ObservableCollection<Job>(repo.JobsRepo.GetJobsInTable(value, (int)typeTable.ToDo));
-                DoingJobs = new ObservableCollection<Job>(repo.JobsRepo.GetJobsInTable(value, (int)typeTable.Doing));
+                if (SelectedSprint != null)
+                {
+                    ToDoJobs = new ObservableCollection<Job>(repo.JobsRepo.GetJobsInTable(value, (int)typeTable.ToDo));
+                    DoingJobs = new ObservableCollection<Job>(repo.JobsRepo.GetJobsInTable(value, (int)typeTable.Doing));
+                }
+                else
+                {
+                    ToDoJobs.Clear();
+                    DoingJobs.Clear();
+                }
             }
         }
 

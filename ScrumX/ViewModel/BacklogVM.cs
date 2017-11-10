@@ -99,6 +99,19 @@ namespace ScrumX.ViewModel
             }
         }
 
+        private int selectedSP;
+        public int SelectedSP
+        {
+            get { return selectedSP; }
+            set
+            {
+                SetProperty(ref selectedSP, value);
+                if(SelectedJob != null)
+                {
+                    repo.JobsRepo.ChangeJobSP(SelectedJob, value, logedUser);
+                }
+            }
+        }
 
         public ICommand SearchCommand { get; set; }
         public ICommand GoToTableCommand { get; set; }

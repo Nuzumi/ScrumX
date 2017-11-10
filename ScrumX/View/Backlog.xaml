@@ -75,8 +75,10 @@
         <Separator DockPanel.Dock="Top" BorderThickness="1" BorderBrush="Black"/>
         <Grid Margin="8">
             <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="2*"/><!--lista : numerek,projekt, tytul, storyPointy, prioytet-->
-                <ColumnDefinition Width="*"/><!--details-->
+                <ColumnDefinition Width="2*"/>
+                <!--lista : numerek,projekt, tytul, storyPointy, prioytet-->
+                <ColumnDefinition Width="*"/>
+                <!--details-->
             </Grid.ColumnDefinitions>
             <Grid Margin="5">
                 <DataGrid ItemsSource="{Binding Jobs}" SelectedItem="{Binding SelectedJob}" Margin="6,3,6,3" AutoGenerateColumns="False" SelectionMode="Single" SelectionUnit="FullRow" CanUserAddRows="False" CanUserDeleteRows="False" CanUserSortColumns="False" CanUserReorderColumns="True" CanUserResizeColumns="False">
@@ -87,7 +89,7 @@
                         <DataGridTextColumn Header="No." IsReadOnly="True"/>
                         <DataGridTextColumn Width="3*" Header="Project" Binding="{Binding Sprint, Converter={StaticResource SprintToProjecTitleConverter}}" IsReadOnly="True"/>
                         <DataGridTextColumn Width="3*" Header="Title" Binding="{Binding Title}" IsReadOnly="True"/>
-                        <DataGridComboBoxColumn Header="SP" Width="*" SelectedItemBinding="{Binding SP}" ItemsSource="{Binding Data.StoryPointValues, Source={StaticResource proxy}}"/>
+                        <DataGridComboBoxColumn Header="SP" Width="*" SelectedItemBinding="{Binding SP , Mode=OneTime}" SelectedValueBinding="{Binding Data.SelectedSP, Source={StaticResource proxy} , Mode=OneWayToSource}" ItemsSource="{Binding Data.StoryPointValues, Source={StaticResource proxy}}"/>
                         <DataGridComboBoxColumn Header="Priority" Width="*" SelectedValueBinding="{Binding Priority}" ItemsSource="{Binding Data.PriorityValues, Source={StaticResource proxy}}"/>
                     </DataGrid.Columns>
                 </DataGrid>
