@@ -17,10 +17,11 @@ namespace ScrumX.API.Logic
             get;
         }
 
-         IEnumerable<Job> GetJobsForSprint(int idSprint);
+         IEnumerable<Job> GetJobsForSprint(Sprint sprint);
+         IEnumerable<Job> GetJobsForProject(Project project);
          int AddJob(Job job);
-         IEnumerable<Job> GetJobsInBacklog(int sprint, int backlogStatus);
-         IEnumerable<Job> GetJobsInTable(int sprint, int tableStatus);
+         IEnumerable<Job> GetJobsInBacklog(Project project, int backlogStatus);
+         IEnumerable<Job> GetJobsInTable(Sprint sprint, int tableStatus);
          void DeleteJob(Job obj);
          Job ChangeJobSP(Job obj, int SP, User user);
          void EndJob(Job job, User user);

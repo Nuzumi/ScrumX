@@ -27,9 +27,14 @@ namespace ScrumX.API.Logic
             get { return ctx.Jobs.ToList(); }
         }
 
-        public IEnumerable<Job> GetJobsForSprint(int idSprint)
+        public IEnumerable<Job> GetJobsForSprint(Sprint sprint)
         {
-            return Jobs.Where(J => J.IdSprint == idSprint).ToList();
+            return Jobs.Where(J => J.IdSprint == sprint.IdSprint).ToList();
+        }
+
+        public IEnumerable<Job> GetJobsForProject(Project project)
+        {
+            return Jobs.Where(J => J.IdProject == project.IdProject).ToList();
         }
 
         /// <summary>
@@ -56,15 +61,15 @@ namespace ScrumX.API.Logic
             return 0;
         }
 
-        public IEnumerable<Job> GetJobsInBacklog(int sprint, int backlogStatus)
+        public IEnumerable<Job> GetJobsInBacklog(Project project, int backlogStatus)
         {
-            var list = Jobs.Where(J => J.IdSprint == sprint);
+            var list = Jobs.Where(J => J.IdProject == project.IdProject );
             return backlogStatus == 0 ? list.ToList() : list.Where(J => J.BacklogStatus == backlogStatus).ToList();
         }
 
-        public IEnumerable<Job> GetJobsInTable(int sprint, int tableStatus)
+        public IEnumerable<Job> GetJobsInTable(Sprint sprint, int tableStatus)
         {
-            var list = Jobs.Where(J => J.IdSprint == sprint);
+            var list = Jobs.Where(J => J.IdSprint == sprint.IdSprint);
             return tableStatus == 0 ? list.ToList() : list.Where(J => J.TableStatus == tableStatus).ToList();
         }
 

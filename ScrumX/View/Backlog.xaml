@@ -79,7 +79,7 @@
                 <ColumnDefinition Width="*"/><!--details-->
             </Grid.ColumnDefinitions>
             <Grid Margin="5">
-                <DataGrid ItemsSource="{Binding Jobs}" Margin="6,3,6,3" AutoGenerateColumns="False" SelectionMode="Single" SelectionUnit="FullRow" CanUserAddRows="False" CanUserDeleteRows="False" CanUserSortColumns="False" CanUserReorderColumns="True" CanUserResizeColumns="False">
+                <DataGrid ItemsSource="{Binding Jobs}" SelectedItem="{Binding SelectedJob}" Margin="6,3,6,3" AutoGenerateColumns="False" SelectionMode="Single" SelectionUnit="FullRow" CanUserAddRows="False" CanUserDeleteRows="False" CanUserSortColumns="False" CanUserReorderColumns="True" CanUserResizeColumns="False">
                     <DataGrid.Resources>
                         <helper:BindingProxy x:Key="proxy" Data="{Binding}"/>
                     </DataGrid.Resources>
