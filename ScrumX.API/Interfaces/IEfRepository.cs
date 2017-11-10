@@ -11,7 +11,7 @@ namespace ScrumX.API.Interfaces
     public interface IEfRepository
     {
          HistoryJobRepo HistoryJobsRepo { get; }
-         JobRepo JobsRepo { get; }
+         JobRepo JobsRepo { get; set; }
          UserRepo UsersRepo { get; }
          ProjectRepo ProjectsRepo { get; }
          SprintRepo SprintsRepo { get; }

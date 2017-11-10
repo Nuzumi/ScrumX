@@ -18,11 +18,11 @@ namespace ScrumX.API.Repository
         
         EfDbContext ctx = new EfDbContext();
 
-        public IHistoryJobRepo HistoryJobsRepo { get; }
-        public IJobRepo JobsRepo { get; }
-        public IUserRepo UsersRepo { get; }
-        public IProjectRepo ProjectsRepo { get; }
-        public ISprintRepo SprintsRepo { get; }
+        public IHistoryJobRepo HistoryJobsRepo { get; set; }
+        public IJobRepo JobsRepo { get; set; }
+        public IUserRepo UsersRepo { get; set; }
+        public IProjectRepo ProjectsRepo { get; set; }
+        public ISprintRepo SprintsRepo { get; set; }
 
         public EfRepository()
         {

@@ -25,6 +25,7 @@ namespace ScrumX.API.Logic
         public IEnumerable<Job> Jobs
         {
             get { return ctx.Jobs.ToList(); }
+            set { Jobs = value; }
         }
 
         public IEnumerable<Job> GetJobsForSprint(Sprint sprint)
@@ -47,8 +48,8 @@ namespace ScrumX.API.Logic
             ctx.Set<Job>().Add(job);
             //W momencie utworzenia zadania tworzy sie log
             HistoryJob hj = new HistoryJob();
-            hj.FromBacklog = 0;
-            hj.ToBacklog = 0;
+            hj.FromBacklog = 1;
+            hj.ToBacklog = 1;
             hj.FromTable = 0;
             hj.ToTable = 0;
             hj.IdJob = Jobs.Max(p => p.IdJob);
@@ -59,6 +60,11 @@ namespace ScrumX.API.Logic
             ctx.SaveChanges();
             hjRepo.AddHistoryJob(hj);
             return 0;
+        }
+
+        public Job GetJobById(int id)
+        {
+            return Jobs.Where(j => j.IdJob == id).SingleOrDefault();
         }
 
         public IEnumerable<Job> GetJobsInBacklog(Project project, int backlogStatus)
@@ -90,7 +96,7 @@ namespace ScrumX.API.Logic
         {
             //Jak nie jest completed
 
-            if (obj.BacklogStatus != 3)
+            if (obj.BacklogStatus != 4)
             {
                 //Edit zadania robi wpis w HJ
                 HistoryJob hj = new HistoryJob();
@@ -107,7 +113,7 @@ namespace ScrumX.API.Logic
                     hj.ToTable = 1; //do tablicy To-do
                     obj.TableStatus = 1;
                     obj.SP = SP;
-                    hj.Comment = "Przeniesiono zadanie \"" + obj.Title + "\" do rejestru " + " " + " przez użytkownika "
+                    hj.Comment = "Przeniesiono zadanie \"" + obj.Title + "\" do rejestru " + Enum.GetName(typeof(Content.typeBacklog), 2) + " przez użytkownika "
                         + userRepo.Users.SingleOrDefault(U => U.IdUser == user.IdUser).Name;
                 }
                 else
@@ -160,11 +166,11 @@ namespace ScrumX.API.Logic
                 Date = DateTime.Today,
                 FromBacklog = job.BacklogStatus,
                 FromTable = job.TableStatus,
-                ToBacklog = 3,
-                ToTable = 3,
+                ToBacklog = 4,
+                ToTable = 4,
                 IdJob = job.IdJob,
                 IdUser = user.IdUser,
-                Comment = "Przeniesiono zadanie \"" + job.Title + "\" do rejestru " + " " + " przez użytkownika "
+                Comment = "Przeniesiono zadanie \"" + job.Title + "\" do rejestru " + Enum.GetName(typeof(Content.typeBacklog), 3) + " przez użytkownika "
                         + user.Name
             };
             hjRepo.AddHistoryJob(hj);
@@ -198,7 +204,7 @@ namespace ScrumX.API.Logic
                     ToTable = table,
                     IdJob = job.IdJob,
                     IdUser = user.IdUser,
-                    Comment = "Przeniesiono zadanie \"" + job.Title + "\" do rejestru " + " " + " przez użytkownika "
+                    Comment = "Przeniesiono zadanie \"" + job.Title + "\" do rejestru " + Enum.GetName(typeof(Content.typeTable), table) + " przez użytkownika "
                         + user.Name
                 };
                 hjRepo.AddHistoryJob(hj);
@@ -207,5 +213,12 @@ namespace ScrumX.API.Logic
             }
             else return false;
         }
+
+        public IEnumerable<Job> SearchJob(string tag)
+        {
+            return Jobs.Where(p => p.Title.Contains(tag)).ToList();
+        }
+
     }
+    
 }

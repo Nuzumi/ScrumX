@@ -25,8 +25,9 @@ namespace ScrumX.Tests
         {
             EfRepository repo = new EfRepository();
 
-            Assert.IsTrue(repo.UsersRepo.UserLogin("admin", "admin"));
-            Assert.IsFalse(repo.UsersRepo.UserLogin("Admin", "admin"));
+            Assert.AreEqual(repo.UsersRepo.UserLogin("admin", "admin"), 1);
+            Assert.AreEqual(repo.UsersRepo.UserLogin("Roenna", "admin"), 0);
+            Assert.AreEqual(repo.UsersRepo.UserLogin("admin", "ADMIN1"), -1);
         }
 
         [TestMethod]
@@ -35,7 +36,7 @@ namespace ScrumX.Tests
             EfRepository repo = new EfRepository();
 
             Assert.IsFalse(repo.UsersRepo.RegisterUser("admin", "admin"));
-
+            
             Assert.IsTrue(repo.UsersRepo.RegisterUser("Admin1", "Admin1"));
             
         }
@@ -81,6 +82,13 @@ namespace ScrumX.Tests
             repo.UsersRepo.DeleteUser(user);
             Assert.IsNull(repo.UsersRepo.GetUserByName("Admin1"));
         }
-        
+
+        public void DeleteUser(string name)
+        {
+            EfRepository repo = new EfRepository();
+            User user = repo.UsersRepo.GetUserByName("name");
+            repo.UsersRepo.DeleteUser(user);
+        }
+
     }
 }

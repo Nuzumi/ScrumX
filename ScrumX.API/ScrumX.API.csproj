@@ -53,6 +53,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Content\Helper.cs" />
     <Compile Include="Context\EfDbContext.cs" />
     <Compile Include="Interfaces\IEfRepository.cs" />
     <Compile Include="Interfaces\IHistoryJobRepo.cs" />

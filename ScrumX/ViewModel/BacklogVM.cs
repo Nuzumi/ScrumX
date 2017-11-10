@@ -14,6 +14,7 @@ using ScrumX.HelperClasses;
 using System.Collections.ObjectModel;
 using System.Windows.Controls;
 using ScrumX.API.Repository;
+using ScrumX.API.Content;
 
 namespace ScrumX.ViewModel
 {
@@ -41,7 +42,7 @@ namespace ScrumX.ViewModel
             set { SetProperty(ref selectedProject, value); }
         }
 
-        private type selectedType;
+        private typeBacklog selectedType;
         public string SelectedType
         {
             get { return selectedType.ToString(); }
@@ -50,25 +51,25 @@ namespace ScrumX.ViewModel
                 switch (value)
                 {
                     case "None":
-                        SetProperty(ref selectedType, type.None);
+                        SetProperty(ref selectedType, typeBacklog.None);
                         Jobs = new ObservableCollection<Job>(repo.JobsRepo.Jobs);
                         break;
 
                     case "New":
-                        SetProperty(ref selectedType, type.New);
+                        SetProperty(ref selectedType, typeBacklog.New);
                         //Jobs = new ObservableCollection<Job>(repo.JobsRepo.GetJobsInBacklog())
                         break;
 
                     case "Ready":
-                        SetProperty(ref selectedType, type.Ready);
+                        SetProperty(ref selectedType, typeBacklog.Ready);
                         break;
 
                     case "Scheduled":
-                        SetProperty(ref selectedType, type.Scheduled);
+                        SetProperty(ref selectedType, typeBacklog.Scheduled);
                         break;
 
                     case "Completed":
-                        SetProperty(ref selectedType, type.Completed);
+                        SetProperty(ref selectedType, typeBacklog.Completed);
                         break;
                 }
             }
@@ -129,6 +130,7 @@ namespace ScrumX.ViewModel
             UserName = user.Name;
             Projects = new ObservableCollection<Project>(repo.ProjectsRepo.Projects);
             Jobs = new ObservableCollection<Job>(repo.JobsRepo.Jobs);
+            
         }
 
         protected override void riseGoToCommands()

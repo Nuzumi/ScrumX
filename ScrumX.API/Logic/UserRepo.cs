@@ -40,17 +40,27 @@ namespace ScrumX.API.Logic
             return Users.ToList().SingleOrDefault(U => U.IdUser == idUser);
         }
 
-        public bool UserLogin(string name, string password)
+        /// <summary>
+        /// Logowanie usera
+        /// </summary>
+        /// <param name="name"></param>
+        /// <param name="password"></param>
+        /// <returns>
+        /// 0 - użytkownik nie istnieje
+        /// -1 - błędne hasło
+        /// 1 - spoko
+        /// </returns>
+        public int UserLogin(string name, string password)
         {
             if (UserExists(name))
             {
                 if (GetUserByName(name).Password.Equals(password))
-                    return true;
+                    return 1;
                 else
-                    return false;
+                    return -1;
             }
             else
-                return false;
+                return 0;
         }
 
         /// <summary>

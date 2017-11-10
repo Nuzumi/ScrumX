@@ -15,8 +15,9 @@ namespace ScrumX.API.Logic
          IEnumerable<Job> Jobs
         {
             get;
+            set;
         }
-
+         Job GetJobById(int id);
          IEnumerable<Job> GetJobsForSprint(Sprint sprint);
          IEnumerable<Job> GetJobsForProject(Project project);
          int AddJob(Job job);
@@ -27,5 +28,6 @@ namespace ScrumX.API.Logic
          void EndJob(Job job, User user);
          bool EditJob(Job obj);
          bool ChangeJobTable(Job job, User user, int table);
+         IEnumerable<Job> SearchJob(string tag);
     }
 }
