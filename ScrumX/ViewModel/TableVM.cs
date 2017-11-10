@@ -17,7 +17,6 @@ namespace ScrumX.ViewModel
         #region Properties
 
         public string UserName { get; set; }
-        public List<string> TypeList { get; set; }
 
         private ObservableCollection<Job> toDoJobs;
         public ObservableCollection<Job> ToDoJobs
@@ -68,38 +67,8 @@ namespace ScrumX.ViewModel
             set
             {
                 SetProperty(ref selectedSprint, value);
-               // ToDoJobs = repo.JobsRepo.GetJobsInTable()
-            }
-        }
-
-        private typeBacklog selectedType;
-        public string SelectedType
-        {
-            get { return selectedType.ToString(); }
-            set
-            {
-                switch (value)
-                {
-                    case "None":
-                        SetProperty(ref selectedType, typeBacklog.None);
-                        break;
-
-                    case "New":
-                        SetProperty(ref selectedType, typeBacklog.New);
-                        break;
-
-                    case "Ready":
-                        SetProperty(ref selectedType, typeBacklog.Ready);
-                        break;
-
-                    case "Scheduled":
-                        SetProperty(ref selectedType, typeBacklog.Scheduled);
-                        break;
-
-                    case "Completed":
-                        SetProperty(ref selectedType, typeBacklog.Completed);
-                        break;
-                }
+                ToDoJobs = new ObservableCollection<Job>(repo.JobsRepo.GetJobsInTable(value, (int)typeTable.ToDo));
+                DoingJobs = new ObservableCollection<Job>(repo.JobsRepo.GetJobsInTable(value, (int)typeTable.Doing));
             }
         }
 
@@ -111,10 +80,18 @@ namespace ScrumX.ViewModel
         public TableVM(User user) :base(user)
         {
             GoToBacklogCommand = new DelegateCommand<Window>(GoToBacklogCommandExecute, GoToBacklogCommandCanExecute);
-            TypeList = new List<string> { "None","ToDo","Doing","Done" };
             logedUser = user;
             UserName = user.Name;
+            repo = new EfRepository();
             Projects = new ObservableCollection<Project>(repo.ProjectsRepo.Projects);
+            if(Projects[0] != null)
+            {
+                SelectedProject = Projects[0];
+                if(Sprints[0] != null)
+                {
+                    SelectedSprint = Sprints[0];
+                }
+            }
         }
 
         protected override void riseGoToCommands()

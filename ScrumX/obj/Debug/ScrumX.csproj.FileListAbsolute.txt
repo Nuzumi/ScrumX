@@ -140,6 +140,6 @@ E:\Milena\V sem\NET\CopyScrum\Scrum\ScrumX\ScrumX\obj\Debug\ScrumX.Properties.Re
 E:\Milena\V sem\NET\CopyScrum\Scrum\ScrumX\ScrumX\obj\Debug\ScrumX.csproj.GenerateResource.Cache
 D:\Nowy folder\Git\ScrumX\ScrumX\bin\Debug\Ninject.dll
 D:\Nowy folder\Git\ScrumX\ScrumX\bin\Debug\Ninject.xml
-E:\Milena\V sem\NET\CopyScrum\Scrum\ScrumX\ScrumX\bin\Debug\GongSolutions.Wpf.DragDrop.dll
-E:\Milena\V sem\NET\CopyScrum\Scrum\ScrumX\ScrumX\bin\Debug\GongSolutions.Wpf.DragDrop.pdb
-E:\Milena\V sem\NET\CopyScrum\Scrum\ScrumX\ScrumX\bin\Debug\GongSolutions.Wpf.DragDrop.xml
+D:\Nowy folder\Git\ScrumX\ScrumX\bin\Debug\GongSolutions.Wpf.DragDrop.dll
+D:\Nowy folder\Git\ScrumX\ScrumX\bin\Debug\GongSolutions.Wpf.DragDrop.pdb
+D:\Nowy folder\Git\ScrumX\ScrumX\bin\Debug\GongSolutions.Wpf.DragDrop.xml
