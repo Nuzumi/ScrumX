@@ -55,17 +55,27 @@
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="*"/>
                 <ColumnDefinition Width="*"/>
-                <ColumnDefinition Width="*"/>
                 <ColumnDefinition Width="auto"/>
                 <ColumnDefinition Width="auto"/>
                 <ColumnDefinition Width="auto"/>
             </Grid.ColumnDefinitions>
-            <ComboBox Margin="5" ItemsSource="{Binding TypeList}" SelectedItem="{Binding SelectedType}"/>
-            <ComboBox Margin="5" Grid.Column="1"/>
-            <ComboBox Margin="5" Grid.Column="2"/>
-            <Border Grid.Column="3" BorderThickness="0.8" BorderBrush="Black" Margin="0,4,4,4"/>
-            <RadioButton Grid.Column="4" Margin="5,9,5,4"/>
-            <Label Content="tylko twoje zadania" Grid.Column="5" FontSize="15"/>
+            <ComboBox Margin="5" ItemsSource="{Binding Projects}" SelectedItem="{Binding SelectedProject}">
+                <ComboBox.ItemTemplate>
+                    <DataTemplate>
+                        <Label Content="{Binding Name}" />
+                    </DataTemplate>
+                </ComboBox.ItemTemplate>
+            </ComboBox>
+            <ComboBox Margin="5" Grid.Column="1" ItemsSource="{Binding Sprints}" SelectedItem="{Binding SelectedSprint}">
+                <ComboBox.ItemTemplate>
+                    <DataTemplate>
+                        <Label Content="{Binding Title}" />
+                    </DataTemplate>
+                </ComboBox.ItemTemplate>
+            </ComboBox>
+            <Border Grid.Column="2" BorderThickness="0.8" BorderBrush="Black" Margin="0,4,4,4"/>
+            <RadioButton Grid.Column="3" Margin="5,9,5,4"/>
+            <Label Content="tylko twoje zadania" Grid.Column="4" FontSize="15"/>
         </Grid>
         <Separator DockPanel.Dock="Top" BorderThickness="1" BorderBrush="Black"/>
         <Grid Margin="8">
