@@ -54,8 +54,9 @@ namespace ScrumX.API.Logic
                 IEnumerable<Sprint> sprints = GetSprintsForProject(project.IdProject);
                 sprint.NoSprint = sprints.ToList().Count == 0 ? 1 : sprints.Max(q => q.NoSprint) + 1;
                 sprint.Title = projectRepo.Projects.SingleOrDefault(P => P.IdProject == sprint.IdProject).Name + " - Sprint " + sprint.NoSprint;
-                int id = ctx.Set<Sprint>().Add(sprint).IdSprint;
-                ctx.SaveChanges(); ;
+                ctx.Set<Sprint>().Add(sprint);
+                ctx.SaveChanges();
+                int id = sprint.IdSprint;
                 return id;
             }
             else return -1;

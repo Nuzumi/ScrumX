@@ -25,9 +25,15 @@ namespace ScrumX.API.Repository
 
         public int AddHistoryJob(HistoryJob hj)
         {
-            int id = ctx.Set<HistoryJob>().Add(hj).IdHistoryJob;
+            ctx.Set<HistoryJob>().Add(hj);
             ctx.SaveChanges();
+            int id = hj.IdHistoryJob;
             return id;
+        }
+
+        public IEnumerable<HistoryJob> GetHistoryJobsForJob(Job job)
+        {
+            return HistoryJobs.Where(h => h.IdJob == job.IdJob).ToList();
         }
 
         public bool AddHistoryJob(string comment, Job job, User user)

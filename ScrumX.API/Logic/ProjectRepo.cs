@@ -23,11 +23,16 @@ namespace ScrumX.API.Logic
             get { return ctx.Projects.ToList(); }
         }
 
+        public Project FindProjectByName(string name)
+        {
+            return Projects.Where(p => p.Name.Equals(name)).SingleOrDefault();
+        }
 
         public int AddProject(Project project)
         {
-            int id = ctx.Set<Project>().Add(project).IdProject;
+            ctx.Set<Project>().Add(project);
             ctx.SaveChanges();
+            int id = project.IdProject;
             return id;
         }
 

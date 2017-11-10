@@ -16,7 +16,7 @@ namespace ScrumX.API.Logic
             get;
         }
 
-
+        Project FindProjectByName(string name);
          int AddProject(Project project);
 
          bool AddProject(string name);

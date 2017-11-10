@@ -40,20 +40,69 @@ namespace ScrumX.Tests
         [TestMethod]
         public void SearchJob()
         {
-            Assert.AreEqual(repo.JobsRepo.SearchJob("test").Count(),1);            
+            Assert.AreEqual(repo.JobsRepo.SearchJob("Test").Count(),1);
+            AfterTest();         
         }
 
         [TestMethod]
         public void AddJob()
         {
-            repo.JobsRepo.AddJob(new Job { Title = "Test zadanie", IdProject = 6, IdUser = 1, Priority = 0, IdSprint = 0});
-            Assert.AreEqual(repo.JobsRepo.GetJobById(repo.JobsRepo.Jobs.Max(j => j.IdJob)).Title, "Test zadanie");
+            int id = repo.JobsRepo.AddJob(new Job { Title = "Test zadanie", IdProject = 6, IdUser = 1, Priority = 0, IdSprint = 6});
+            Assert.AreNotEqual(repo.JobsRepo.GetJobById(id),0);
+            Assert.IsNotNull(repo.HistoryJobsRepo.GetHistoryJobsForJob(repo.JobsRepo.GetJobById(id)));
+        }
+
+        public int AddJob(Job job)
+        {
+            return repo.JobsRepo.AddJob(job);
+        }
+
+        [TestMethod]
+        public void ChangeJobSP()
+        {
+            int id = AddJob(new Job { Title = "Test zadanie", IdProject = 6, IdUser = 1, Priority = 0, IdSprint = 6 });
+
+            repo.JobsRepo.ChangeJobSP(repo.JobsRepo.GetJobById(id), 8, repo.UsersRepo.GetUserById(1));
+
+            Assert.IsTrue(repo.JobsRepo.GetJobById(id).SP == 8);
+            Assert.IsNotNull(repo.HistoryJobsRepo.GetHistoryJobsForJob(repo.JobsRepo.GetJobById(id))
+                .Where(p => p.IdJob == id)
+                .Where(p => p.ToBacklog == 2)
+                .Where(p=>p.ToTable == 1).SingleOrDefault());
+
+            DeleteJob(id);
         }
 
         [TestMethod]
         public void ChangeJobPriority()
         {
-            
+            int id = AddJob(new Job { Title = "Test zadanie", IdProject = 6, IdUser = 1, Priority = 0, IdSprint = 6 });
+
+            repo.JobsRepo.ChangeJobPriority(repo.JobsRepo.GetJobById(id), 8, repo.UsersRepo.GetUserById(1));
+
+            Assert.IsTrue(repo.JobsRepo.GetJobById(id).Priority == 8);
+
+            repo.JobsRepo.ChangeJobPriority(repo.JobsRepo.GetJobById(id), 87445, repo.UsersRepo.GetUserById(1));
+
+            Assert.IsTrue(repo.JobsRepo.GetJobById(id).Priority == 10);
+
+            DeleteJob(id);
         }
+
+        [TestMethod]
+        public void DeleteJob()
+        {
+            int id = AddJob(new Job { Title = "Test zadanie", IdProject = 6, IdUser = 1, Priority = 0, IdSprint = 6 });
+            repo.JobsRepo.DeleteJob(repo.JobsRepo.GetJobById(id));
+
+            Assert.IsNull(repo.JobsRepo.GetJobById(id));
+
+        }
+
+        public void DeleteJob(int id)
+        {
+            repo.JobsRepo.DeleteJob(repo.JobsRepo.GetJobById(id));
+        }
+
     }
 }

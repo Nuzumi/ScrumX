@@ -24,7 +24,8 @@ namespace ScrumX.API.Logic
          IEnumerable<Job> GetJobsInBacklog(Project project, int backlogStatus);
          IEnumerable<Job> GetJobsInTable(Sprint sprint, int tableStatus);
          void DeleteJob(Job obj);
-         Job ChangeJobSP(Job obj, int SP, User user);
+        Job ChangeJobSP(Job obj, int SP, User user);
+            Job ChangeJobPriority(Job obj, int priority, User user);
          void EndJob(Job job, User user);
          bool EditJob(Job obj);
          bool ChangeJobTable(Job job, User user, int table);

@@ -46,20 +46,22 @@ namespace ScrumX.API.Logic
         public int AddJob(Job job)
         {
             ctx.Set<Job>().Add(job);
+            ctx.SaveChanges();
+            int id = job.IdJob;
             //W momencie utworzenia zadania tworzy sie log
             HistoryJob hj = new HistoryJob();
             hj.FromBacklog = 1;
             hj.ToBacklog = 1;
             hj.FromTable = 0;
             hj.ToTable = 0;
-            hj.IdJob = Jobs.Max(p => p.IdJob);
+            hj.IdJob = job.IdJob;
             hj.IdUser = job.IdUser;
             hj.Date = DateTime.Today;
             hj.Comment = "Utworzono zadanie \"" + job.Title + "\" przez użytkownika " + userRepo.Users.SingleOrDefault(U => U.IdUser == job.IdUser).Name;
             
             ctx.SaveChanges();
             hjRepo.AddHistoryJob(hj);
-            return 0;
+            return id;
         }
 
         public Job GetJobById(int id)
@@ -135,6 +137,7 @@ namespace ScrumX.API.Logic
 
 
         /// <summary>
+        /// Max priorytet = 10
         /// Nie mozna zmienic SP zadania, ktore jest Completed.
         /// </summary>
         /// <param name="obj"></param>
@@ -153,7 +156,7 @@ namespace ScrumX.API.Logic
                 hj.IdUser = user.IdUser;
                 int? pr = obj.Priority.HasValue ? obj.Priority.Value : 0;
                 hj.Comment = "Zmiana priorytetu zadania " + obj.Title + " z " + pr + " na " + priority + " przez " + user.Name;
-                obj.Priority = priority;
+                obj.Priority = priority > 10 ? 10 : priority;
                 hjRepo.AddHistoryJob(hj);
                 EditJob(obj);
                 return obj;

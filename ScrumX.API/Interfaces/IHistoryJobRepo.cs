@@ -21,6 +21,7 @@ namespace ScrumX.API.Repository
 
          bool AddHistoryJob(string comment, Job job, User user);
 
+        IEnumerable<HistoryJob> GetHistoryJobsForJob(Job job);
 
          void DeleteHistoryJob(HistoryJob obj);
         
