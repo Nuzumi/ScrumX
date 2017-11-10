@@ -53,7 +53,8 @@ namespace ScrumX.ViewModel
         public AddSprintVM(Action changeCanAddSprintToTrue, User user)
         {
             logedUser = user;
-            AddSprintCommand = new DelegateCommand<Window>(AddSprintCommandExecute);
+            AddSprintCommand = new DelegateCommand<Window>(AddSprintCommandExecute,AddSprintCommandCanExecute);
+            CancleCommand = new DelegateCommand<Window>(CancleCommandExecute);
             this.changeCanAddSprintToTrue = changeCanAddSprintToTrue;
             EndDate = DateTime.Today;
             repo = new EfRepository();
@@ -75,7 +76,7 @@ namespace ScrumX.ViewModel
             return SelectedProject != null && EndDate != null;
         }
 
-        private void CancleCommandEcevute(Window window)
+        private void CancleCommandExecute(Window window)
         {
             changeCanAddSprintToTrue.DynamicInvoke();
             window.Close();

@@ -111,15 +111,30 @@ namespace ScrumX.ViewModel
         {
             if (loginMode)
             {
-                BacklogVM dataContext = new BacklogVM(repo.UsersRepo.GetUserByName("admin"));
-                Backlog backlog = new Backlog();
-                backlog.DataContext = dataContext;
-                backlog.Show();
-                window.Close(); 
+                if (repo.UsersRepo.UserLogin(Login, Password))
+                {
+                    BacklogVM dataContext = new BacklogVM(repo.UsersRepo.GetUserByName(login));
+                    Backlog backlog = new Backlog();
+                    backlog.DataContext = dataContext;
+                    backlog.Show();
+                    window.Close();
+                }
+                else
+                {
+                    MessageBox.Show("dupa");
+                }
             }
             else
             {
-                Console.WriteLine("OK");
+                if(repo.UsersRepo.RegisterUser(Login, Password))
+                {
+                    MessageBox.Show("Zarejestrowano");
+                    LoginCommandExecute();
+                }
+                else
+                {
+                    MessageBox.Show("dupa");
+                }
             }
         }
 
