@@ -7,6 +7,7 @@ using System.Collections.ObjectModel;
 using System.Collections.Generic;
 using ScrumX.API.Repository;
 using ScrumX.API.Content;
+using NDragDrop;
 
 namespace ScrumX.ViewModel
 {
@@ -78,8 +79,10 @@ namespace ScrumX.ViewModel
                 }
                 else
                 {
-                    ToDoJobs.Clear();
-                    DoingJobs.Clear();
+                    if (ToDoJobs != null)
+                        ToDoJobs.Clear();
+                    if (DoingJobs != null)
+                        DoingJobs.Clear();
                 }
             }
         }

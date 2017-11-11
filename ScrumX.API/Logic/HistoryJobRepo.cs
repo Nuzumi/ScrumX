@@ -36,6 +36,21 @@ namespace ScrumX.API.Repository
             return HistoryJobs.Where(h => h.IdJob == job.IdJob).ToList();
         }
 
+        public IEnumerable<HistoryJob> GetHistoryJobsForJob(int job)
+        {
+            return HistoryJobs.Where(h => h.IdJob == job).ToList();
+        }
+
+        public IEnumerable<HistoryJob> GetHistoryJobsForUser(User user)
+        {
+            return HistoryJobs.Where(h => h.IdUser == user.IdUser).ToList();
+        }
+
+        public IEnumerable<HistoryJob> GetHistoryJobsForUser(int user)
+        {
+            return HistoryJobs.Where(h => h.IdUser == user).ToList();
+        }
+
         public bool AddHistoryJob(string comment, Job job, User user)
         {
             HistoryJob hj = new HistoryJob
@@ -56,7 +71,25 @@ namespace ScrumX.API.Repository
             ctx.Set<HistoryJob>().Remove(obj);
             ctx.SaveChanges();
         }
-        
+
+        public void DeleteHistoryJobForJob(Job obj)
+        {
+            var histories = HistoryJobs.Where(h => h.IdJob == obj.IdJob);
+            foreach(HistoryJob h in histories)
+            {
+                DeleteHistoryJob(h);
+            }
+        }
+
+        public void DeleteHistoryJobForUser(User obj)
+        {
+            var histories = HistoryJobs.Where(h => h.IdUser == obj.IdUser);
+            foreach (HistoryJob h in histories)
+            {
+                DeleteHistoryJob(h);
+            }
+        }
+
         public void EditHistoryJob(HistoryJob obj)
         {
             ctx.Entry<HistoryJob>(obj).CurrentValues.SetValues(obj);

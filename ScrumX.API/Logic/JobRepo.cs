@@ -25,7 +25,6 @@ namespace ScrumX.API.Logic
         public IEnumerable<Job> Jobs
         {
             get { return ctx.Jobs.ToList(); }
-            set { Jobs = value; }
         }
 
         public IEnumerable<Job> GetJobsForSprint(Sprint sprint)
@@ -87,6 +86,7 @@ namespace ScrumX.API.Logic
 
         public void DeleteJob(Job obj)
         {
+            hjRepo.DeleteHistoryJobForJob(obj);
             ctx.Set<Job>().Remove(obj);
             ctx.SaveChanges();
         }
@@ -155,8 +155,9 @@ namespace ScrumX.API.Logic
                 hj.IdJob = obj.IdJob;
                 hj.IdUser = user.IdUser;
                 int? pr = obj.Priority.HasValue ? obj.Priority.Value : 0;
+                priority = priority > 10 ? 10 : priority;
                 hj.Comment = "Zmiana priorytetu zadania " + obj.Title + " z " + pr + " na " + priority + " przez " + user.Name;
-                obj.Priority = priority > 10 ? 10 : priority;
+                obj.Priority = priority;
                 hjRepo.AddHistoryJob(hj);
                 EditJob(obj);
                 return obj;

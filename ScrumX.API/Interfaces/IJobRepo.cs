@@ -15,7 +15,6 @@ namespace ScrumX.API.Logic
          IEnumerable<Job> Jobs
         {
             get;
-            set;
         }
          Job GetJobById(int id);
          IEnumerable<Job> GetJobsForSprint(Sprint sprint);

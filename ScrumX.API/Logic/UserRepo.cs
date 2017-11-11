@@ -13,10 +13,12 @@ namespace ScrumX.API.Logic
     public class UserRepo : IUserRepo
     {
         EfDbContext ctx;
+        HistoryJobRepo hjRepo;
 
         public UserRepo(EfDbContext ctx)
         {
             this.ctx = ctx;
+            hjRepo = new HistoryJobRepo(ctx);
         }
 
         public IEnumerable<User> Users
@@ -82,6 +84,7 @@ namespace ScrumX.API.Logic
 
         public void DeleteUser(User obj)
         {
+            hjRepo.DeleteHistoryJobForUser(obj);
             ctx.Set<User>().Remove(obj);
             ctx.SaveChanges();
         }

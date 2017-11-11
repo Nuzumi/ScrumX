@@ -96,6 +96,7 @@ namespace ScrumX.Tests
             repo.JobsRepo.DeleteJob(repo.JobsRepo.GetJobById(id));
 
             Assert.IsNull(repo.JobsRepo.GetJobById(id));
+            Assert.AreEqual(repo.HistoryJobsRepo.GetHistoryJobsForJob(id).Count(),0);
 
         }
 

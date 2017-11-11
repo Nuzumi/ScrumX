@@ -1,10 +1,14 @@
-﻿using System;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
-using ScrumX.API.Repository;
+﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Moq;
-using ScrumX.API.Model;
-using ScrumX.API.Logic;
 using ScrumX.API.Interfaces;
+using ScrumX.API.Logic;
+using ScrumX.API.Model;
+using ScrumX.API.Repository;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 
 namespace ScrumX.Tests
 {
@@ -55,8 +59,9 @@ namespace ScrumX.Tests
         public void GetUserByName()
         {
             EfRepository repo = new EfRepository();
-            repo.UsersRepo.RegisterUser("Admin1", "Admin1");
-            Assert.IsNotNull(repo.UsersRepo.GetUserByName("Admin1"));
+            repo.UsersRepo.RegisterUser("Test", "Test");
+            User user = repo.UsersRepo.GetUserByName("Test");
+            Assert.IsNotNull(repo.UsersRepo.GetUserByName("Test"));
             Assert.IsNull(repo.UsersRepo.GetUserByName("Roenna"));
 
         }
@@ -65,28 +70,32 @@ namespace ScrumX.Tests
         public void EditUser()
         {
             EfRepository repo = new EfRepository();
-            User user = repo.UsersRepo.GetUserByName("Admin1");
+            repo.UsersRepo.RegisterUser("Test", "Test");
+            User user = repo.UsersRepo.GetUserByName("Test");
             user.Password = "pass";
 
             repo.UsersRepo.EditUser(user);
 
-            Assert.IsTrue(repo.UsersRepo.GetUserByName("Admin1").Password.Equals("pass"));
+            Assert.IsTrue(repo.UsersRepo.GetUserByName("Test").Password.Equals("pass"));
         }
 
         [TestMethod]
         public void DeleteUser()
         {
             EfRepository repo = new EfRepository();
-            User user = repo.UsersRepo.GetUserByName("Admin1");
-
+            repo.UsersRepo.RegisterUser("Test", "Test");
+            User user = repo.UsersRepo.GetUserByName("Test");
+            int id = user.IdUser;
             repo.UsersRepo.DeleteUser(user);
-            Assert.IsNull(repo.UsersRepo.GetUserByName("Admin1"));
+
+            Assert.IsNull(repo.UsersRepo.GetUserByName("Test"));
+            Assert.AreEqual(repo.HistoryJobsRepo.GetHistoryJobsForUser(id).Count(), 0);
         }
 
         public void DeleteUser(string name)
         {
             EfRepository repo = new EfRepository();
-            User user = repo.UsersRepo.GetUserByName("name");
+            User user = repo.UsersRepo.GetUserByName(name);
             repo.UsersRepo.DeleteUser(user);
         }
 
