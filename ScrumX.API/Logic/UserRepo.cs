@@ -84,7 +84,6 @@ namespace ScrumX.API.Logic
 
         public void DeleteUser(User obj)
         {
-            hjRepo.DeleteHistoryJobForUser(obj);
             ctx.Set<User>().Remove(obj);
             ctx.SaveChanges();
         }

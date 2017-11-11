@@ -46,6 +46,17 @@ namespace ScrumX.ViewModel
             }
         }
 
+        private string tag;
+        public string Tag
+        {
+            get { return tag; }
+            set
+            {
+                SetProperty(ref tag, value);
+                SearchJobCommandExecute();
+            }
+        }
+
         private typeBacklog selectedType;
         public string SelectedType
         {
@@ -113,6 +124,8 @@ namespace ScrumX.ViewModel
             }
         }
 
+        public ICommand DeleteProjectCommand { get; set; }
+        public ICommand DeleteJobCommand { get; set; }
         public ICommand SearchCommand { get; set; }
         public ICommand GoToTableCommand { get; set; }
         #endregion
@@ -120,14 +133,22 @@ namespace ScrumX.ViewModel
         public BacklogVM(User user) :base(user)
         {
             GoToTableCommand = new DelegateCommand<Window>(GoToTableCommandExecute,GoToTableCommandCanExecute);
+            DeleteProjectCommand = new DelegateCommand(DeleteProjectCommandExecute);
+            DeleteJobCommand = new DelegateCommand(DeleteJobCommandExecute);
+            SearchCommand = new DelegateCommand(SearchJobCommandExecute);
             TypeList = new List<string> { "None", "New", "Ready", "Scheduled", "Completed" };
             StoryPointValues = new List<int> { 0, 1, 2, 3, 5, 8, 13, 20, 40, 100 };
             PriorityValues = new List<int> { 1, 2, 3, 4, 5 };
             repo = new EfRepository();
             logedUser = user;
             UserName = user.Name;
+            SetProperties();
+        }
+
+        public void SetProperties()
+        {
             Projects = new ObservableCollection<Project>(repo.ProjectsRepo.Projects);
-            if(Projects[0] != null)
+            if (Projects != null && Projects.Count() > 0)
             {
                 SelectedProject = Projects[0];
                 Jobs = new ObservableCollection<Job>(repo.JobsRepo.GetJobsForProject(SelectedProject));
@@ -158,6 +179,26 @@ namespace ScrumX.ViewModel
             table.DataContext = dataContext;
             table.Show();
             window.Close();
+        }
+
+        private void DeleteProjectCommandExecute()
+        {
+            Console.WriteLine("Usuwam projekt");
+            repo.ProjectsRepo.DeleteProject(SelectedProject);
+            SetProperties();
+        }
+
+        private void DeleteJobCommandExecute()
+        {
+            Console.WriteLine("Usuwam zadanie");
+            repo.JobsRepo.DeleteJob(SelectedJob);
+            SetProperties();
+        }
+
+        private void SearchJobCommandExecute()
+        {
+            Jobs = new ObservableCollection<Job>(repo.JobsRepo.SearchJob(SelectedProject, Tag));
+            Console.Write(Jobs.Count());
         }
 
         private bool GoToTableCommandCanExecute(Window dummy)

@@ -28,6 +28,7 @@ namespace ScrumX.API.Logic
          void EndJob(Job job, User user);
          bool EditJob(Job obj);
          bool ChangeJobTable(Job job, User user, int table);
-         IEnumerable<Job> SearchJob(string tag);
+        IEnumerable<Job> SearchJob(Project project, string tag);
+        IEnumerable<Job> GetJobsForUser(Sprint sprint, User user, int table);
     }
 }

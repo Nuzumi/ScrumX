@@ -74,8 +74,10 @@
                 </ComboBox.ItemTemplate>
             </ComboBox>
             <Border Grid.Column="2" BorderThickness="0.8" BorderBrush="Black" Margin="0,4,4,4"/>
-            <RadioButton Grid.Column="3" Margin="5,9,5,4"/>
-            <Label Content="tylko twoje zadania" Grid.Column="4" FontSize="15"/>
+            <Button Grid.Column="3" Margin="5,9,5,4" Command="{Binding GetJobsForUserCommand}">
+                <Label Content="{Binding JobsForUser}" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"/>
+            </Button>
+            
         </Grid>
         <Separator DockPanel.Dock="Top" BorderThickness="1" BorderBrush="Black"/>
         <Grid Margin="8">

@@ -12,10 +12,12 @@ namespace ScrumX.API.Logic
     public class ProjectRepo : IProjectRepo
     {
         EfDbContext ctx;
+        SprintRepo sprintRepo;
 
         public ProjectRepo(EfDbContext ctx)
         {
             this.ctx = ctx;
+            sprintRepo = new SprintRepo(ctx);
         }
         
         public IEnumerable<Project> Projects
@@ -49,6 +51,7 @@ namespace ScrumX.API.Logic
 
         public void DeleteProject(Project obj)
         {
+            sprintRepo.DeleteSprintsForProject(obj);
             ctx.Set<Project>().Remove(obj);
             ctx.SaveChanges();
         }

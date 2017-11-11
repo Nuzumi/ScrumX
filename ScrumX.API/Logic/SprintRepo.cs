@@ -12,12 +12,10 @@ namespace ScrumX.API.Logic
     public class SprintRepo : ISprintRepo
     {
         EfDbContext ctx;
-        ProjectRepo projectRepo;
 
         public SprintRepo(EfDbContext ctx)
         {
             this.ctx = ctx;
-            projectRepo = new ProjectRepo(ctx);
         }
 
         public IEnumerable<Sprint> Sprints
@@ -53,7 +51,7 @@ namespace ScrumX.API.Logic
                 };
                 IEnumerable<Sprint> sprints = GetSprintsForProject(project.IdProject);
                 sprint.NoSprint = sprints.ToList().Count == 0 ? 1 : sprints.Max(q => q.NoSprint) + 1;
-                sprint.Title = projectRepo.Projects.SingleOrDefault(P => P.IdProject == sprint.IdProject).Name + " - Sprint " + sprint.NoSprint;
+                sprint.Title = project.Name + " - Sprint " + sprint.NoSprint;
                 ctx.Set<Sprint>().Add(sprint);
                 ctx.SaveChanges();
                 int id = sprint.IdSprint;
@@ -90,6 +88,13 @@ namespace ScrumX.API.Logic
         {
             ctx.Set<Sprint>().Remove(obj);
             ctx.SaveChanges();
+        }
+
+        public void DeleteSprintsForProject(Project obj)
+        {
+            var list = Sprints.Where(s => s.IdProject == obj.IdProject);
+            foreach (Sprint sprint in list)
+                DeleteSprint(sprint);
         }
 
         public Sprint GetLastSprintForProject(Project project)

@@ -61,13 +61,25 @@
             <ComboBox Margin="5"  SelectedItem="{Binding SelectedType}" ItemsSource="{Binding TypeList}" FontSize="12" VerticalContentAlignment="Center">
             </ComboBox>
             <ComboBox Margin="5" Grid.Column="1" ItemsSource="{Binding Projects}" SelectedItem="{Binding SelectedProject}">
+                <ComboBox.Resources>
+                    <helper:BindingProxy x:Key="proxy" Data="{Binding}"/>
+                </ComboBox.Resources>
+                <ComboBox.ContextMenu>
+                    <ContextMenu>
+                        <MenuItem Header="Usuń projekt" Command="{Binding Data.DeleteProjectCommand, Source={StaticResource proxy}}" />
+                    </ContextMenu>
+                </ComboBox.ContextMenu>
                 <ComboBox.ItemTemplate>
                     <DataTemplate>
                         <Label Content="{Binding Name}" FontSize="12"/>
                     </DataTemplate>
                 </ComboBox.ItemTemplate>
             </ComboBox>
-            <TextBox Margin="5,5,0,5" Grid.Column="2" VerticalContentAlignment="Center" HorizontalContentAlignment="Center"/>
+            <TextBox Margin="5,5,0,5" Grid.Column="2"  VerticalContentAlignment="Center" HorizontalContentAlignment="Center" Text="{Binding Tag,UpdateSourceTrigger=PropertyChanged}" AcceptsReturn="False">
+                <TextBox.InputBindings>
+                    <KeyBinding Key="Enter" Command="{Binding SearchJobCommandExecute}"/>
+                    </TextBox.InputBindings>
+            </TextBox>
             <Button Grid.Column="3" Margin="0,5,5,5">
                 <TextBlock Text="szukaj" Margin="2"/>
             </Button>
@@ -85,6 +97,11 @@
                     <DataGrid.Resources>
                         <helper:BindingProxy x:Key="proxy" Data="{Binding}"/>
                     </DataGrid.Resources>
+                    <DataGrid.ContextMenu>
+                        <ContextMenu>
+                            <MenuItem Header="Usuń zadanie" Command="{Binding Data.DeleteJobCommand, Source={StaticResource proxy}}" />
+                        </ContextMenu>
+                    </DataGrid.ContextMenu>
                     <DataGrid.Columns>
                         <DataGridTextColumn Header="No." IsReadOnly="True"/>
                         <DataGridTextColumn Width="3*" Header="Project" Binding="{Binding Sprint, Converter={StaticResource SprintToProjecTitleConverter}}" IsReadOnly="True"/>

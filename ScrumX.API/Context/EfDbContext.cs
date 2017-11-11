@@ -17,6 +17,7 @@ namespace ScrumX.API.Context
         : base(connString)
         {
         }
+
         public virtual IDbSet<User> Users { get; set; }
         public virtual IDbSet<Job> Jobs { get; set; }
         public virtual IDbSet<HistoryJob> HistoryJobs { get; set; }

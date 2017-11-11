@@ -29,6 +29,16 @@ namespace ScrumX.ViewModel
                 SetProperty(ref toDoJobs, value);
             }
         }
+        public bool getJobForUser = false;
+        private string jobsForUser;
+        public string JobsForUser
+        {
+            get { return jobsForUser; }
+            set
+            {
+                SetProperty(ref jobsForUser, value);
+            }
+        }
 
         private ObservableCollection<Job> doingJobs;
         public ObservableCollection<Job> DoingJobs
@@ -93,12 +103,18 @@ namespace ScrumX.ViewModel
             set
             {
                 SetProperty(ref selectedSprint, value);
-                if (SelectedSprint != null)
+                SetJobs();
+            }
+        }
+
+        public void SetJobs()
+        {
+            if (SelectedSprint != null)
                 {
-                    ToDoJobs = new ObservableCollection<Job>(repo.JobsRepo.GetJobsInTable(value, (int)typeTable.ToDo));
-                    DoingJobs = new ObservableCollection<Job>(repo.JobsRepo.GetJobsInTable(value, (int)typeTable.Doing));
-                    ReviewJobs = new ObservableCollection<Job>(repo.JobsRepo.GetJobsInTable(value, (int)typeTable.Review));
-                    DoneJobs = new ObservableCollection<Job>(repo.JobsRepo.GetJobsInTable(value, (int)typeTable.Done));
+                    ToDoJobs = new ObservableCollection<Job>(repo.JobsRepo.GetJobsInTable(SelectedSprint, (int)typeTable.ToDo));
+                    DoingJobs = new ObservableCollection<Job>(repo.JobsRepo.GetJobsInTable(SelectedSprint, (int)typeTable.Doing));
+                    ReviewJobs = new ObservableCollection<Job>(repo.JobsRepo.GetJobsInTable(SelectedSprint, (int)typeTable.Review));
+                    DoneJobs = new ObservableCollection<Job>(repo.JobsRepo.GetJobsInTable(SelectedSprint, (int)typeTable.Done));
                 }
                 else
                 {
@@ -107,25 +123,26 @@ namespace ScrumX.ViewModel
                     ReviewJobs = new ObservableCollection<Job>();
                     DoneJobs = new ObservableCollection<Job>();
                 }
-            }
         }
 
         public ICommand GoToBacklogCommand { get; set; }
-
+        public ICommand GetJobsForUserCommand { get; set; }
         #endregion
 
 
         public TableVM(User user) :base(user)
         {
             GoToBacklogCommand = new DelegateCommand<Window>(GoToBacklogCommandExecute, GoToBacklogCommandCanExecute);
+            GetJobsForUserCommand = new DelegateCommand(GetJobsForUserCommandExecute);
             logedUser = user;
             UserName = user.Name;
             repo = new EfRepository();
+            jobsForUser = "Tylko moje zadania";
             Projects = new ObservableCollection<Project>(repo.ProjectsRepo.Projects);
-            if(Projects[0] != null)
+            if(Projects != null && Projects.Count > 0)
             {
                 SelectedProject = Projects[0];
-                if(Sprints[0] != null)
+                if(Sprints != null && Sprints.Count > 0)
                 {
                     SelectedSprint = Sprints[0];
                 }
@@ -234,6 +251,26 @@ namespace ScrumX.ViewModel
             window.Close();
         }
 
+        private void GetJobsForUserCommandExecute()
+        {
+            if(getJobForUser == false)
+            {
+                getJobForUser = true;
+                jobsForUser = "Wszystkie zadania";
+                ToDoJobs = new ObservableCollection<Job>(repo.JobsRepo.GetJobsForUser(SelectedSprint, logedUser, (int)typeTable.ToDo));
+                DoingJobs = new ObservableCollection<Job>(repo.JobsRepo.GetJobsForUser(SelectedSprint, logedUser, (int)typeTable.Doing));
+                ReviewJobs = new ObservableCollection<Job>(repo.JobsRepo.GetJobsForUser(SelectedSprint, logedUser, (int)typeTable.Review));
+                DoneJobs = new ObservableCollection<Job>(repo.JobsRepo.GetJobsForUser(SelectedSprint, logedUser, (int)typeTable.Done));
+
+            }
+            else
+            {
+                getJobForUser = false;
+                jobsForUser = "Tylko moje zadania";
+                SetJobs();
+            }
+        }
+        
         private bool GoToBacklogCommandCanExecute(Window dummy)
         {
             return CanAddTask;

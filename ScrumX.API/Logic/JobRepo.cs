@@ -6,6 +6,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 
 namespace ScrumX.API.Logic
@@ -15,7 +16,7 @@ namespace ScrumX.API.Logic
         EfDbContext ctx;
         HistoryJobRepo hjRepo;
         UserRepo userRepo;
-        
+
         public JobRepo(EfDbContext ctx)
         {
             this.ctx = ctx;
@@ -59,7 +60,7 @@ namespace ScrumX.API.Logic
             hj.IdUser = job.IdUser;
             hj.Date = DateTime.Today;
             hj.Comment = "Utworzono zadanie \"" + job.Title + "\" przez użytkownika " + userRepo.Users.SingleOrDefault(U => U.IdUser == job.IdUser).Name;
-            
+
             ctx.SaveChanges();
             hjRepo.AddHistoryJob(hj);
             return id;
@@ -72,7 +73,7 @@ namespace ScrumX.API.Logic
 
         public IEnumerable<Job> GetJobsInBacklog(Project project, int backlogStatus)
         {
-            var list = Jobs.Where(J => J.IdProject == project.IdProject );
+            var list = Jobs.Where(J => J.IdProject == project.IdProject);
             if (list != null)
                 return backlogStatus == 0 ? list.ToList() : list.Where(J => J.BacklogStatus == backlogStatus).ToList();
             else return null;
@@ -92,7 +93,7 @@ namespace ScrumX.API.Logic
             ctx.Set<Job>().Remove(obj);
             ctx.SaveChanges();
         }
-        
+
         /// <summary>
         /// Nie mozna zmienic SP zadania, ktore jest Completed.
         /// </summary>
@@ -122,13 +123,16 @@ namespace ScrumX.API.Logic
                     obj.TableStatus = (int)typeTable.ToDo;
                     obj.SP = SP;
                     hj.Comment = "Przeniesiono zadanie \"" + obj.Title + "\" do rejestru " + Enum.GetName(typeof(Content.typeBacklog), 2) + " przez użytkownika "
-                        + userRepo.Users.SingleOrDefault(U => U.IdUser == user.IdUser).Name;
+                        + user.Name + "\n";
                 }
                 else
                 {
-                    hj.Comment = "Zmiana SP z " + obj.SP + " na " + SP + " przez uzytkownika " + userRepo.Users.SingleOrDefault(U => U.IdUser == user.IdUser).Name;
-                    obj.SP = SP;
+                    
+                    hj.FromBacklog = hj.ToBacklog = obj.BacklogStatus;
+                    hj.FromTable = hj.ToTable = obj.TableStatus;
                 }
+                hj.Comment = (hj.Comment==null?"":hj.Comment) + "Zmiana SP na " + SP + " przez uzytkownika " + userRepo.Users.SingleOrDefault(U => U.IdUser == user.IdUser).Name;
+                obj.SP = SP;
                 hjRepo.AddHistoryJob(hj);
                 EditJob(obj);
                 return obj;
@@ -177,11 +181,11 @@ namespace ScrumX.API.Logic
 
         public bool EditJob(Job obj)
         {
-            
-                ctx.Entry<Job>(obj).CurrentValues.SetValues(obj);
-                ctx.SaveChanges();
-                return true;
-            
+
+            ctx.Entry<Job>(obj).CurrentValues.SetValues(obj);
+            ctx.SaveChanges();
+            return true;
+
         }
 
         public bool ChangeJobTable(Job job, User user, int table)
@@ -218,11 +222,33 @@ namespace ScrumX.API.Logic
             else return false;
         }
 
-        public IEnumerable<Job> SearchJob(string tag)
+        public IEnumerable<Job> SearchJob(Project project, string tag)
         {
-            return Jobs.Where(p => p.Title.Contains(tag)).ToList();
+            var listJob = Jobs.Where(p => p.Title == "NA PEWNO NIE MA TAKIEGO ZADANIA");
+            string[] split = tag.Split(' ');
+            foreach (string st in split){
+                if (st != "")
+                {
+                    var list = Jobs.Where(p => p.IdProject == project.IdProject).Where(p => p.Title.Contains(tag));
+                    listJob = listJob.Union(list);
+                }
+            }
+            return listJob;
         }
 
+        public IEnumerable<Job> GetJobsForUser(Sprint sprint, User user, int table)
+        {
+            return Jobs    // your starting point - table in the "from" statement
+                       .Join(hjRepo.HistoryJobs, // the source table of the inner join
+                          p => p.IdJob,       // Select the primary key (the first part of the "on" clause in an sql "join" statement)
+                          h => h.IdUser,  // Select the foreign key (the second part of the "on" clause)
+                          (p, h) => new { Job = p, HistoryJob = h }) // selection
+                       .Where(r => r.Job.IdUser == user.IdUser)
+                       .Where(r => r.Job.TableStatus == table)
+                       .GroupBy(r=>r.HistoryJob.IdUser)
+                       .First()
+                       .Select(p => p.Job);
+        }
     }
     
 }
