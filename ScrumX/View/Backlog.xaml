@@ -5,8 +5,15 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:ScrumX"
         mc:Ignorable="d"
+        xmlns:converters="clr-namespace:ScrumX.Converters"
         xmlns:helper ="clr-namespace:ScrumX.HelperClasses"
         Title="Backlog" Height="500" Width="750" Name="Window">
+    <Window.Resources>
+        <converters:ProjectToProjectNameConverter x:Key="projectToProjectName"/>
+        <converters:UserToUserNameConverter x:Key="userTpUserNameConverter"/>
+        <converters:IntToDoubleConverter x:Key="intToDoubleConverter"/>
+        <helper:BindingProxy x:Key="proxy" Data="{Binding}"/>
+    </Window.Resources>
     <DockPanel>
         <DockPanel DockPanel.Dock="Left">
             <TextBlock Text="ScrumX"  FontSize="35" Margin="7" DockPanel.Dock="Top"/>
@@ -81,7 +88,7 @@
                 <!--details-->
             </Grid.ColumnDefinitions>
             <Grid Margin="5">
-                <DataGrid ItemsSource="{Binding Jobs}" SelectedItem="{Binding SelectedJob}" Margin="6,3,6,3" AutoGenerateColumns="False" SelectionMode="Single" SelectionUnit="FullRow" CanUserAddRows="False" CanUserDeleteRows="False" CanUserSortColumns="False" CanUserReorderColumns="True" CanUserResizeColumns="False">
+                <DataGrid ItemsSource="{Binding Jobs}"  SelectedItem="{Binding SelectedJob}" Margin="6,3,6,3" AutoGenerateColumns="False" SelectionMode="Single" SelectionUnit="FullRow" CanUserAddRows="False" CanUserDeleteRows="False" CanUserSortColumns="False" CanUserReorderColumns="True" CanUserResizeColumns="False">
                     <DataGrid.Resources>
                         <helper:BindingProxy x:Key="proxy" Data="{Binding}"/>
                     </DataGrid.Resources>
@@ -90,9 +97,80 @@
                         <DataGridTextColumn Width="3*" Header="Project" Binding="{Binding Sprint, Converter={StaticResource SprintToProjecTitleConverter}}" IsReadOnly="True"/>
                         <DataGridTextColumn Width="3*" Header="Title" Binding="{Binding Title}" IsReadOnly="True"/>
                         <DataGridComboBoxColumn Header="SP" Width="*" SelectedItemBinding="{Binding SP , Mode=OneTime}" SelectedValueBinding="{Binding Data.SelectedSP, Source={StaticResource proxy} , Mode=OneWayToSource}" ItemsSource="{Binding Data.StoryPointValues, Source={StaticResource proxy}}"/>
-                        <DataGridComboBoxColumn Header="Priority" Width="*" SelectedValueBinding="{Binding Priority}" ItemsSource="{Binding Data.PriorityValues, Source={StaticResource proxy}}"/>
+                        <DataGridComboBoxColumn Header="Priority" Width="*" SelectedItemBinding="{Binding Priority, Mode=OneTime}" SelectedValueBinding="{Binding Data.SelectedPriority,Source={StaticResource proxy} , Mode=OneWayToSource}" ItemsSource="{Binding Data.PriorityValues, Source={StaticResource proxy}}"/>
                     </DataGrid.Columns>
                 </DataGrid>
+            </Grid>
+            <Grid Grid.Column="1"  DataContext="{Binding SelectedJob}">
+                <Grid.Resources>
+                    <Style TargetType="Label">
+                        <Setter Property="Margin" Value="2"/>
+                        <Setter Property="VerticalContentAlignment" Value="Center"/>
+                        <Setter Property="Visibility" Value="Collapsed"/>
+                        <Style.Triggers>
+                            <DataTrigger Binding="{Binding Data.IsDescVisible, Source={StaticResource proxy}}" Value="True">
+                                <Setter Property="Visibility" Value="Visible"/>
+                            </DataTrigger>
+                        </Style.Triggers>
+                    </Style>
+                    <Style TargetType="TextBlock">
+                        <Setter Property="Margin" Value="2"/>
+                        <Setter Property="VerticalAlignment" Value="Center"/>
+                        <Setter Property="Visibility" Value="Collapsed"/>
+                        <Style.Triggers>
+                            <DataTrigger Binding="{Binding Data.IsDescVisible, Source={StaticResource proxy}}" Value="True">
+                                <Setter Property="Visibility" Value="Visible"/>
+                            </DataTrigger>
+                        </Style.Triggers>
+                    </Style>
+                    <Style TargetType="ListView">
+                        <Setter Property="Margin" Value="2"/>
+                        <Setter Property="VerticalAlignment" Value="Center"/>
+                        <Setter Property="Visibility" Value="Collapsed"/>
+                        <Style.Triggers>
+                            <DataTrigger Binding="{Binding Data.IsDescVisible, Source={StaticResource proxy}}" Value="True">
+                                <Setter Property="Visibility" Value="Visible"/>
+                            </DataTrigger>
+                        </Style.Triggers>
+                    </Style>
+                </Grid.Resources>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="auto"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="auto"/><!--tytul-->
+                    <RowDefinition Height="auto"/><!--Sp-->
+                    <RowDefinition Height="auto"/><!--prior-->
+                    <RowDefinition Height="auto"/>
+                    <!--projekt-->
+                    <RowDefinition Height="auto"/><!--utworzone przez-->
+                    <RowDefinition Height="auto"/> <!--opis-->
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
+
+                <Label Content="Title"/>
+                <TextBlock Text="{Binding Title, Mode=OneWay}" Grid.Column="1"/>
+                <Label Content="Story Points" Grid.Row="1"/>
+                <TextBlock Text="{Binding SP, Mode=OneWay}" Grid.Column="1" Grid.Row="1"/>
+                <Label Content="Priority" Grid.Row="2"/>
+                <TextBlock Text="{Binding Priority}" Grid.Column="1" Grid.Row="2"/>
+                <Label Content="Project" Grid.Row="3"/>
+                <TextBlock Text="{Binding Project, Converter={StaticResource projectToProjectName}}" Grid.Column="1" Grid.Row="3"/>
+                <Label Content="Created by" Grid.Row="4"/>
+                <TextBlock Text="{Binding User, Converter={StaticResource userTpUserNameConverter}}" Grid.Column="1" Grid.Row="4"/>
+                <Label Content="Description" Grid.Row="5"/>
+                <TextBlock Text="{Binding Desc}" Grid.Column="1" Grid.Row="5"/>
+                <StackPanel Grid.Row="6" Grid.ColumnSpan="2">
+                    <Label Content="Logs" HorizontalContentAlignment="Center"/>
+                    <ListView ItemsSource="{Binding JobsHistoryJob}" MaxHeight="130">
+                        <ListView.ItemTemplate>
+                            <DataTemplate>
+                                <Label Content="{Binding Comment}"/>
+                            </DataTemplate>
+                        </ListView.ItemTemplate>
+                    </ListView>
+                </StackPanel>
             </Grid>
         </Grid>
     </DockPanel>

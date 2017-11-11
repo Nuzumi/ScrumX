@@ -43,6 +43,7 @@ namespace ScrumX.ViewModel
             {
                 SetProperty(ref selectedProject, value);
                 Jobs = new ObservableCollection<Job>(repo.JobsRepo.GetJobsInBacklog(SelectedProject, (int)selectedType));
+                IsDescVisible = false;
             }
         }
 
@@ -79,6 +80,7 @@ namespace ScrumX.ViewModel
                         Jobs = new ObservableCollection<Job>(repo.JobsRepo.GetJobsInBacklog(SelectedProject, (int)typeBacklog.Completed));
                         break;
                 }
+                IsDescVisible = false;
             }
         }
 
@@ -96,6 +98,7 @@ namespace ScrumX.ViewModel
             set
             {
                 SetProperty(ref selectedJob, value);
+                IsDescVisible = true;
             }
         }
 
@@ -109,8 +112,35 @@ namespace ScrumX.ViewModel
                 if(SelectedJob != null)
                 {
                     repo.JobsRepo.ChangeJobSP(SelectedJob, value, logedUser);
+                    Job tmp = SelectedJob;
+                    SelectedJob = null;
+                    SelectedJob = tmp;
                 }
             }
+        }
+
+        private int selectedPriority;
+        public int SelectedPriority
+        {
+            get { return selectedPriority; }
+            set
+            {
+                SetProperty(ref selectedPriority, value);
+                if(SelectedJob != null)
+                {
+                    repo.JobsRepo.ChangeJobPriority(SelectedJob, value, logedUser);
+                    Job tmp = SelectedJob;
+                    SelectedJob = null;
+                    SelectedJob = tmp;
+                }
+            }
+        }
+
+        private bool isDescVisible;
+        public bool IsDescVisible
+        {
+            get { return isDescVisible; }
+            set { SetProperty(ref isDescVisible, value); }
         }
 
         public ICommand SearchCommand { get; set; }
@@ -136,6 +166,7 @@ namespace ScrumX.ViewModel
             {
                 Jobs = new ObservableCollection<Job>();
             }
+            IsDescVisible = false;
         }
 
         protected override void riseGoToCommands()
