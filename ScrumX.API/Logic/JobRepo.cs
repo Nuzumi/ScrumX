@@ -189,19 +189,16 @@ namespace ScrumX.API.Logic
 
         public bool EditJob(Job obj)
         {
-            if (obj.TableStatus == 3)
-                return false;
-            else
-            {
+            
                 ctx.Entry<Job>(obj).CurrentValues.SetValues(obj);
                 ctx.SaveChanges();
                 return true;
-            }
+            
         }
 
         public bool ChangeJobTable(Job job, User user, int table)
         {
-            if (job.TableStatus != 3)
+            if (job.TableStatus != 4)
             {
                 HistoryJob hj = new HistoryJob
                 {
