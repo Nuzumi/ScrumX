@@ -117,12 +117,32 @@
                 </ListView>
             </DockPanel>
             <DockPanel Grid.Column="1" Grid.Row="1" Margin="6" >
-                <Label Content="Testing" DockPanel.Dock="Top" HorizontalContentAlignment="Center" FontSize="15"/>
-                <ListView/>
+                <Label Content="Rewiev" DockPanel.Dock="Top" HorizontalContentAlignment="Center" FontSize="15"/>
+                <ListView ItemsSource="{Binding ReviewJobs}" dd:DragDrop.IsDragSource="True" dd:DragDrop.IsDropTarget="True" dd:DragDrop.DropHandler="{Binding}">
+                    <ListView.ItemTemplate>
+                        <DataTemplate>
+                            <DockPanel>
+                                <Label Content="{Binding Priority}" DockPanel.Dock="Right"/>
+                                <Label Content="{Binding SP}" DockPanel.Dock="Right"/>
+                                <Label Content="{Binding Title}" />
+                            </DockPanel>
+                        </DataTemplate>
+                    </ListView.ItemTemplate>
+                </ListView>
             </DockPanel>
             <DockPanel Grid.Column="2" Grid.RowSpan="2" Margin="6,6,2,6">
                 <Label Content="Done" DockPanel.Dock="Top" HorizontalContentAlignment="Center" FontSize="15"/>
-                <ListView/>
+                <ListView ItemsSource="{Binding DoneJobs}" dd:DragDrop.IsDropTarget="True" dd:DragDrop.DropHandler="{Binding}">
+                    <ListView.ItemTemplate>
+                        <DataTemplate>
+                            <DockPanel>
+                                <Label Content="{Binding Priority}" DockPanel.Dock="Right"/>
+                                <Label Content="{Binding SP}" DockPanel.Dock="Right"/>
+                                <Label Content="{Binding Title}" />
+                            </DockPanel>
+                        </DataTemplate>
+                    </ListView.ItemTemplate>
+                </ListView>
             </DockPanel>
         </Grid>
     </DockPanel>

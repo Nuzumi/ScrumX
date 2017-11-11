@@ -40,6 +40,20 @@ namespace ScrumX.ViewModel
             }
         }
 
+        private ObservableCollection<Job> reviewJobs;
+        public ObservableCollection<Job> ReviewJobs
+        {
+            get { return reviewJobs; }
+            set { SetProperty(ref reviewJobs, value); }
+        }
+
+        private ObservableCollection<Job> doneJobs;
+        public ObservableCollection<Job> DoneJobs
+        {
+            get { return doneJobs; }
+            set { SetProperty(ref doneJobs, value); }
+        }
+
         private ObservableCollection<Project> projects;
         public ObservableCollection<Project> Projects
         {
@@ -83,13 +97,15 @@ namespace ScrumX.ViewModel
                 {
                     ToDoJobs = new ObservableCollection<Job>(repo.JobsRepo.GetJobsInTable(value, (int)typeTable.ToDo));
                     DoingJobs = new ObservableCollection<Job>(repo.JobsRepo.GetJobsInTable(value, (int)typeTable.Doing));
+                    ReviewJobs = new ObservableCollection<Job>(repo.JobsRepo.GetJobsInTable(value, (int)typeTable.Review));
+                    DoneJobs = new ObservableCollection<Job>(repo.JobsRepo.GetJobsInTable(value, (int)typeTable.Done));
                 }
                 else
                 {
-                    if (ToDoJobs != null)
-                        ToDoJobs.Clear();
-                    if(DoingJobs != null)
-                    DoingJobs.Clear();
+                    ToDoJobs = new ObservableCollection<Job>();
+                    DoingJobs = new ObservableCollection<Job>();
+                    ReviewJobs = new ObservableCollection<Job>();
+                    DoneJobs = new ObservableCollection<Job>();
                 }
             }
         }
@@ -137,13 +153,73 @@ namespace ScrumX.ViewModel
                 {
                     ToDoJobs.Remove((dropInfo.Data as Job));
                     DoingJobs.Add((dropInfo.Data as Job));
-                    bool a =repo.JobsRepo.ChangeJobTable((dropInfo.Data as Job), logedUser, (int)API.Content.typeTable.Doing);
-                    Console.WriteLine(a);
+                    repo.JobsRepo.ChangeJobTable((dropInfo.Data as Job), logedUser, (int)API.Content.typeTable.Doing);
+                }
+                else
+                {
+                    MessageBox.Show("nie mozna");
                 }
             }
             else
             {
-                Console.WriteLine("nieOOK");
+                if(DoingJobs.Contains(dropInfo.Data as Job))
+                {
+                    if((dropInfo.TargetCollection as ObservableCollection<Job>).Equals(ToDoJobs))
+                    {
+                        DoingJobs.Remove(dropInfo.Data as Job);
+                        ToDoJobs.Add(dropInfo.Data as Job);
+                        repo.JobsRepo.ChangeJobTable((dropInfo.Data as Job), logedUser, (int)typeTable.ToDo);
+                    }
+                    else
+                    {
+                        if((dropInfo.TargetCollection as ObservableCollection<Job>).Equals(ReviewJobs))
+                        {
+                            DoingJobs.Remove(dropInfo.Data as Job);
+                            ReviewJobs.Add(dropInfo.Data as Job);
+                            bool i =repo.JobsRepo.ChangeJobTable((dropInfo.Data as Job), logedUser, (int)typeTable.Review);
+                            Console.WriteLine(i);
+                        }
+                        else
+                        {
+                            if((dropInfo.TargetCollection as ObservableCollection<Job>).Equals(DoneJobs))
+                            {
+                                DoingJobs.Remove(dropInfo.Data as Job);
+                                DoneJobs.Add(dropInfo.Data as Job);
+                                repo.JobsRepo.ChangeJobTable((dropInfo.Data as Job), logedUser, (int)typeTable.Done);
+                            }
+                        }
+                    }
+                }
+                else
+                {
+                    if(ReviewJobs.Contains(dropInfo.Data as Job))
+                    {
+                        if ((dropInfo.TargetCollection as ObservableCollection<Job>).Equals(ToDoJobs))
+                        {
+                            ReviewJobs.Remove(dropInfo.Data as Job);
+                            ToDoJobs.Add(dropInfo.Data as Job);
+                            repo.JobsRepo.ChangeJobTable((dropInfo.Data as Job), logedUser, (int)typeTable.ToDo);
+                        }
+                        else
+                        {
+                            if ((dropInfo.TargetCollection as ObservableCollection<Job>).Equals(DoingJobs))
+                            {
+                                ReviewJobs.Remove(dropInfo.Data as Job);
+                                DoingJobs.Add(dropInfo.Data as Job);
+                                repo.JobsRepo.ChangeJobTable((dropInfo.Data as Job), logedUser, (int)typeTable.Doing);
+                            }
+                            else
+                            {
+                                if ((dropInfo.TargetCollection as ObservableCollection<Job>).Equals(DoneJobs))
+                                {
+                                    ReviewJobs.Remove(dropInfo.Data as Job);
+                                    DoneJobs.Add(dropInfo.Data as Job);
+                                    repo.JobsRepo.ChangeJobTable((dropInfo.Data as Job), logedUser, (int)typeTable.Done);
+                                }
+                            }
+                        }
+                    }
+                }
             }
         }
 
