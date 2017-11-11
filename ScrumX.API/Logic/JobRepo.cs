@@ -1,4 +1,5 @@
-﻿using ScrumX.API.Context;
+﻿using ScrumX.API.Content;
+using ScrumX.API.Context;
 using ScrumX.API.Model;
 using ScrumX.API.Repository;
 using System;
@@ -44,15 +45,16 @@ namespace ScrumX.API.Logic
         /// <returns></returns>
         public int AddJob(Job job)
         {
+            job.SP = job.SP == 0 ? null : job.SP;
             ctx.Set<Job>().Add(job);
             ctx.SaveChanges();
             int id = job.IdJob;
             //W momencie utworzenia zadania tworzy sie log
             HistoryJob hj = new HistoryJob();
-            hj.FromBacklog = 1;
-            hj.ToBacklog = 1;
-            hj.FromTable = 0;
-            hj.ToTable = 0;
+            hj.FromBacklog = (int)typeBacklog.New;
+            hj.ToBacklog = (int)typeBacklog.New;
+            hj.FromTable = (int)typeTable.None;
+            hj.ToTable = (int)typeTable.None;
             hj.IdJob = job.IdJob;
             hj.IdUser = job.IdUser;
             hj.Date = DateTime.Today;
@@ -102,7 +104,7 @@ namespace ScrumX.API.Logic
         {
             //Jak nie jest completed
 
-            if (obj.BacklogStatus != 4)
+            if (obj.BacklogStatus != (int)typeBacklog.Completed)
             {
                 //Edit zadania robi wpis w HJ
                 HistoryJob hj = new HistoryJob();
@@ -110,14 +112,14 @@ namespace ScrumX.API.Logic
                 hj.IdJob = obj.IdJob;
                 hj.IdUser = user.IdUser;
                 //W przypadku jak nigdy wczesniej nie mial SP
-                if (obj.BacklogStatus == 1) //czyli jest w New
+                if (obj.BacklogStatus == (int)typeBacklog.New) //czyli jest w New
                 {
                     hj.FromBacklog = obj.BacklogStatus;
-                    hj.ToBacklog = 2; //Zmiana na Scheduled
-                    obj.BacklogStatus = 2;
+                    hj.ToBacklog = (int)typeBacklog.Ready; //Zmiana na Ready
+                    obj.BacklogStatus = (int)typeBacklog.Ready;
                     hj.FromTable = obj.TableStatus;
-                    hj.ToTable = 1; //do tablicy To-do
-                    obj.TableStatus = 1;
+                    hj.ToTable = (int)typeTable.ToDo; //do tablicy To-do
+                    obj.TableStatus = (int)typeTable.ToDo;
                     obj.SP = SP;
                     hj.Comment = "Przeniesiono zadanie \"" + obj.Title + "\" do rejestru " + Enum.GetName(typeof(Content.typeBacklog), 2) + " przez użytkownika "
                         + userRepo.Users.SingleOrDefault(U => U.IdUser == user.IdUser).Name;
@@ -169,21 +171,7 @@ namespace ScrumX.API.Logic
 
         public void EndJob(Job job, User user)
         {
-            HistoryJob hj = new HistoryJob
-            {
-                Date = DateTime.Today,
-                FromBacklog = job.BacklogStatus,
-                FromTable = job.TableStatus,
-                ToBacklog = 4,
-                ToTable = 4,
-                IdJob = job.IdJob,
-                IdUser = user.IdUser,
-                Comment = "Przeniesiono zadanie \"" + job.Title + "\" do rejestru " + Enum.GetName(typeof(Content.typeBacklog), 3) + " przez użytkownika "
-                        + user.Name
-            };
-            hjRepo.AddHistoryJob(hj);
-            job.TableStatus = 3;
-            job.BacklogStatus = 3;
+            ChangeJobTable(job, user, (int)typeTable.Done);
             EditJob(job);
         }
 
@@ -198,8 +186,9 @@ namespace ScrumX.API.Logic
 
         public bool ChangeJobTable(Job job, User user, int table)
         {
-            if (job.TableStatus != 4)
+            if (job.TableStatus != (int)typeTable.Done)
             {
+                if (job.TableStatus == (int)typeTable.ToDo && table != (int)typeTable.Doing) return false;
                 HistoryJob hj = new HistoryJob
                 {
                     Date = DateTime.Today,
@@ -212,6 +201,16 @@ namespace ScrumX.API.Logic
                     Comment = "Przeniesiono zadanie \"" + job.Title + "\" do rejestru " + Enum.GetName(typeof(Content.typeTable), table) + " przez użytkownika "
                         + user.Name
                 };
+                if (table == (int)typeTable.Done)
+                {
+                    hj.ToBacklog = (int)typeBacklog.Completed;
+                    job.BacklogStatus = (int)typeBacklog.Completed;
+                }
+                if (table == (int)typeTable.Doing)
+                {
+                    hj.ToBacklog = (int)typeBacklog.Scheduled;
+                    job.BacklogStatus = (int)typeBacklog.Scheduled;
+                }
                 hjRepo.AddHistoryJob(hj);
                 job.TableStatus = table;
                 return EditJob(job);
