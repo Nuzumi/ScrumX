@@ -135,6 +135,8 @@ namespace ScrumX.ViewModel
                 {
                     ToDoJobs.Remove((dropInfo.Data as Job));
                     DoingJobs.Add((dropInfo.Data as Job));
+                    bool a =repo.JobsRepo.ChangeJobTable((dropInfo.Data as Job), logedUser, (int)API.Content.typeTable.Doing);
+                    Console.WriteLine(a);
                 }
             }
             else
