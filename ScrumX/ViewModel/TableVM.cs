@@ -7,10 +7,12 @@ using System.Collections.ObjectModel;
 using System.Collections.Generic;
 using ScrumX.API.Repository;
 using ScrumX.API.Content;
+using System;
+using GongSolutions.Wpf.DragDrop;
 
 namespace ScrumX.ViewModel
 {
-    class TableVM : DialogDisplay
+    class TableVM : DialogDisplay , IDropTarget
     {
         private EfRepository repo;
 
@@ -22,14 +24,20 @@ namespace ScrumX.ViewModel
         public ObservableCollection<Job> ToDoJobs
         {
             get { return toDoJobs; }
-            set { SetProperty(ref toDoJobs, value); }
+            set
+            {
+                SetProperty(ref toDoJobs, value);
+            }
         }
 
         private ObservableCollection<Job> doingJobs;
         public ObservableCollection<Job> DoingJobs
         {
             get { return doingJobs; }
-            set { SetProperty(ref doingJobs, value); }
+            set
+            {
+                SetProperty(ref doingJobs, value);
+            }
         }
 
         private ObservableCollection<Project> projects;
@@ -114,6 +122,27 @@ namespace ScrumX.ViewModel
             }
         }
 
+        public void DragOver(IDropInfo dropInfo)
+        {
+            dropInfo.Effects = DragDropEffects.All;
+        }
+
+        public void Drop(IDropInfo dropInfo)
+        {
+            if(ToDoJobs.Contains(dropInfo.Data as Job))
+            {
+               if((dropInfo.TargetCollection as ObservableCollection<Job>).Equals(DoingJobs))
+                {
+                    ToDoJobs.Remove((dropInfo.Data as Job));
+                    DoingJobs.Add((dropInfo.Data as Job));
+                }
+            }
+            else
+            {
+                Console.WriteLine("nieOOK");
+            }
+        }
+
         #region CommandFunctions
 
         private void GoToBacklogCommandExecute(Window window)
@@ -129,6 +158,7 @@ namespace ScrumX.ViewModel
         {
             return CanAddTask;
         }
+
         #endregion
     }
 }
