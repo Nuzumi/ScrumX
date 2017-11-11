@@ -86,7 +86,9 @@ namespace ScrumX.ViewModel
                 }
                 else
                 {
-                    ToDoJobs.Clear();
+                    if (ToDoJobs != null)
+                        ToDoJobs.Clear();
+                    if(DoingJobs != null)
                     DoingJobs.Clear();
                 }
             }
