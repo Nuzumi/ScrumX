@@ -1,50 +1,264 @@
-﻿<Window x:Class="ScrumX.Backlog"
+﻿<Controls:MetroWindow x:Class="ScrumX.Backlog"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:ScrumX"
         mc:Ignorable="d"
+        xmlns:Controls="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
+        xmlns:iconPacks="http://metro.mahapps.com/winfx/xaml/iconpacks"
+        xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
         xmlns:converters="clr-namespace:ScrumX.Converters"
         xmlns:helper ="clr-namespace:ScrumX.HelperClasses"
-        Title="Backlog" Height="500" Width="750" Name="Window">
-    <Window.Resources>
-        <converters:ProjectToProjectNameConverter x:Key="projectToProjectName"/>
-        <converters:UserToUserNameConverter x:Key="userToUserNameConverter"/>
-        <converters:IntToDoubleConverter x:Key="intToDoubleConverter"/>
-        <helper:BindingProxy x:Key="proxy" Data="{Binding}"/>
-    </Window.Resources>
+        Background="{DynamicResource MaterialDesignPaper}"
+                       BorderThickness="0" 
+                      GlowBrush="Black"
+                      ResizeMode="CanResizeWithGrip"
+                TextElement.FontWeight="Medium"
+        TextElement.FontSize="14"
+                        NonActiveGlowBrush="#CDFF0000"
+                      WindowStartupLocation="CenterScreen"
+                       WindowTitleBrush="{DynamicResource PrimaryHueMidBrush}"
+        FontFamily="pack://application:,,,/MaterialDesignThemes.Wpf;component/Resources/Roboto/#Roboto"
+       
+        Title="Bakclog" Height="500" Width="1000" Name="Window">
+    <Controls:MetroWindow.Resources>
+
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <!-- MahApps.Metro resource dictionaries. Make sure that all file names are Case Sensitive! -->
+                <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Controls.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Fonts.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Colors.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Accents/Lime.xaml" />
+                <!-- Accent and AppTheme setting -->
+                <ResourceDictionary Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/MaterialDesignTheme.Light.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/MaterialDesignTheme.Defaults.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/MaterialDesignThemes.MahApps;component/Themes/MaterialDesignTheme.MahApps.Fonts.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/MaterialDesignColors;component/Themes/Recommended/Accent/MaterialDesignColor.Lime.xaml" />
+            </ResourceDictionary.MergedDictionaries>
+            <converters:ProjectToProjectNameConverter x:Key="projectToProjectName"/>
+            <converters:UserToUserNameConverter x:Key="userToUserNameConverter"/>
+            <converters:IntToDoubleConverter x:Key="intToDoubleConverter"/>
+            <helper:BindingProxy x:Key="proxy" Data="{Binding}"/>
+        </ResourceDictionary>
+    </Controls:MetroWindow.Resources>
+    <Controls:MetroWindow.WindowButtonCommands>
+        <Controls:WindowButtonCommands Template="{DynamicResource MahApps.Metro.Templates.WindowButtonCommands.Win10}" />
+    </Controls:MetroWindow.WindowButtonCommands>
+    <Controls:MetroWindow.LeftWindowCommands>
+        <Controls:WindowCommands>
+            <Button Command="{Binding LaunchGT}" ToolTip="Projekt na Githubie!">
+                <iconPacks:PackIconModern Width="22"
+                                          Height="22"
+                                          Kind="SocialGithubOctocatSolid" />
+            </Button>
+        </Controls:WindowCommands>
+    </Controls:MetroWindow.LeftWindowCommands>
+
+    <Controls:MetroWindow.RightWindowCommands>
+        <Controls:WindowCommands ShowLastSeparator="False">
+            <Button Command="{Binding LaunchNuzumiGT}" ToolTip="Nuzumi na Githubie!">
+                <iconPacks:PackIconModern Width="22"
+                                          Height="22"
+                                          Kind="SocialGithubOctocat" />
+            </Button>
+            <Button Command="{Binding LaunchRoennaGT}" ToolTip="Roenna na Githubie!">
+                <iconPacks:PackIconModern Width="22"
+                                          Height="22"
+                                          Kind="SocialGithubOctocat" />
+            </Button>
+        </Controls:WindowCommands>
+    </Controls:MetroWindow.RightWindowCommands>
+
     <DockPanel>
         <DockPanel DockPanel.Dock="Left">
             <TextBlock Text="ScrumX"  FontSize="35" Margin="7" DockPanel.Dock="Top"/>
             <Separator BorderThickness="1" BorderBrush="Black" DockPanel.Dock="Top"/>
             <DockPanel Margin="0,1,0,1">
-                <StackPanel DockPanel.Dock="Top">
-                    <Label Content="aktualne" Margin="5" FontSize="15" HorizontalContentAlignment="Center"/>
-                    <Label Content="miejsce:" Margin="5" FontSize="15" HorizontalContentAlignment="Center"/>
-                    <Label Content="Backlog" Margin="8" FontSize="15" HorizontalContentAlignment="Center" FontWeight="Bold"/>
-                </StackPanel>
+
                 <Separator BorderBrush="Black" BorderThickness="1" DockPanel.Dock="Top"/>
                 <StackPanel DockPanel.Dock="Top">
-                    <Label Content="Go to:" Margin="5" FontSize="17" HorizontalContentAlignment="Center"/>
-                    <Button Background="White" Command="{Binding GoToTableCommand}" CommandParameter="{Binding ElementName=Window}">
-                        <Label Content="Table" FontSize="18"/>
+                    <Label Content="Go to:" Margin="5" FontSize="20" FontWeight="Bold" HorizontalContentAlignment="Center"/>
+                    <Button 
+                    Style="{DynamicResource MaterialDesignToolButton}"
+                    Command="{Binding GoToTableCommand}" 
+                    CommandParameter="{Binding ElementName=Window}"
+                    BorderThickness="0"
+                    Margin="2,2,2,2"
+                    HorizontalAlignment="Center"
+                    VerticalContentAlignment="Center"
+                    HorizontalContentAlignment="Center"
+                    VerticalAlignment="Center"
+                    Grid.Column="0">
+                        <Grid Margin="0,2,0,2" 
+                              HorizontalAlignment="Center" 
+                              VerticalAlignment="Center"
+                              Height="22">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="90"/>
+                                <ColumnDefinition Width="*"/>
+                            </Grid.ColumnDefinitions>
+                            <TextBlock Grid.Column="0" Text="Table" Margin="2,0,2,0"
+                               FontSize="16"
+                               VerticalAlignment="Center"
+                              
+                               HorizontalAlignment="Left">
+                            </TextBlock>
+                            <Button Grid.Column="1" Margin="2,0,2,0" 
+                            VerticalAlignment="Center"
+                            HorizontalContentAlignment="Center"
+                            VerticalContentAlignment="Center"
+                            HorizontalAlignment="Right"
+                            Style="{DynamicResource MetroCircleButtonStyle}" BorderThickness="0">
+                                <materialDesign:PackIcon HorizontalAlignment="Center" VerticalAlignment="Center" Width="20" Height="20" Kind="CalendarToday"/>
+                            </Button>
+
+                        </Grid>
                     </Button>
-                    <Button Background="White">
-                        <Label Content="Options" FontSize="18"/>
+
+                    <Button 
+                    Style="{DynamicResource MaterialDesignToolButton}"
+                    BorderThickness="0"
+                    Margin="2,2,2,2"
+                    HorizontalAlignment="Center"
+                    VerticalContentAlignment="Center"
+                    HorizontalContentAlignment="Center"
+                    VerticalAlignment="Center"
+                    Grid.Column="0">
+                        <Grid Margin="0,2,0,2" 
+                              HorizontalAlignment="Center" 
+                              VerticalAlignment="Center"
+                              Height="22">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="90"/>
+                                <ColumnDefinition Width="*"/>
+                            </Grid.ColumnDefinitions>
+                            <TextBlock Grid.Column="0" Text="Backlog" Margin="2,0,2,0"
+                               FontSize="16"
+                               VerticalAlignment="Center"
+                              
+                               HorizontalAlignment="Left">
+                            </TextBlock>
+                            <Button Grid.Column="1" Margin="2,0,2,0" 
+                            VerticalAlignment="Center"
+                            HorizontalContentAlignment="Center"
+                            VerticalContentAlignment="Center"
+                            HorizontalAlignment="Right"
+                            Style="{DynamicResource MetroCircleButtonStyle}" BorderThickness="0">
+                                <materialDesign:PackIcon HorizontalAlignment="Center" VerticalAlignment="Center" Width="20" Height="20" Kind="CalendarText"/>
+                            </Button>
+
+                        </Grid>
                     </Button>
+
                 </StackPanel>
                 <Separator BorderBrush="Black" BorderThickness="1" DockPanel.Dock="Top"/>
                 <StackPanel>
-                    <Label  Content="Add:" HorizontalContentAlignment="Center" FontSize="17"/>
-                    <Button Background="White" Command="{Binding AddTaskCommand}">
-                        <Label Content="Task" FontSize="17"/>
+                    <Button 
+                    Style="{DynamicResource MaterialDesignToolButton}"
+                    BorderThickness="0"
+                    Command="{Binding AddTaskCommand}"
+                    Margin="2,2,2,2"
+                    HorizontalAlignment="Center"
+                    VerticalContentAlignment="Center"
+                    HorizontalContentAlignment="Center"
+                    VerticalAlignment="Center"
+                    Grid.Column="0">
+                        <Grid Margin="0,2,0,2" 
+                              HorizontalAlignment="Center" 
+                              VerticalAlignment="Center"
+                              Height="22">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="90"/>
+                                <ColumnDefinition Width="*"/>
+                            </Grid.ColumnDefinitions>
+                            <TextBlock Grid.Column="0" Text="Add Job" Margin="2,0,2,0"
+                               FontSize="16"
+                               VerticalAlignment="Center"
+                              
+                               HorizontalAlignment="Left">
+                            </TextBlock>
+                            <Button Grid.Column="1" Margin="2,0,2,0" 
+                            VerticalAlignment="Center"
+                            HorizontalContentAlignment="Center"
+                            VerticalContentAlignment="Center"
+                            HorizontalAlignment="Right"
+                            Style="{DynamicResource MetroCircleButtonStyle}" BorderThickness="0">
+                                <materialDesign:PackIcon HorizontalAlignment="Center" VerticalAlignment="Center" Width="20" Height="20" Kind="NotePlusOutline"/>
+                            </Button>
+
+                        </Grid>
                     </Button>
-                    <Button Background="White" Command="{Binding AddSprintCommand}">
-                        <Label Content="Sprint" FontSize="17"/>
+                    <Button 
+                    Style="{DynamicResource MaterialDesignToolButton}"
+                    BorderThickness="0"
+                    Command="{Binding AddSprintCommand}"
+                    Margin="2,2,2,2"
+                    HorizontalAlignment="Center"
+                    VerticalContentAlignment="Center"
+                    HorizontalContentAlignment="Center"
+                    VerticalAlignment="Center"
+                    Grid.Column="0">
+                        <Grid Margin="0,2,0,2" 
+                              HorizontalAlignment="Center" 
+                              VerticalAlignment="Center"
+                              Height="22">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="90"/>
+                                <ColumnDefinition Width="*"/>
+                            </Grid.ColumnDefinitions>
+                            <TextBlock Grid.Column="0" Text="Add Sprint" Margin="2,0,2,0"
+                               FontSize="16"
+                               VerticalAlignment="Center"
+                              
+                               HorizontalAlignment="Left">
+                            </TextBlock>
+                            <Button Grid.Column="1" Margin="2,0,2,0" 
+                            VerticalAlignment="Center"
+                            HorizontalContentAlignment="Center"
+                            VerticalContentAlignment="Center"
+                            HorizontalAlignment="Right"
+                            Style="{DynamicResource MetroCircleButtonStyle}" BorderThickness="0">
+                                <materialDesign:PackIcon HorizontalAlignment="Center" VerticalAlignment="Center" Width="20" Height="20" Kind="AlarmPlus"/>
+                            </Button>
+
+                        </Grid>
                     </Button>
-                    <Button Background="White" Command="{Binding AddProjectCommand}">
-                        <Label Content="Project" FontSize="17"/>
+                    <Button 
+                    Style="{DynamicResource MaterialDesignToolButton}"
+                    BorderThickness="0"
+                    Command="{Binding AddProjectCommand}"
+                    Margin="2,2,2,2"
+                    HorizontalAlignment="Center"
+                    VerticalContentAlignment="Center"
+                    HorizontalContentAlignment="Center"
+                    VerticalAlignment="Center"
+                    Grid.Column="0">
+                        <Grid Margin="0,2,0,2" 
+                              HorizontalAlignment="Center" 
+                              VerticalAlignment="Center"
+                              Height="22">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="90"/>
+                                <ColumnDefinition Width="*"/>
+                            </Grid.ColumnDefinitions>
+                            <TextBlock Grid.Column="0" Text="Add Project" Margin="2,0,2,0"
+                               FontSize="16"
+                               VerticalAlignment="Center"
+                              
+                               HorizontalAlignment="Left">
+                            </TextBlock>
+                            <Button Grid.Column="1" Margin="2,0,2,0" 
+                            VerticalAlignment="Center"
+                            HorizontalContentAlignment="Center"
+                            VerticalContentAlignment="Center"
+                            HorizontalAlignment="Right"
+                            Style="{DynamicResource MetroCircleButtonStyle}" BorderThickness="0">
+                                <materialDesign:PackIcon HorizontalAlignment="Center" VerticalAlignment="Center" Width="20" Height="20" Kind="CalendarPlus"/>
+                            </Button>
+
+                        </Grid>
                     </Button>
                 </StackPanel>
             </DockPanel>
@@ -58,16 +272,32 @@
             <TextBlock Text="{Binding UserName}" FontSize="18" Grid.Column="1"/>
         </Grid>
         <Separator DockPanel.Dock="Top" BorderThickness="1" BorderBrush="Black"/>
-        <Grid DockPanel.Dock="Top" Margin="7,2,7,2" MinHeight="43">
+        <Grid DockPanel.Dock="Top" Margin="7,2,7,2" MinHeight="50">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="*"/>
                 <ColumnDefinition Width="*"/>
                 <ColumnDefinition Width="*"/>
-                <ColumnDefinition Width="auto"/>
+                <ColumnDefinition Width="*"/>
             </Grid.ColumnDefinitions>
-            <ComboBox Margin="5"  SelectedItem="{Binding SelectedType}" ItemsSource="{Binding TypeList}" FontSize="12" VerticalContentAlignment="Center">
+            <ComboBox Margin="5"  
+                      SelectedItem="{Binding SelectedType}" 
+                      ItemsSource="{Binding TypeList}" 
+                      FontSize="16" 
+                      Height="26"
+                      VerticalContentAlignment="Center"
+                      Grid.Column="0"
+                      Controls:TextBoxHelper.ClearTextButton="True"
+                          Controls:TextBoxHelper.Watermark="Kategoria..."
+                          SelectedIndex="0">
             </ComboBox>
-            <ComboBox Margin="5" Grid.Column="1" ItemsSource="{Binding Projects}" SelectedItem="{Binding SelectedProject}">
+            <ComboBox Margin="5" Grid.Column="1" 
+                      ItemsSource="{Binding Projects}" 
+                      SelectedItem="{Binding SelectedProject}"
+                      Controls:TextBoxHelper.ClearTextButton="True"
+                          Controls:TextBoxHelper.Watermark="Projekt..."
+                          SelectedIndex="0"
+                      FontSize="16"
+                      Height="26">
                 <ComboBox.Resources>
                     <helper:BindingProxy x:Key="proxy" Data="{Binding}"/>
                 </ComboBox.Resources>
@@ -82,12 +312,31 @@
                     </DataTemplate>
                 </ComboBox.ItemTemplate>
             </ComboBox>
-            <TextBox Margin="5,5,0,5" Grid.Column="2"  VerticalContentAlignment="Center" HorizontalContentAlignment="Center" Text="{Binding Tag,UpdateSourceTrigger=PropertyChanged}" AcceptsReturn="False">
+            
+            <TextBox Margin="5,5,0,5" Grid.Column="2"  
+                     VerticalContentAlignment="Center" 
+                     HorizontalContentAlignment="Center" 
+                     Text="{Binding ActualSprint, Converter={StaticResource SprintToProjecTitleConverter}}" 
+                     AcceptsReturn="False"
+                     IsEnabled="False"
+                     FontSize="16"
+                     Height="26"
+                     >
+            </TextBox>
+            <TextBox Margin="5,5,0,5" Grid.Column="3"  
+                     VerticalContentAlignment="Center" 
+                     HorizontalContentAlignment="Center" 
+                     Text="{Binding Tag,UpdateSourceTrigger=PropertyChanged}" 
+                     AcceptsReturn="False"
+                     FontSize="16"
+                     Height="26"
+                     Controls:TextBoxHelper.ClearTextButton="True"
+                         Controls:TextBoxHelper.Watermark="Szukaj..."
+                         IsEnabled="True">
                 <TextBox.InputBindings>
                     <KeyBinding Key="Enter" Command="{Binding SearchJobCommandExecute}"/>
-                    </TextBox.InputBindings>
+                </TextBox.InputBindings>
             </TextBox>
-           
         </Grid>
         <Separator DockPanel.Dock="Top" BorderThickness="1" BorderBrush="Black"/>
         <Grid Margin="8">
@@ -98,7 +347,7 @@
                 <!--details-->
             </Grid.ColumnDefinitions>
             <Grid Margin="5">
-                <DataGrid ItemsSource="{Binding Jobs}"  SelectedItem="{Binding SelectedJob}" Margin="6,3,6,3" AutoGenerateColumns="False" SelectionMode="Single" SelectionUnit="FullRow" CanUserAddRows="False" CanUserDeleteRows="False" CanUserSortColumns="False" CanUserReorderColumns="True" CanUserResizeColumns="False">
+                <!--<DataGrid ItemsSource="{Binding Jobs}"  SelectedItem="{Binding SelectedJob}" Margin="6,3,6,3" AutoGenerateColumns="False" SelectionMode="Single" SelectionUnit="FullRow" CanUserAddRows="False" CanUserDeleteRows="False" CanUserSortColumns="False" CanUserReorderColumns="True" CanUserResizeColumns="False">
                     <DataGrid.Resources>
                         <helper:BindingProxy x:Key="proxy" Data="{Binding}"/>
                     </DataGrid.Resources>
@@ -115,80 +364,49 @@
                         <DataGridComboBoxColumn Header="SP" Width="*" SelectedItemBinding="{Binding SP , Mode=OneTime}" SelectedValueBinding="{Binding Data.SelectedSP, Source={StaticResource proxy} , Mode=OneWayToSource}" ItemsSource="{Binding Data.StoryPointValues, Source={StaticResource proxy}}"/>
                         <DataGridComboBoxColumn Header="Priority" Width="*" SelectedItemBinding="{Binding Priority, Mode=OneTime}" SelectedValueBinding="{Binding Data.SelectedPriority,Source={StaticResource proxy} , Mode=OneWayToSource}" ItemsSource="{Binding Data.PriorityValues, Source={StaticResource proxy}}"/>
                     </DataGrid.Columns>
+                </DataGrid>-->
+
+
+                <ContentControl Grid.Row="1"
+                        Grid.Column="0"
+                        Margin="10 5 5 5"
+                        DataContext="{Binding ElementName=MetroDataGrid}"
+                        />
+                <DataGrid x:Name="MetroDataGrid"
+                  Grid.Row="1"
+                  Grid.Column="1"
+                  Margin="5"
+                  AutoGenerateColumns="False"
+                  HeadersVisibility="All"
+                  ItemsSource="{Binding Path=Jobs}"
+                  RowHeaderWidth="20"
+                  SelectionUnit="FullRow"
+                 
+                  GridLinesVisibility="All">
+                    <DataGrid.InputBindings>
+                        <MouseBinding Gesture="LeftDoubleClick" Command="{Binding ClickDataGridJob}" CommandParameter="{Binding ElementName=MetroDataGrid, Path=SelectedJob}" />
+                    </DataGrid.InputBindings>
+                    <DataGrid.Columns>
+                        <DataGridTextColumn Width="3*" Header="Project" Binding="{Binding Sprint, Converter={StaticResource SprintToProjecTitleConverter}}" IsReadOnly="True"/>
+                        <DataGridTextColumn Width="3*" Header="Title" Binding="{Binding Title}" IsReadOnly="True"/>
+                        <DataGridComboBoxColumn Header="SP" Width="*" SelectedItemBinding="{Binding SP , Mode=OneTime}" SelectedValueBinding="{Binding Data.SelectedSP, Source={StaticResource proxy} , Mode=OneWayToSource}" ItemsSource="{Binding Data.StoryPointValues, Source={StaticResource proxy}}"/>
+                        <DataGridComboBoxColumn Header="Priority" Width="*" SelectedItemBinding="{Binding Priority, Mode=OneTime}" SelectedValueBinding="{Binding Data.SelectedPriority,Source={StaticResource proxy} , Mode=OneWayToSource}" ItemsSource="{Binding Data.PriorityValues, Source={StaticResource proxy}}"/>
+                    </DataGrid.Columns>
+                    <DataGrid.Style>
+                        <Style BasedOn="{StaticResource MetroDataGrid}" TargetType="{x:Type DataGrid}">
+                            <Setter Property="AlternatingRowBackground" Value="{DynamicResource GrayBrush10}" />
+                        </Style>
+                    </DataGrid.Style>
+                    <DataGrid.RowStyle>
+                        <Style BasedOn="{StaticResource MetroDataGridRow}" TargetType="{x:Type DataGridRow}">
+                            <Style.Triggers>
+
+                            </Style.Triggers>
+                        </Style>
+                    </DataGrid.RowStyle>
                 </DataGrid>
             </Grid>
-            <Grid Grid.Column="1"  DataContext="{Binding SelectedJob}">
-                <Grid.Resources>
-                    <Style TargetType="Label">
-                        <Setter Property="Margin" Value="2"/>
-                        <Setter Property="VerticalContentAlignment" Value="Center"/>
-                        <Setter Property="Visibility" Value="Collapsed"/>
-                        <Style.Triggers>
-                            <DataTrigger Binding="{Binding Data.IsDescVisible, Source={StaticResource proxy}}" Value="True">
-                                <Setter Property="Visibility" Value="Visible"/>
-                            </DataTrigger>
-                        </Style.Triggers>
-                    </Style>
-                    <Style TargetType="TextBlock">
-                        <Setter Property="Margin" Value="2"/>
-                        <Setter Property="VerticalAlignment" Value="Center"/>
-                        <Setter Property="Visibility" Value="Collapsed"/>
-                        <Style.Triggers>
-                            <DataTrigger Binding="{Binding Data.IsDescVisible, Source={StaticResource proxy}}" Value="True">
-                                <Setter Property="Visibility" Value="Visible"/>
-                            </DataTrigger>
-                        </Style.Triggers>
-                    </Style>
-                    <Style TargetType="ListView">
-                        <Setter Property="Margin" Value="2"/>
-                        <Setter Property="VerticalAlignment" Value="Center"/>
-                        <Setter Property="Visibility" Value="Collapsed"/>
-                        <Style.Triggers>
-                            <DataTrigger Binding="{Binding Data.IsDescVisible, Source={StaticResource proxy}}" Value="True">
-                                <Setter Property="Visibility" Value="Visible"/>
-                            </DataTrigger>
-                        </Style.Triggers>
-                    </Style>
-                </Grid.Resources>
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="auto"/>
-                    <ColumnDefinition Width="*"/>
-                </Grid.ColumnDefinitions>
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="auto"/><!--tytul-->
-                    <RowDefinition Height="auto"/><!--Sp-->
-                    <RowDefinition Height="auto"/><!--prior-->
-                    <RowDefinition Height="auto"/>
-                    <!--projekt-->
-                    <RowDefinition Height="auto"/><!--utworzone przez-->
-                    <RowDefinition Height="auto"/> <!--opis-->
-                    <RowDefinition Height="*"/>
-                </Grid.RowDefinitions>
-
-                <Label Content="Title"/>
-                <TextBlock Text="{Binding Title, Mode=OneWay}" Grid.Column="1"/>
-                <Label Content="Story Points" Grid.Row="1"/>
-                
-                <TextBlock Text="{Binding Project, Converter={StaticResource projectToProjectName}}" Grid.Column="1" Grid.Row="3"/>
-                <Label Content="Created by" Grid.Row="4"/>
-                <TextBlock Text="{Binding User, Converter={StaticResource userToUserNameConverter}}" Grid.Column="1" Grid.Row="4"/>
-                <Label Content="Description" Grid.Row="5"/>
-                <TextBlock Text="{Binding SP, Mode=OneWay}" Grid.Column="1" Grid.Row="1"/>
-                <Label Content="Priority" Grid.Row="2"/>
-                <TextBlock Text="{Binding Priority}" Grid.Column="1" Grid.Row="2"/>
-                <Label Content="Project" Grid.Row="3"/>
-                <TextBlock Text="{Binding Desc}" Grid.Column="1" Grid.Row="5"/>
-                <StackPanel Grid.Row="6" Grid.ColumnSpan="2">
-                    <Label Content="Logs" HorizontalContentAlignment="Center"/>
-                    <ListView ItemsSource="{Binding JobsHistoryJob}" MaxHeight="130">
-                        <ListView.ItemTemplate>
-                            <DataTemplate>
-                                <Label Content="{Binding Comment}"/>
-                            </DataTemplate>
-                        </ListView.ItemTemplate>
-                    </ListView>
-                </StackPanel>
-            </Grid>
+            
         </Grid>
     </DockPanel>
-</Window>
+</Controls:MetroWindow>

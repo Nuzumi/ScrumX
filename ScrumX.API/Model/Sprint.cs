@@ -25,5 +25,10 @@ namespace ScrumX.API.Model
         public string Title { get; set; }
         public DateTime StartData { get; set; } = DateTime.Today;
         public DateTime? EndData { get; set; }
+
+        override public string ToString()
+        {
+            return Title;
+        }
     }
 }

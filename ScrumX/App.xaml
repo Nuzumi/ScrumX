@@ -6,5 +6,15 @@
              StartupUri="View/LoginWindow.xaml">
     <Application.Resources>
         <Converters:SprintToProjectTitleConverter x:Key="SprintToProjecTitleConverter"/>
+        <!-- MahApps Brushes -->
+        <SolidColorBrush x:Key="PrimaryHueLightBrush" Color="#FFC107"/>
+        <SolidColorBrush x:Key="PrimaryHueLightForegroundBrush" Color="#FFFFFF"/>
+        <SolidColorBrush x:Key="PrimaryHueMidBrush" Color="#757575"/>
+        <SolidColorBrush x:Key="PrimaryHueMidForegroundBrush" Color="#FFFFFF"/>
+        <SolidColorBrush x:Key="PrimaryHueDarkBrush" Color="#4CAF50"/>
+        <SolidColorBrush x:Key="PrimaryHueDarkForegroundBrush" Color="#FFFFFF"/>
+        <!-- accent -->
+        <SolidColorBrush x:Key="SecondaryAccentBrush" Color="#FFC107"/>
+        <SolidColorBrush x:Key="SecondaryAccentForegroundBrush" Color="#FFFFFF"/>
     </Application.Resources>
 </Application>

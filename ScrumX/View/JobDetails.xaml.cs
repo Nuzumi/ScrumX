@@ -10,7 +10,6 @@ using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
 using System.Windows.Shapes;
 
 namespace ScrumX.View
@@ -18,7 +17,7 @@ namespace ScrumX.View
     /// <summary>
     /// Interaction logic for JobDetails.xaml
     /// </summary>
-    public partial class JobDetails : UserControl
+    public partial class JobDetails : Window
     {
         public JobDetails()
         {

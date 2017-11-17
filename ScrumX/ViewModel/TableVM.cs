@@ -9,12 +9,16 @@ using ScrumX.API.Repository;
 using ScrumX.API.Content;
 using System;
 using GongSolutions.Wpf.DragDrop;
+using MahApps.Metro.Controls.Dialogs;
+using System.Threading.Tasks;
+using MahApps.Metro.Controls;
 
 namespace ScrumX.ViewModel
 {
     class TableVM : DialogDisplay , IDropTarget
     {
         private EfRepository repo;
+        IDialogCoordinator _dialogCoordinator;
 
         #region Properties
 
@@ -127,19 +131,26 @@ namespace ScrumX.ViewModel
 
         public ICommand GoToBacklogCommand { get; set; }
         public ICommand GetJobsForUserCommand { get; set; }
+
+        public ICommand LaunchGT { get; set; }
+
+        public ICommand LaunchNuzumiGT { get; set; }
+
+        public ICommand LaunchRoennaGT { get; set; }
+
         #endregion
 
 
-        public TableVM(User user) :base(user)
+        public TableVM(User user, IDialogCoordinator dialogCoordinator) :base(user)
         {
             GoToBacklogCommand = new DelegateCommand<Window>(GoToBacklogCommandExecute, GoToBacklogCommandCanExecute);
             GetJobsForUserCommand = new DelegateCommand(GetJobsForUserCommandExecute);
             logedUser = user;
             UserName = user.Name;
             repo = new EfRepository();
-            jobsForUser = "Tylko moje zadania";
             Projects = new ObservableCollection<Project>(repo.ProjectsRepo.Projects);
-            if(Projects != null && Projects.Count > 0)
+            _dialogCoordinator = dialogCoordinator;
+            if (Projects != null && Projects.Count > 0)
             {
                 SelectedProject = Projects[0];
                 if(Sprints != null && Sprints.Count > 0)
@@ -147,6 +158,9 @@ namespace ScrumX.ViewModel
                     SelectedSprint = Sprints[0];
                 }
             }
+            LaunchRoennaGT = new DelegateCommand(LaunchRoennaGTExecute);
+            LaunchNuzumiGT = new DelegateCommand(LaunchNuzumiGTExecute);
+            LaunchGT = new DelegateCommand(LaunchGTExecute);
         }
 
         protected override void riseGoToCommands()
@@ -162,11 +176,12 @@ namespace ScrumX.ViewModel
             dropInfo.Effects = DragDropEffects.All;
         }
 
-        public void Drop(IDropInfo dropInfo)
+        public async void Drop(IDropInfo dropInfo)
         {
-            if (repo.SprintsRepo.IsSprintOpen(SelectedSprint)) {
-                if (ToDoJobs.Contains(dropInfo.Data as Job))
-                {
+            if (repo.SprintsRepo.IsSprintOpen(SelectedSprint))
+            {
+                 if (ToDoJobs.Contains(dropInfo.Data as Job))
+                    {
                     if ((dropInfo.TargetCollection as ObservableCollection<Job>).Equals(DoingJobs))
                     {
                         ToDoJobs.Remove((dropInfo.Data as Job));
@@ -175,80 +190,116 @@ namespace ScrumX.ViewModel
                     }
                     else
                     {
-                        MessageBox.Show("nie mozna");
+                        var metroWindow = (Application.Current.MainWindow as MetroWindow);
+                        await metroWindow.ShowMessageAsync("Uwaga", "Operacja jest zabroniona!");
                     }
                 }
-                else
+                else if (DoingJobs.Contains(dropInfo.Data as Job))
                 {
-                    if (DoingJobs.Contains(dropInfo.Data as Job))
+                    if ((dropInfo.TargetCollection as ObservableCollection<Job>).Equals(ToDoJobs))
                     {
-                        if ((dropInfo.TargetCollection as ObservableCollection<Job>).Equals(ToDoJobs))
-                        {
-                            DoingJobs.Remove(dropInfo.Data as Job);
-                            ToDoJobs.Add(dropInfo.Data as Job);
-                            repo.JobsRepo.ChangeJobTable((dropInfo.Data as Job), logedUser, (int)typeTable.ToDo);
-                        }
+                        DoingJobs.Remove(dropInfo.Data as Job);
+                        ToDoJobs.Add(dropInfo.Data as Job);
+                        repo.JobsRepo.ChangeJobTable((dropInfo.Data as Job), logedUser, (int)typeTable.ToDo);
+                    }
+                    else if ((dropInfo.TargetCollection as ObservableCollection<Job>).Equals(ReviewJobs))
+                    {
+                        DoingJobs.Remove(dropInfo.Data as Job);
+                        ReviewJobs.Add(dropInfo.Data as Job);
+                        bool i = repo.JobsRepo.ChangeJobTable((dropInfo.Data as Job), logedUser, (int)typeTable.Review);
+                        Console.WriteLine(i);
+                     }
+                     else if ((dropInfo.TargetCollection as ObservableCollection<Job>).Equals(DoneJobs))
+                     {
+                         DoingJobs.Remove(dropInfo.Data as Job);
+                         DoneJobs.Add(dropInfo.Data as Job);
+                         repo.JobsRepo.ChangeJobTable((dropInfo.Data as Job), logedUser, (int)typeTable.Done);
+                      }
                         else
                         {
-                            if ((dropInfo.TargetCollection as ObservableCollection<Job>).Equals(ReviewJobs))
-                            {
-                                DoingJobs.Remove(dropInfo.Data as Job);
-                                ReviewJobs.Add(dropInfo.Data as Job);
-                                bool i = repo.JobsRepo.ChangeJobTable((dropInfo.Data as Job), logedUser, (int)typeTable.Review);
-                                Console.WriteLine(i);
-                            }
-                            else
-                            {
-                                if ((dropInfo.TargetCollection as ObservableCollection<Job>).Equals(DoneJobs))
-                                {
-                                    DoingJobs.Remove(dropInfo.Data as Job);
-                                    DoneJobs.Add(dropInfo.Data as Job);
-                                    repo.JobsRepo.ChangeJobTable((dropInfo.Data as Job), logedUser, (int)typeTable.Done);
-                                }
-                            }
-                        }
+                            var metroWindow = (Application.Current.MainWindow as MetroWindow);
+                        await metroWindow.ShowMessageAsync("Ups!", "Operacja jest zabroniona");
                     }
-                    else
-                    {
-                        if (ReviewJobs.Contains(dropInfo.Data as Job))
+                  }
+                  else if (ReviewJobs.Contains(dropInfo.Data as Job))
+                  {
+                      if ((dropInfo.TargetCollection as ObservableCollection<Job>).Equals(ToDoJobs))
+                      {
+                          ReviewJobs.Remove(dropInfo.Data as Job);
+                          ToDoJobs.Add(dropInfo.Data as Job);
+                           repo.JobsRepo.ChangeJobTable((dropInfo.Data as Job), logedUser, (int)typeTable.ToDo);
+                      }
+                        else if ((dropInfo.TargetCollection as ObservableCollection<Job>).Equals(DoingJobs))
                         {
-                            if ((dropInfo.TargetCollection as ObservableCollection<Job>).Equals(ToDoJobs))
-                            {
-                                ReviewJobs.Remove(dropInfo.Data as Job);
-                                ToDoJobs.Add(dropInfo.Data as Job);
-                                repo.JobsRepo.ChangeJobTable((dropInfo.Data as Job), logedUser, (int)typeTable.ToDo);
-                            }
-                            else
-                            {
-                                if ((dropInfo.TargetCollection as ObservableCollection<Job>).Equals(DoingJobs))
-                                {
-                                    ReviewJobs.Remove(dropInfo.Data as Job);
-                                    DoingJobs.Add(dropInfo.Data as Job);
-                                    repo.JobsRepo.ChangeJobTable((dropInfo.Data as Job), logedUser, (int)typeTable.Doing);
-                                }
-                                else
-                                {
-                                    if ((dropInfo.TargetCollection as ObservableCollection<Job>).Equals(DoneJobs))
-                                    {
-                                        ReviewJobs.Remove(dropInfo.Data as Job);
-                                        DoneJobs.Add(dropInfo.Data as Job);
-                                        repo.JobsRepo.ChangeJobTable((dropInfo.Data as Job), logedUser, (int)typeTable.Done);
-                                    }
-                                }
-                            }
+                           ReviewJobs.Remove(dropInfo.Data as Job);
+                           DoingJobs.Add(dropInfo.Data as Job);
+                           repo.JobsRepo.ChangeJobTable((dropInfo.Data as Job), logedUser, (int)typeTable.Doing);
                         }
+                        else if ((dropInfo.TargetCollection as ObservableCollection<Job>).Equals(DoneJobs))
+                        {
+                           ReviewJobs.Remove(dropInfo.Data as Job);
+                           DoneJobs.Add(dropInfo.Data as Job);
+                           repo.JobsRepo.ChangeJobTable((dropInfo.Data as Job), logedUser, (int)typeTable.Done);
+                         }
+                        else
+                        {
+                        var metroWindow = (Application.Current.MainWindow as MetroWindow);
+                        await metroWindow.ShowMessageAsync("Ups!", "Operacja jest zabroniona");
                     }
+                }
+                else if (doneJobs.Contains(dropInfo.Data as Job))
+                {
+                    var metroWindow = (Application.Current.MainWindow as MetroWindow);
+                    await metroWindow.ShowMessageAsync("Ups!", "Operacja jest zabroniona");
                 }
             }
             else
-                MessageBox.Show("Sprint jest zamknięty!");
+            {
+                var metroWindow = (Application.Current.MainWindow as MetroWindow);
+                await metroWindow.ShowMessageAsync("Ups!", "Sprint jest zamknięty");
+            }
         }
 
         #region CommandFunctions
 
+        private ICommand showMessageDialogCommand;
+
+        public ICommand ShowMessageDialogCommandExecute
+        {
+            get
+            {
+                return this.showMessageDialogCommand ?? (this.showMessageDialogCommand = new SimpleCommand
+                {
+                    CanExecuteDelegate = x => true,
+                    ExecuteDelegate = x => PerformDialogCoordinatorAction(this.ShowMessage((string)x), (string)x == "DISPATCHER_THREAD")
+                });
+            }
+        }
+
+        private Action ShowMessage(string startingThread)
+        {
+            return () =>
+            {
+                var message = "Keke";
+                this._dialogCoordinator.ShowMessageAsync(this, $"Message from VM created by ", message).ContinueWith(t => Console.WriteLine(t.Result));
+            };
+        }
+
+        private static void PerformDialogCoordinatorAction(Action action, bool runInMainThread)
+        {
+            if (!runInMainThread)
+            {
+                Task.Factory.StartNew(action);
+            }
+            else
+            {
+                action();
+            }
+        }
+
         private void GoToBacklogCommandExecute(Window window)
         {
-            BacklogVM dataContext = new BacklogVM(logedUser); // mozna by przekazywac ta wczesniej uzywana klase by parametry wyszukiwania zostawaly
+            BacklogVM dataContext = new BacklogVM(logedUser, _dialogCoordinator); // mozna by przekazywac ta wczesniej uzywana klase by parametry wyszukiwania zostawaly
             Backlog backlog = new Backlog();
             backlog.DataContext = dataContext;
             backlog.Show();
@@ -260,7 +311,6 @@ namespace ScrumX.ViewModel
             if(getJobForUser == false)
             {
                 getJobForUser = true;
-                JobsForUser = "Wszystkie zadania";
                 ToDoJobs = new ObservableCollection<Job>(repo.JobsRepo.GetJobsForUser(SelectedSprint, logedUser, (int)typeTable.ToDo));
                 DoingJobs = new ObservableCollection<Job>(repo.JobsRepo.GetJobsForUser(SelectedSprint, logedUser, (int)typeTable.Doing));
                 ReviewJobs = new ObservableCollection<Job>(repo.JobsRepo.GetJobsForUser(SelectedSprint, logedUser, (int)typeTable.Review));
@@ -270,7 +320,6 @@ namespace ScrumX.ViewModel
             else
             {
                 getJobForUser = false;
-                JobsForUser = "Tylko moje zadania";
                 SetJobs();
             }
         }
@@ -280,6 +329,20 @@ namespace ScrumX.ViewModel
             return CanAddTask;
         }
 
+        private void LaunchRoennaGTExecute()
+        {
+            System.Diagnostics.Process.Start("https://github.com/Roenna");
+        }
+
+        private void LaunchNuzumiGTExecute()
+        {
+            System.Diagnostics.Process.Start("https://github.com/Nuzumi");
+        }
+
+        private void LaunchGTExecute()
+        {
+            System.Diagnostics.Process.Start("https://github.com/Nuzumi/ScrumX");
+        }
         #endregion
     }
 }

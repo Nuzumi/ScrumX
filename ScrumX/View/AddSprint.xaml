@@ -1,11 +1,40 @@
-﻿<Window x:Class="ScrumX.View.AddSprint"
+﻿<Controls:MetroWindow x:Class="ScrumX.View.AddSprint"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:ScrumX.View"
         mc:Ignorable="d"
-        Title="AddSprint" Height="300" Width="300" Name="Window" WindowStyle="None">
+        xmlns:Controls="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
+        xmlns:iconPacks="http://metro.mahapps.com/winfx/xaml/iconpacks"
+          BorderThickness="0" 
+                      GlowBrush="Black"
+                      ResizeMode="CanResizeWithGrip"             
+        xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+        Background="{DynamicResource MaterialDesignPaper}"
+                TextElement.FontWeight="Medium"
+        TextElement.FontSize="14"
+                        NonActiveGlowBrush="#CDFF0000"
+                      WindowStartupLocation="CenterScreen"
+                       WindowTitleBrush="{DynamicResource PrimaryHueMidBrush}"
+        FontFamily="pack://application:,,,/MaterialDesignThemes.Wpf;component/Resources/Roboto/#Roboto"
+       
+        Title="AddSprint" Height="150" Width="300" Name="Window" WindowStyle="None">
+    <Controls:MetroWindow.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <!-- MahApps.Metro resource dictionaries. Make sure that all file names are Case Sensitive! -->
+                <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Controls.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Fonts.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Colors.xaml" />
+                <!-- Accent and AppTheme setting -->
+                <ResourceDictionary Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/MaterialDesignTheme.Light.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/MaterialDesignTheme.Defaults.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/MaterialDesignThemes.MahApps;component/Themes/MaterialDesignTheme.MahApps.Fonts.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/MaterialDesignColors;component/Themes/Recommended/Accent/MaterialDesignColor.Lime.xaml" />
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </Controls:MetroWindow.Resources>
     <Grid Margin="8">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="auto"/>
@@ -16,23 +45,109 @@
             <RowDefinition Height="auto"/>
             <RowDefinition Height="auto"/>
         </Grid.RowDefinitions>
-        <Label Content="projekt"  Margin="10,6,10,6"/>
-        <ComboBox Grid.Column="1"  Margin="10,6,10,6" ItemsSource="{Binding Projects}" SelectedItem="{Binding SelectedProject}">
+        <Label Content="Projekt"  Margin="10,6,10,6"/>
+        <ComboBox Grid.Column="1"  
+                  Margin="10,6,10,6" 
+                  ItemsSource="{Binding Projects}" 
+                  SelectedItem="{Binding SelectedProject}"
+                  Controls:TextBoxHelper.ClearTextButton="True"
+                          Controls:TextBoxHelper.UseFloatingWatermark="True"
+                          Controls:TextBoxHelper.Watermark="Projekt"
+                          IsEditable="True"
+                          SelectedIndex="0">
             <ComboBox.ItemTemplate>
                 <DataTemplate>
                     <Label Content="{Binding Name}"/>
                 </DataTemplate>
             </ComboBox.ItemTemplate>
         </ComboBox>
-        <Label Content="Data Zakończenia" Grid.Row="1" Margin="10,6,10,6"/>
-        <DatePicker Grid.Column="1" Grid.Row="1" Margin="10,6,10,6" SelectedDate="{Binding EndDate}" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"/>
-        <Grid Grid.ColumnSpan="2" Grid.Row="2">
+        <Label Content="Data zakończenia" Grid.Row="1" Margin="10,6,10,6"/>
+        <DatePicker 
+            Grid.Column="1" 
+            Grid.Row="1" 
+            Margin="10,6,10,6" 
+            SelectedDate="{Binding EndDate}" 
+            HorizontalContentAlignment="Center" 
+            VerticalContentAlignment="Center"/>
+        <Grid Grid.ColumnSpan="2" Grid.Row="2" Margin="0,5,0,0">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="*"/>
-                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="auto"/>
             </Grid.ColumnDefinitions>
-            <Button Content="Ok" Margin="10" Command="{Binding AddSprintCommand}" CommandParameter="{Binding ElementName=Window}" />
-            <Button Content="Cancel" Margin="10"  Grid.Column="1" Command="{Binding CancleCommand}" CommandParameter="{Binding ElementName=Window}"/>
-        </Grid>   
-    </Grid> 
-</Window>
+            
+            <Button 
+                    Style="{DynamicResource MaterialDesignRaisedAccentButton}"
+                    BorderThickness="0"
+                    Command="{Binding CancleCommand}"
+                    Margin="2,0,2,0"
+                    HorizontalAlignment="Center"
+                    VerticalContentAlignment="Center"
+                    HorizontalContentAlignment="Center"
+                    VerticalAlignment="Center"
+                    Grid.Column="0" 
+                    Grid.Row="2">
+                <Grid Margin="0,2,0,2" 
+                              HorizontalAlignment="Center" 
+                              VerticalAlignment="Center"
+                              Height="22">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="auto"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+                    <TextBlock Grid.Column="0" Text="Anuluj" Margin="2,0,2,0"
+                               FontSize="16"
+                               VerticalAlignment="Center"
+                              
+                               HorizontalAlignment="Left">
+                    </TextBlock>
+                    <Button Grid.Column="1" Margin="2,0,2,0" 
+                            VerticalAlignment="Center"
+                            HorizontalContentAlignment="Center"
+                            VerticalContentAlignment="Center"
+                            HorizontalAlignment="Right"
+                            Style="{DynamicResource MetroCircleButtonStyle}" BorderThickness="0">
+                        <materialDesign:PackIcon HorizontalAlignment="Center" VerticalAlignment="Center" Width="20" Height="20" Kind="ExitToApp"/>
+                    </Button>
+
+                </Grid>
+            </Button>
+
+            <Button 
+                    Style="{DynamicResource MaterialDesignRaisedAccentButton}"
+                    BorderThickness="0"
+                    Command="{Binding AddSprintCommand}"
+                    Margin="2,0,2,0"
+                    HorizontalAlignment="Center"
+                    VerticalContentAlignment="Center"
+                    HorizontalContentAlignment="Center"
+                    VerticalAlignment="Center"
+                    Grid.Column="1"
+                Grid.Row="2">
+                <Grid Margin="0,2,0,2" 
+                              HorizontalAlignment="Center" 
+                              VerticalAlignment="Center"
+                              Height="22">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="auto"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+                    <TextBlock Grid.Column="0" Text="Dodaj sprint" Margin="2,0,2,0"
+                               FontSize="16"
+                               VerticalAlignment="Center"
+                              
+                               HorizontalAlignment="Left">
+                    </TextBlock>
+                    <Button Grid.Column="1" Margin="2,0,2,0" 
+                            VerticalAlignment="Center"
+                            HorizontalContentAlignment="Center"
+                            VerticalContentAlignment="Center"
+                            HorizontalAlignment="Right"
+                            Style="{DynamicResource MetroCircleButtonStyle}" BorderThickness="0">
+                        <materialDesign:PackIcon HorizontalAlignment="Center" VerticalAlignment="Center" Width="20" Height="20" Kind="AlarmPlus"/>
+                    </Button>
+
+                </Grid>
+            </Button>
+        </Grid>
+    </Grid>
+</Controls:MetroWindow>

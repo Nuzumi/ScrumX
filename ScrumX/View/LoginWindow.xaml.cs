@@ -1,4 +1,7 @@
-﻿using System;
+﻿using MahApps.Metro.Controls;
+using MahApps.Metro.Controls.Dialogs;
+using ScrumX.ViewModel;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -17,10 +20,16 @@ namespace ScrumX.View
     /// <summary>
     /// Interaction logic for LoginWindow.xaml
     /// </summary>
-    public partial class LoginWindow : Window
+    public partial class LoginWindow : MetroWindow
     {
+        private readonly LoginVM _viewModel;
+
         public LoginWindow()
         {
+            _viewModel = new LoginVM(DialogCoordinator.Instance);
+            DataContext = _viewModel;
+
+
             InitializeComponent();
         }
     }

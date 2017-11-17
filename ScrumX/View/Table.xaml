@@ -1,43 +1,260 @@
-﻿<Window x:Class="ScrumX.View.Table"
+﻿<Controls:MetroWindow x:Class="ScrumX.View.Table"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:Controls="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
+        xmlns:iconPacks="http://metro.mahapps.com/winfx/xaml/iconpacks"
+        xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
         xmlns:local="clr-namespace:ScrumX.View"
         mc:Ignorable="d"
+                       BorderThickness="0" 
+                      GlowBrush="Black"
+                      ResizeMode="CanResizeWithGrip"
+        Background="{DynamicResource MaterialDesignPaper}"
+                TextElement.FontWeight="Medium"
+        TextElement.FontSize="14"
+                        NonActiveGlowBrush="#CDFF0000"
+                      WindowStartupLocation="CenterScreen"
+                       WindowTitleBrush="{DynamicResource PrimaryHueMidBrush}"
+        FontFamily="pack://application:,,,/MaterialDesignThemes.Wpf;component/Resources/Roboto/#Roboto"
+       
         xmlns:dd="urn:gong-wpf-dragdrop"
-        Title="Table" Height="500" Width="750" Name="Window">
+        Title="Tablica" Height="500" Width="1000" Name="Window">
+
+    <Controls:MetroWindow.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <!-- MahApps.Metro resource dictionaries. Make sure that all file names are Case Sensitive! -->
+                <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Controls.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Fonts.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Colors.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Accents/Lime.xaml" />
+                <!-- Accent and AppTheme setting -->
+                <ResourceDictionary Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/MaterialDesignTheme.Light.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/MaterialDesignTheme.Defaults.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/MaterialDesignThemes.MahApps;component/Themes/MaterialDesignTheme.MahApps.Fonts.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/MaterialDesignColors;component/Themes/Recommended/Accent/MaterialDesignColor.Lime.xaml" />
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </Controls:MetroWindow.Resources>
+
+    <Controls:MetroWindow.LeftWindowCommands>
+        <Controls:WindowCommands>
+            <Button Command="{Binding LaunchGT}" ToolTip="Projekt na Githubie!">
+                <iconPacks:PackIconModern Width="22"
+                                          Height="22"
+                                          Kind="SocialGithubOctocatSolid" />
+            </Button>
+        </Controls:WindowCommands>
+    </Controls:MetroWindow.LeftWindowCommands>
+
+    <Controls:MetroWindow.RightWindowCommands>
+        <Controls:WindowCommands ShowLastSeparator="False">
+            <Button Command="{Binding LaunchNuzumiGT}" ToolTip="Nuzumi na Githubie!">
+                <iconPacks:PackIconModern Width="22"
+                                          Height="22"
+                                          Kind="SocialGithubOctocat" />
+            </Button>
+            <Button Command="{Binding LaunchRoennaGT}" ToolTip="Roenna na Githubie!">
+                <iconPacks:PackIconModern Width="22"
+                                          Height="22"
+                                          Kind="SocialGithubOctocat" />
+            </Button>
+        </Controls:WindowCommands>
+    </Controls:MetroWindow.RightWindowCommands>
+
+
     <DockPanel>
-        <DockPanel DockPanel.Dock="Left"  >
+        <DockPanel DockPanel.Dock="Left">
             <TextBlock Text="ScrumX"  FontSize="35" Margin="7" DockPanel.Dock="Top"/>
             <Separator BorderThickness="1" BorderBrush="Black" DockPanel.Dock="Top"/>
             <DockPanel Margin="0,1,0,1">
+
+                <Separator BorderBrush="Black" BorderThickness="1" DockPanel.Dock="Top"/>
                 <StackPanel DockPanel.Dock="Top">
-                    <Label Content="aktualne" Margin="5" FontSize="15" HorizontalContentAlignment="Center"/>
-                    <Label Content="miejsce:" Margin="5" FontSize="15" HorizontalContentAlignment="Center"/>
-                    <Label Content="Table" Margin="8" FontSize="15" HorizontalContentAlignment="Center" FontWeight="Bold"/>
-                </StackPanel>
-                <Separator BorderBrush="Black" BorderThickness="1" Grid.Row="1" DockPanel.Dock="Top"/>
-                <StackPanel DockPanel.Dock="Top">
-                    <Label Content="Go to:" Margin="5" FontSize="17" HorizontalContentAlignment="Center"/>
-                    <Button Background="White" Command="{Binding GoToBacklogCommand}" CommandParameter="{Binding ElementName=Window}">
-                        <Label Content="Backlog" FontSize="18"/>
+                    <Label Content="Go to:" Margin="5" FontSize="20" FontWeight="Bold" HorizontalContentAlignment="Center"/>
+                    <Button 
+                    Style="{DynamicResource MaterialDesignToolButton}"
+                    Command="{Binding GoToTableCommand}" 
+                    CommandParameter="{Binding ElementName=Window}"
+                    BorderThickness="0"
+                    Margin="2,2,2,2"
+                    HorizontalAlignment="Center"
+                    VerticalContentAlignment="Center"
+                    HorizontalContentAlignment="Center"
+                    VerticalAlignment="Center"
+                    Grid.Column="0">
+                        <Grid Margin="0,2,0,2" 
+                              HorizontalAlignment="Center" 
+                              VerticalAlignment="Center"
+                              Height="22">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="90"/>
+                                <ColumnDefinition Width="*"/>
+                            </Grid.ColumnDefinitions>
+                            <TextBlock Grid.Column="0" Text="Table" Margin="2,0,2,0"
+                               FontSize="16"
+                               VerticalAlignment="Center"
+                              
+                               HorizontalAlignment="Left">
+                            </TextBlock>
+                            <Button Grid.Column="1" Margin="2,0,2,0" 
+                            VerticalAlignment="Center"
+                            HorizontalContentAlignment="Center"
+                            VerticalContentAlignment="Center"
+                            HorizontalAlignment="Right"
+                            Style="{DynamicResource MetroCircleButtonStyle}" BorderThickness="0">
+                                <materialDesign:PackIcon Width="20" Height="20" Kind="CalendarToday"/>
+                            </Button>
+
+                        </Grid>
                     </Button>
-                    <Button Background="White">
-                        <Label Content="Options" FontSize="18"/>
+
+                    <Button 
+                    Style="{DynamicResource MaterialDesignToolButton}"
+                        Command="{Binding GoToBacklogCommand}" 
+                    CommandParameter="{Binding ElementName=Window}"
+                    BorderThickness="0"
+                    Margin="2,2,2,2"
+                    HorizontalAlignment="Center"
+                    VerticalContentAlignment="Center"
+                    HorizontalContentAlignment="Center"
+                    VerticalAlignment="Center"
+                    Grid.Column="0">
+                        <Grid Margin="0,2,0,2" 
+                              HorizontalAlignment="Center" 
+                              VerticalAlignment="Center"
+                              Height="22">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="90"/>
+                                <ColumnDefinition Width="*"/>
+                            </Grid.ColumnDefinitions>
+                            <TextBlock Grid.Column="0" Text="Backlog" Margin="2,0,2,0"
+                               FontSize="16"
+                               VerticalAlignment="Center"
+                              
+                               HorizontalAlignment="Left">
+                            </TextBlock>
+                            <Button Grid.Column="1" Margin="2,0,2,0" 
+                            VerticalAlignment="Center"
+                            HorizontalContentAlignment="Center"
+                            VerticalContentAlignment="Center"
+                            HorizontalAlignment="Right"
+                            Style="{DynamicResource MetroCircleButtonStyle}" BorderThickness="0">
+                                <materialDesign:PackIcon Width="20" Height="20" Kind="CalendarText"/>
+                            </Button>
+
+                        </Grid>
                     </Button>
+
                 </StackPanel>
                 <Separator BorderBrush="Black" BorderThickness="1" DockPanel.Dock="Top"/>
                 <StackPanel>
-                    <Label  Content="Add:" HorizontalContentAlignment="Center" FontSize="17"/>
-                    <Button Background="White" Command="{Binding AddTaskCommand}">
-                        <Label Content="Task" FontSize="17"/>
+                    <Button 
+                    Style="{DynamicResource MaterialDesignToolButton}"
+                    BorderThickness="0"
+                    Command="{Binding AddTaskCommand}"
+                    Margin="2,2,2,2"
+                    HorizontalAlignment="Center"
+                    VerticalContentAlignment="Center"
+                    HorizontalContentAlignment="Center"
+                    VerticalAlignment="Center"
+                    Grid.Column="0">
+                        <Grid Margin="0,2,0,2" 
+                              HorizontalAlignment="Center" 
+                              VerticalAlignment="Center"
+                              Height="22">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="90"/>
+                                <ColumnDefinition Width="*"/>
+                            </Grid.ColumnDefinitions>
+                            <TextBlock Grid.Column="0" Text="Add Job" Margin="2,0,2,0"
+                               FontSize="16"
+                               VerticalAlignment="Center"
+                              
+                               HorizontalAlignment="Left">
+                            </TextBlock>
+                            <Button Grid.Column="1" Margin="2,0,2,0" 
+                            VerticalAlignment="Center"
+                            HorizontalContentAlignment="Center"
+                            VerticalContentAlignment="Center"
+                            HorizontalAlignment="Right"
+                            Style="{DynamicResource MetroCircleButtonStyle}" BorderThickness="0">
+                                <materialDesign:PackIcon Width="20" Height="20" Kind="NotePlusOutline"/>
+                            </Button>
+
+                        </Grid>
                     </Button>
-                    <Button Background="White" Command="{Binding AddSprintCommand}">
-                        <Label Content="Sprint" FontSize="17"/>
+                    <Button 
+                    Style="{DynamicResource MaterialDesignToolButton}"
+                    BorderThickness="0"
+                    Command="{Binding AddSprintCommand}"
+                    Margin="2,2,2,2"
+                    HorizontalAlignment="Center"
+                    VerticalContentAlignment="Center"
+                    HorizontalContentAlignment="Center"
+                    VerticalAlignment="Center"
+                    Grid.Column="0">
+                        <Grid Margin="0,2,0,2" 
+                              HorizontalAlignment="Center" 
+                              VerticalAlignment="Center"
+                              Height="22">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="90"/>
+                                <ColumnDefinition Width="*"/>
+                            </Grid.ColumnDefinitions>
+                            <TextBlock Grid.Column="0" Text="Add Sprint" Margin="2,0,2,0"
+                               FontSize="16"
+                               VerticalAlignment="Center"
+                              
+                               HorizontalAlignment="Left">
+                            </TextBlock>
+                            <Button Grid.Column="1" Margin="2,0,2,0" 
+                            VerticalAlignment="Center"
+                            HorizontalContentAlignment="Center"
+                            VerticalContentAlignment="Center"
+                            HorizontalAlignment="Right"
+                            Style="{DynamicResource MetroCircleButtonStyle}" BorderThickness="0">
+                                <materialDesign:PackIcon Width="20" Height="20" Kind="AlarmPlus"/>
+                            </Button>
+
+                        </Grid>
                     </Button>
-                    <Button Background="White" Command="{Binding AddProjectCommand}">
-                        <Label Content="Project" FontSize="17"/>
+                    <Button 
+                    Style="{DynamicResource MaterialDesignToolButton}"
+                    BorderThickness="0"
+                    Command="{Binding AddProjectCommand}"
+                    Margin="2,2,2,2"
+                    HorizontalAlignment="Center"
+                    VerticalContentAlignment="Center"
+                    HorizontalContentAlignment="Center"
+                    VerticalAlignment="Center"
+                    Grid.Column="0">
+                        <Grid Margin="0,2,0,2" 
+                              HorizontalAlignment="Center" 
+                              VerticalAlignment="Center"
+                              Height="22">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="90"/>
+                                <ColumnDefinition Width="*"/>
+                            </Grid.ColumnDefinitions>
+                            <TextBlock Grid.Column="0" Text="Add Project" Margin="2,0,2,0"
+                               FontSize="16"
+                               VerticalAlignment="Center"
+                              
+                               HorizontalAlignment="Left">
+                            </TextBlock>
+                            <Button Grid.Column="1" Margin="2,0,2,0" 
+                            VerticalAlignment="Center"
+                            HorizontalContentAlignment="Center"
+                            VerticalContentAlignment="Center"
+                            HorizontalAlignment="Right"
+                            Style="{DynamicResource MetroCircleButtonStyle}" BorderThickness="0">
+                                <materialDesign:PackIcon Width="20" Height="20" Kind="CalendarPlus"/>
+                            </Button>
+
+                        </Grid>
                     </Button>
                 </StackPanel>
             </DockPanel>
@@ -74,9 +291,13 @@
                 </ComboBox.ItemTemplate>
             </ComboBox>
             <Border Grid.Column="2" BorderThickness="0.8" BorderBrush="Black" Margin="0,4,4,4"/>
-            <Button Grid.Column="3" Margin="5,9,5,4" Command="{Binding GetJobsForUserCommand}">
-                <Label Content="{Binding JobsForUser}" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"/>
-            </Button>
+            <ToggleButton 
+                Grid.Column="3" 
+                Margin="5,9,5,4" 
+                Style="{StaticResource MaterialDesignActionAccentToggleButton}"
+                Command="{Binding GetJobsForUserCommand}">
+                <Label Content="Tylko moje zadania" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"/>
+            </ToggleButton>
             
         </Grid>
         <Separator DockPanel.Dock="Top" BorderThickness="1" BorderBrush="Black"/>
@@ -92,60 +313,84 @@
             </Grid.RowDefinitions>
             <DockPanel  Grid.RowSpan="2" Margin="2,6,6,6">
                 <Label Content="To Do" DockPanel.Dock="Top" HorizontalContentAlignment="Center" FontSize="15"/>
-                <ListView ItemsSource="{Binding ToDoJobs , Mode=TwoWay}" dd:DragDrop.IsDragSource="True" dd:DragDrop.IsDropTarget="True" dd:DragDrop.DropHandler="{Binding}">
-                    <ListView.ItemTemplate>
-                        <DataTemplate>
-                            <DockPanel>
-                                <Label Content="{Binding Priority}" DockPanel.Dock="Right"/>
-                                <Label Content="{Binding SP}" DockPanel.Dock="Right"/>
-                                <Label Content="{Binding Title}" />
-                            </DockPanel>
-                        </DataTemplate>
-                    </ListView.ItemTemplate>
+                <ListView 
+                    ItemsSource="{Binding ToDoJobs , Mode=TwoWay}" 
+                    dd:DragDrop.IsDragSource="True" 
+                    dd:DragDrop.IsDropTarget="True" 
+                    dd:DragDrop.DropHandler="{Binding}"
+                    BorderThickness="1"
+                    SelectedIndex="0"
+                    Style="{StaticResource VirtualisedMetroListView}">
+                   
+                    <ListView.View>
+                        <GridView>
+                            <GridViewColumn DisplayMemberBinding="{Binding Title}" Header="Title" Width="100"/>
+                            <GridViewColumn DisplayMemberBinding="{Binding User.Name}" Header="Stworzone" Width="100" />
+                            <GridViewColumn DisplayMemberBinding="{Binding SP}" Header="SP" Width="30" />
+                            <GridViewColumn DisplayMemberBinding="{Binding Priority}" Header="Priority" />
+                        </GridView>
+                    </ListView.View>
                 </ListView>
             </DockPanel>
             <DockPanel Grid.Column="1" Margin="6" >
                 <Label Content="Doing" DockPanel.Dock="Top" HorizontalContentAlignment="Center" FontSize="15"/>
-                <ListView ItemsSource="{Binding DoingJobs, Mode=TwoWay}" dd:DragDrop.IsDragSource="True" dd:DragDrop.IsDropTarget="True" dd:DragDrop.DropHandler="{Binding}">
-                    <ListView.ItemTemplate>
-                        <DataTemplate>
-                            <DockPanel>
-                                <Label Content="{Binding Priority}" DockPanel.Dock="Right"/>
-                                <Label Content="{Binding SP}" DockPanel.Dock="Right"/>
-                                <Label Content="{Binding Title}" />
-                            </DockPanel>
-                        </DataTemplate>
-                    </ListView.ItemTemplate>
+                <ListView ItemsSource="{Binding DoingJobs, Mode=TwoWay}" 
+                          BorderThickness="1"
+                          SelectedIndex="0"
+                          Style="{StaticResource VirtualisedMetroListView}"
+                          dd:DragDrop.IsDragSource="True" 
+                          dd:DragDrop.IsDropTarget="True" 
+                          dd:DragDrop.DropHandler="{Binding}">
+                    <ListView.View>
+                        <GridView>
+                            <GridViewColumn DisplayMemberBinding="{Binding Title}" Header="Title" Width="150"/>
+                            <GridViewColumn DisplayMemberBinding="{Binding User.Name}" Header="Stworzone" Width="100" />
+                            <GridViewColumn DisplayMemberBinding="{Binding SP}" Header="SP" Width="30" />
+                            <GridViewColumn DisplayMemberBinding="{Binding Priority}" Header="Priority" />
+                        </GridView>
+                    </ListView.View>
                 </ListView>
             </DockPanel>
             <DockPanel Grid.Column="1" Grid.Row="1" Margin="6" >
                 <Label Content="Rewiev" DockPanel.Dock="Top" HorizontalContentAlignment="Center" FontSize="15"/>
-                <ListView ItemsSource="{Binding ReviewJobs}" dd:DragDrop.IsDragSource="True" dd:DragDrop.IsDropTarget="True" dd:DragDrop.DropHandler="{Binding}">
-                    <ListView.ItemTemplate>
-                        <DataTemplate>
-                            <DockPanel>
-                                <Label Content="{Binding Priority}" DockPanel.Dock="Right"/>
-                                <Label Content="{Binding SP}" DockPanel.Dock="Right"/>
-                                <Label Content="{Binding Title}" />
-                            </DockPanel>
-                        </DataTemplate>
-                    </ListView.ItemTemplate>
+                <ListView 
+                    ItemsSource="{Binding ReviewJobs}" 
+                    BorderThickness="1"
+                    SelectedIndex="0"
+                    Style="{StaticResource VirtualisedMetroListView}"
+                    dd:DragDrop.IsDragSource="True" 
+                    dd:DragDrop.IsDropTarget="True" 
+                    dd:DragDrop.DropHandler="{Binding}">
+                    <ListView.View>
+                        <GridView>
+                            <GridViewColumn DisplayMemberBinding="{Binding Title}" Header="Title" Width="150"/>
+                            <GridViewColumn DisplayMemberBinding="{Binding User.Name}" Header="Stworzone" Width="100" />
+                            <GridViewColumn DisplayMemberBinding="{Binding SP}" Header="SP" Width="30" />
+                            <GridViewColumn DisplayMemberBinding="{Binding Priority}" Header="Priority" />
+                        </GridView>
+                    </ListView.View>
                 </ListView>
             </DockPanel>
             <DockPanel Grid.Column="2" Grid.RowSpan="2" Margin="6,6,2,6">
                 <Label Content="Done" DockPanel.Dock="Top" HorizontalContentAlignment="Center" FontSize="15"/>
-                <ListView ItemsSource="{Binding DoneJobs}" dd:DragDrop.IsDropTarget="True" dd:DragDrop.DropHandler="{Binding}">
-                    <ListView.ItemTemplate>
-                        <DataTemplate>
-                            <DockPanel>
-                                <Label Content="{Binding Priority}" DockPanel.Dock="Right"/>
-                                <Label Content="{Binding SP}" DockPanel.Dock="Right"/>
-                                <Label Content="{Binding Title}" />
-                            </DockPanel>
-                        </DataTemplate>
-                    </ListView.ItemTemplate>
+                <ListView 
+                    ItemsSource="{Binding DoneJobs}" 
+                    BorderThickness="1"
+                    SelectedIndex="0"
+                    Style="{StaticResource VirtualisedMetroListView}"
+                    dd:DragDrop.IsDragSource="True" 
+                    dd:DragDrop.IsDropTarget="True" 
+                    dd:DragDrop.DropHandler="{Binding}">
+                    <ListView.View>
+                        <GridView>
+                            <GridViewColumn DisplayMemberBinding="{Binding Title}" Header="Title" Width="100"/>
+                            <GridViewColumn DisplayMemberBinding="{Binding User.Name}" Header="Stworzone" Width="100" />
+                            <GridViewColumn DisplayMemberBinding="{Binding SP}" Header="SP" Width="30" />
+                            <GridViewColumn DisplayMemberBinding="{Binding Priority}" Header="Priority" />
+                        </GridView>
+                    </ListView.View>
                 </ListView>
             </DockPanel>
         </Grid>
     </DockPanel>
-</Window>
+</Controls:MetroWindow>

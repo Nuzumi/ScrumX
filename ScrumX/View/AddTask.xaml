@@ -1,23 +1,52 @@
-﻿<Window x:Class="ScrumX.View.AddTask"
+﻿<Controls:MetroWindow x:Class="ScrumX.View.AddTask"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:ScrumX.View"
+        xmlns:Controls="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
+        xmlns:iconPacks="http://metro.mahapps.com/winfx/xaml/iconpacks"
+        xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+        xmlns:converters="clr-namespace:ScrumX.Converters"
         mc:Ignorable="d"
-        Title="AddTask" Height="300" Width="300" Name="Window" WindowStyle="None">
-    <Window.Resources>
-        <Style TargetType="TextBox" >
-            <Setter Property="Margin" Value="10" />
-        </Style>
-        <Style TargetType="ComboBox" >
-            <Setter Property="Margin" Value="10" />
-        </Style>
-        <Style TargetType="Label">
-            <Setter Property="Margin" Value="10,6,10,6"/>
-            <Setter Property="VerticalContentAlignment" Value="Center"/>
-        </Style>
-    </Window.Resources>
+                       BorderThickness="0" 
+                      GlowBrush="Black"
+                      ResizeMode="CanResizeWithGrip"
+        Background="{DynamicResource MaterialDesignPaper}"
+                TextElement.FontWeight="Medium"
+        TextElement.FontSize="14"
+                        NonActiveGlowBrush="#CDFF0000"
+                      WindowStartupLocation="CenterScreen"
+                       WindowTitleBrush="{DynamicResource PrimaryHueMidBrush}"
+        FontFamily="pack://application:,,,/MaterialDesignThemes.Wpf;component/Resources/Roboto/#Roboto"
+       
+        Title="AddTask" Height="350" Width="300" Name="Window" WindowStyle="None">
+    <Controls:MetroWindow.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <!-- MahApps.Metro resource dictionaries. Make sure that all file names are Case Sensitive! -->
+                <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Controls.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Fonts.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Colors.xaml" />
+                <!-- Accent and AppTheme setting -->
+                <ResourceDictionary Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/MaterialDesignTheme.Light.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/MaterialDesignTheme.Defaults.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/MaterialDesignThemes.MahApps;component/Themes/MaterialDesignTheme.MahApps.Fonts.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/MaterialDesignColors;component/Themes/Recommended/Accent/MaterialDesignColor.Lime.xaml" />
+            </ResourceDictionary.MergedDictionaries>
+            <converters:ProjectToProjectNameConverter x:Key="projectToProjectName"/>
+            <Style TargetType="TextBox" >
+                <Setter Property="Margin" Value="10" />
+            </Style>
+            <Style TargetType="ComboBox" >
+                <Setter Property="Margin" Value="10" />
+            </Style>
+            <Style TargetType="Label">
+                <Setter Property="Margin" Value="10,6,10,6"/>
+                <Setter Property="VerticalContentAlignment" Value="Center"/>
+            </Style>
+        </ResourceDictionary>
+    </Controls:MetroWindow.Resources>
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="auto"/>
@@ -29,36 +58,140 @@
             <RowDefinition Height="auto"/>
             <RowDefinition Height="auto"/>
             <RowDefinition Height="auto"/>
+            <RowDefinition Height="auto"/>
         </Grid.RowDefinitions>
-        <Label Content="tytul" Margin="10,6,10,6"/>
-        <TextBox Grid.Column="1" Text="{Binding TaskTitle}"/>
+        <Label Content="Tytuł" Margin="10,6,10,6"/>
+        <TextBox Grid.Column="1" Text="{Binding TaskTitle}" Height="25"/>
         <Label Content="Projekt" Grid.Row="1" />
-        <ComboBox Grid.Column="1" Grid.Row="1" SelectedItem="{Binding TaskProject}" ItemsSource="{Binding Projects}" MinHeight="35">
+        <ComboBox Grid.Column="1" 
+                  Grid.Row="1" 
+                  SelectedItem="{Binding TaskProject}" 
+                  ItemsSource="{Binding Projects}" 
+                  MinHeight="25"
+                  Controls:TextBoxHelper.ClearTextButton="True"
+                          Controls:TextBoxHelper.UseFloatingWatermark="True"
+                          Controls:TextBoxHelper.Watermark="Priority..."
+                          IsEditable="True">
             <ComboBox.ItemTemplate>
                 <DataTemplate >
                     <Label Content="{Binding Name}" FontSize="10"/>
                 </DataTemplate>
             </ComboBox.ItemTemplate>
         </ComboBox>
-        <Label Content="Sprint" Grid.Row="2"/>
-        <ComboBox Grid.Column="1" Grid.Row="2" SelectedItem="{Binding TaskSprint}" ItemsSource="{Binding Sprints}"  MinHeight="35">
+        <!--Dobinować SP do dodawanaego projekttu-->
+        <Label Content="Story points" Grid.Row="2"/>
+        <ComboBox 
+            Grid.Column="1" 
+            Grid.Row="2" 
+            SelectedItem="{Binding SelectedSP}"
+            ItemsSource="{Binding StoryPointValues}"  
+            Height="25"
+            Controls:TextBoxHelper.ClearTextButton="True"
+                          Controls:TextBoxHelper.UseFloatingWatermark="True"
+                          Controls:TextBoxHelper.Watermark="Story points..."
+                          IsEditable="True">
             <ComboBox.ItemTemplate>
                 <DataTemplate>
-                    <Label Content="{Binding Title}" FontSize="10"/>
+                    <Label Content="{Binding}" FontSize="12"/>
                 </DataTemplate>
             </ComboBox.ItemTemplate>
         </ComboBox>
-        <Label Content="Opis" Grid.Row="3"  VerticalContentAlignment="Center"/>
-        <TextBox Grid.Column="1" Grid.Row="3" Text="{Binding TaskDescription}" TextWrapping="Wrap" Height="70" AcceptsReturn="True" AcceptsTab="True"/>
-        <Grid Grid.ColumnSpan="2" Grid.Row="4">
+        <Label Content="Priorytet" Grid.Row="3"/>
+        <ComboBox 
+            Grid.Column="1" 
+            Grid.Row="3" 
+            SelectedItem="{Binding SelectedPriority}"
+            ItemsSource="{Binding PriorityValues}"  
+            Height="25"
+            Controls:TextBoxHelper.ClearTextButton="True"
+                          Controls:TextBoxHelper.UseFloatingWatermark="True"
+                          Controls:TextBoxHelper.Watermark="Priority..."
+                          IsEditable="True">
+            <ComboBox.ItemTemplate>
+                <DataTemplate>
+                    <Label Content="{Binding}" FontSize="12"/>
+                </DataTemplate>
+            </ComboBox.ItemTemplate>
+        </ComboBox>
+        <Label Content="Opis" Grid.Row="4"  VerticalContentAlignment="Center"/>
+        <TextBox Grid.Column="1" Grid.Row="4" Text="{Binding TaskDescription}" TextWrapping="Wrap" Height="70" AcceptsReturn="True" AcceptsTab="True"/>
+        <Grid Grid.ColumnSpan="2" Grid.Row="5" Margin="5,5,5,0" HorizontalAlignment="Center">
             <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="auto"/>
                 <ColumnDefinition Width="*"/>
             </Grid.ColumnDefinitions>
 
-            <Button Content="ok" Margin="10" Command="{Binding AddTaskCommand}" CommandParameter="{Binding ElementName=Window}" />
-            <Button Content="Cancle" Margin="10"  Grid.Column="1" Command="{Binding CancleCommand}" CommandParameter="{Binding ElementName=Window}"/>
+            <Button 
+                    Style="{DynamicResource MaterialDesignRaisedAccentButton}"
+                    BorderThickness="0"
+                    Command="{Binding CancleCommand}"
+                    Margin="2,2,2,2"
+                    HorizontalAlignment="Center"
+                    VerticalContentAlignment="Center"
+                    HorizontalContentAlignment="Center"
+                    VerticalAlignment="Center"
+                    Grid.Column="0" >
+                <Grid Margin="2,2,2,2"
+                              HorizontalAlignment="Center" 
+                              VerticalAlignment="Center"
+                              Height="22">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="auto"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+                <TextBlock Grid.Column="0" Text="Anuluj "
+                               FontSize="16"
+                               VerticalAlignment="Center"
+                              
+                               HorizontalAlignment="Left">
+                </TextBlock>
+                <Button Grid.Column="1" 
+                            VerticalAlignment="Center"
+                            HorizontalContentAlignment="Center"
+                            VerticalContentAlignment="Center"
+                            HorizontalAlignment="Right"
+                            Style="{DynamicResource MetroCircleButtonStyle}" BorderThickness="0">
+                        <materialDesign:PackIcon HorizontalAlignment="Center" VerticalAlignment="Center" Width="20" Height="20" Kind="ExitToApp"/>
+                </Button>
+
         </Grid>
+        </Button>
+            <Button 
+                    Style="{DynamicResource MaterialDesignRaisedAccentButton}"
+                    BorderThickness="0"
+                    Command="{Binding CalcleCommand}"
+                    Margin="2,2,2,2"
+                    HorizontalAlignment="Center"
+                    VerticalContentAlignment="Center"
+                    HorizontalContentAlignment="Center"
+                    VerticalAlignment="Center"
+                    Grid.Column="1" >
+                <Grid Margin="2,2,2,2"
+                              HorizontalAlignment="Center" 
+                              VerticalAlignment="Center"
+                              Height="22">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="auto"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+                <TextBlock Grid.Column="0" Text="Dodaj zadanie "
+                               FontSize="16"
+                               VerticalAlignment="Center"
+                              
+                               HorizontalAlignment="Left">
+                </TextBlock>
+                <Button Grid.Column="1" 
+                            VerticalAlignment="Center"
+                            HorizontalContentAlignment="Center"
+                            VerticalContentAlignment="Center"
+                            HorizontalAlignment="Right"
+                            Style="{DynamicResource MetroCircleButtonStyle}" BorderThickness="0">
+                        <materialDesign:PackIcon HorizontalAlignment="Center" VerticalAlignment="Center" Width="20" Height="20" Kind="NotePlusOutline"/>
+                </Button>
+
+            </Grid>
+        </Button>
+    </Grid>
         
     </Grid>
-</Window>
+</Controls:MetroWindow>

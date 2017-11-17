@@ -23,7 +23,11 @@ namespace ScrumX.API.Model
         public virtual IList<Job> ProjectJob { get; set; }
 
         //chyba by sie keszcze przydal dlugosc sprintu bo sa takie same dlugosci wiec mozna by tu podac
-
+        
+        override public string ToString()
+        {
+            return Name;
+        }
 
     }
 }

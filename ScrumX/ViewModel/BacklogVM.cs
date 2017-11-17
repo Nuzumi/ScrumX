@@ -15,6 +15,8 @@ using System.Collections.ObjectModel;
 using System.Windows.Controls;
 using ScrumX.API.Repository;
 using ScrumX.API.Content;
+using MahApps.Metro.Controls.Dialogs;
+using MahApps.Metro.Controls;
 
 namespace ScrumX.ViewModel
 {
@@ -27,12 +29,24 @@ namespace ScrumX.ViewModel
         public List<int> StoryPointValues { get; set; }
         public string UserName { get; set; }
         public List<string> TypeList { get; set; }
+        IDialogCoordinator _dialogCoordinator;
 
         private ObservableCollection<Project> projects;
         public ObservableCollection<Project> Projects
         {
             get { return projects; }
             set { SetProperty(ref projects, value); }
+        }
+
+        private Sprint actualSprint;
+        public Sprint ActualSprint
+        {
+            get { return actualSprint; }
+            set
+            {
+                SetProperty(ref actualSprint, value);
+               
+            }
         }
 
         private Project selectedProject;
@@ -44,6 +58,7 @@ namespace ScrumX.ViewModel
                 SetProperty(ref selectedProject, value);
                 Jobs = new ObservableCollection<Job>(repo.JobsRepo.GetJobsInBacklog(SelectedProject, (int)selectedType));
                 IsDescVisible = false;
+                ActualSprint = repo.SprintsRepo.GetLastSprintForProject(SelectedProject.IdProject);
             }
         }
 
@@ -110,6 +125,7 @@ namespace ScrumX.ViewModel
             {
                 SetProperty(ref selectedJob, value);
                 IsDescVisible = true;
+                VisibilityFlyout = true;
             }
         }
 
@@ -135,6 +151,8 @@ namespace ScrumX.ViewModel
         public ICommand DeleteJobCommand { get; set; }
         public ICommand EndJobCommand { get; set; }
 
+        private ICommand showMessageDialogCommand;
+
         private int selectedPriority;
         public int SelectedPriority
         {
@@ -152,6 +170,13 @@ namespace ScrumX.ViewModel
             }
         }
 
+        private bool visibilityFlyout;
+        public bool VisibilityFlyout
+        {
+            get { return visibilityFlyout; }
+            set { SetProperty(ref visibilityFlyout, value); }
+        }
+
         private bool isDescVisible;
         public bool IsDescVisible
         {
@@ -161,21 +186,33 @@ namespace ScrumX.ViewModel
 
         public ICommand SearchCommand { get; set; }
         public ICommand GoToTableCommand { get; set; }
+        public ICommand ClickDataGridJob { get; set; }
+
+        public ICommand LaunchGT { get; set; }
+
+        public ICommand LaunchNuzumiGT { get; set; }
+
+        public ICommand LaunchRoennaGT { get; set; }
         #endregion
 
-        public BacklogVM(User user) :base(user)
+        public BacklogVM(User user, IDialogCoordinator dialogCoordinator) :base(user)
         {
             GoToTableCommand = new DelegateCommand<Window>(GoToTableCommandExecute,GoToTableCommandCanExecute);
             DeleteProjectCommand = new DelegateCommand(DeleteProjectCommandExecute);
             DeleteJobCommand = new DelegateCommand(DeleteJobCommandExecute);
             EndJobCommand = new DelegateCommand(EndJobCommandExecute);
             SearchCommand = new DelegateCommand(SearchJobCommandExecute);
+            ClickDataGridJob = new DelegateCommand(ClickDataGridJobExecute);
+            LaunchRoennaGT = new DelegateCommand(LaunchRoennaGTExecute);
+            LaunchNuzumiGT = new DelegateCommand(LaunchNuzumiGTExecute);
+            LaunchGT = new DelegateCommand(LaunchGTExecute);
             TypeList = new List<string> { "All", "New", "Ready", "Scheduled", "Completed" };
             StoryPointValues = new List<int> { 1, 2, 3, 5, 8, 13, 20, 40, 100 };
             PriorityValues = new List<int> { 1, 2, 3, 4, 5 };
             repo = new EfRepository();
             logedUser = user;
             UserName = user.Name;
+            _dialogCoordinator = dialogCoordinator;
             SetProperties();
         }
 
@@ -205,11 +242,44 @@ namespace ScrumX.ViewModel
         }
 
 
+        public ICommand ShowMessageDialogCommand
+        {
+            get
+            {
+                return this.showMessageDialogCommand ?? (this.showMessageDialogCommand = new SimpleCommand
+                {
+                    CanExecuteDelegate = x => true,
+                    ExecuteDelegate = x => PerformDialogCoordinatorAction(this.ShowMessage((string)x), (string)x == "DISPATCHER_THREAD")
+                });
+            }
+        }
+
+        private Action ShowMessage(string startingThread)
+        {
+            return () =>
+            {
+                var message = "Keke";
+                this._dialogCoordinator.ShowMessageAsync(this, $"Message from VM created by ", message).ContinueWith(t => Console.WriteLine(t.Result));
+            };
+        }
+
+        private static void PerformDialogCoordinatorAction(Action action, bool runInMainThread)
+        {
+            if (!runInMainThread)
+            {
+                Task.Factory.StartNew(action);
+            }
+            else
+            {
+                action();
+            }
+        }
+
         #region CommandFunctions
 
         private void GoToTableCommandExecute(Window window)
         {
-            TableVM dataContext = new TableVM(logedUser);
+            TableVM dataContext = new TableVM(logedUser, _dialogCoordinator);
             Table table = new Table();
             table.DataContext = dataContext;
             table.Show();
@@ -223,11 +293,21 @@ namespace ScrumX.ViewModel
             SetProperties();
         }
 
+        private void LaunchGTExecute()
+        {
+            System.Diagnostics.Process.Start("https://github.com/Nuzumi/ScrumX");
+        }
+        
         private void EndJobCommandExecute()
         {
             Console.WriteLine("Kończę zadanie");
             repo.JobsRepo.EndJob(SelectedJob, logedUser);
             SetProperties();
+        }
+
+        public void ClickDataGridJobExecute()
+        {
+            
         }
 
         private void DeleteJobCommandExecute()
@@ -249,6 +329,17 @@ namespace ScrumX.ViewModel
         {
             return CanAddTask && CanAddProject && CanAddSprint;
         }
+
+        private void LaunchRoennaGTExecute()
+        {
+            System.Diagnostics.Process.Start("https://github.com/Roenna");
+        }
+
+        private void LaunchNuzumiGTExecute()
+        {
+            System.Diagnostics.Process.Start("https://github.com/Nuzumi");
+        }
         #endregion
+
     }
 }

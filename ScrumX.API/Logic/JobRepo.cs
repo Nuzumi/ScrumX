@@ -49,6 +49,7 @@ namespace ScrumX.API.Logic
         public int AddJob(Job job)
         {
             job.SP = job.SP == 0 ? null : job.SP;
+            job.IdSprint = sprintRepo.GetLastSprintForProject(job.IdProject).IdSprint;
             ctx.Set<Job>().Add(job);
             ctx.SaveChanges();
             int id = job.IdJob;
@@ -258,6 +259,7 @@ namespace ScrumX.API.Logic
                           (p, h) => new { Job = p, HistoryJob = h })// selection
                           .Where(h => h.HistoryJob.IdUser == user.IdUser)
                           .Where(r=>r.Job.TableStatus == table)
+                          .Where(r=>r.Job.IdSprint == sprint.IdSprint)
                        .Select(r => r.Job)
                        .Distinct<Job>(); 
 

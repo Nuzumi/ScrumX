@@ -44,6 +44,7 @@ namespace ScrumX.ViewModel
             this.changeCanAddProjectToTrue = changeCanAddProjectToTrue;
             repo = new EfRepository();
         }
+        
 
         #region Command Functions
 

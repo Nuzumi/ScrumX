@@ -1,4 +1,6 @@
-﻿using Prism.Commands;
+﻿using MahApps.Metro.Controls;
+using MahApps.Metro.Controls.Dialogs;
+using Prism.Commands;
 using Prism.Mvvm;
 using ScrumX.API.Context;
 using ScrumX.API.Model;
@@ -19,6 +21,7 @@ namespace ScrumX.ViewModel
         private User user;
         private bool loginMode = true;
         private EfRepository repo;
+        IDialogCoordinator _dialogCoordinator;
 
         #region Properties
 
@@ -36,6 +39,18 @@ namespace ScrumX.ViewModel
             set
             {
                 SetProperty(ref isVisibleLogin, value);
+                (RegisterCommand as DelegateCommand).RaiseCanExecuteChanged();
+                (LoginCommand as DelegateCommand).RaiseCanExecuteChanged();
+            }
+        }
+
+        private bool isNotVisibleLogin;
+        public bool IsNotVisibleLogin
+        {
+            get { return isNotVisibleLogin; }
+            set
+            {
+                SetProperty(ref isNotVisibleLogin, value);
                 (RegisterCommand as DelegateCommand).RaiseCanExecuteChanged();
                 (LoginCommand as DelegateCommand).RaiseCanExecuteChanged();
             }
@@ -91,30 +106,31 @@ namespace ScrumX.ViewModel
         public ICommand OkComamnd { get; set; }
         public ICommand RegisterCommand { get; set; }
         public ICommand LoginCommand { get; set; }
-        
+
         #endregion
 
-        public LoginVM()
+        public LoginVM(IDialogCoordinator dialogCoordinator)
         {
-            OkComamnd = new DelegateCommand<Window>(OkCommandExecute,OKCommandCanExecute);
+            OkComamnd = new DelegateCommand<Window>(OkCommandExecute, OKCommandCanExecute);
             RegisterCommand = new DelegateCommand(RegisterCommandExecute, RegisterCommandCanExecute);
             LoginCommand = new DelegateCommand(LoginCommandExecute, LoginCommandCanExecute);
             LabeleContent = "Logowanie";
             repo = new EfRepository();
             LoginCorrect = true;
             PasswordCorrect = true;
+            _dialogCoordinator = dialogCoordinator;
         }
 
         #region commanadFunction
 
-        private void OkCommandExecute(Window window)
+        private async void OkCommandExecute(Window window)
         {
             if (loginMode)
             {
                 int log = repo.UsersRepo.UserLogin(Login, Password);
                 if (log == 1)
                 {
-                    BacklogVM dataContext = new BacklogVM(repo.UsersRepo.GetUserByName(login));
+                    BacklogVM dataContext = new BacklogVM(repo.UsersRepo.GetUserByName(login), _dialogCoordinator);
                     Backlog backlog = new Backlog();
                     backlog.DataContext = dataContext;
                     backlog.Show();
@@ -122,25 +138,29 @@ namespace ScrumX.ViewModel
                 }
                 else if (log == 0)
                 {
-                    MessageBox.Show("Użytkownik o danym nicku nie istnieje!");
+                    var metroWindow = (Application.Current.MainWindow as MetroWindow);
+                    await metroWindow.ShowMessageAsync("Ups!", "Użytkownik nie istnieje");
                     ClearTextBoxes();
                 }
                 else
                 {
-                    MessageBox.Show("Błędne hasło!");
+                    var metroWindow = (Application.Current.MainWindow as MetroWindow);
+                        await metroWindow.ShowMessageAsync("Ups!", "Błędne hasło");
                     ClearTextBoxes();
                 }
             }
             else
             {
-                if(repo.UsersRepo.RegisterUser(Login, Password))
+                if (repo.UsersRepo.RegisterUser(Login, Password))
                 {
-                    MessageBox.Show("Zarejestrowano!");
+                    var metroWindow = (Application.Current.MainWindow as MetroWindow);
+                    await metroWindow.ShowMessageAsync("Super!", "Zarejestrowano");
                     LoginCommandExecute();
                 }
                 else
                 {
-                    MessageBox.Show("Użytkownik o danym nicku juz istnieje!");
+                    var metroWindow = (Application.Current.MainWindow as MetroWindow);
+                    await metroWindow.ShowMessageAsync("Ups!", "Nick jest zajęty");
                     ClearTextBoxes();
                 }
             }
@@ -157,7 +177,7 @@ namespace ScrumX.ViewModel
                 //PasswordCorrect = (Password != string.Empty && Password != null);
                 LoginCorrect = !repo.UsersRepo.UserExists(Login);
 
-                return (!repo.UsersRepo.UserExists(Login) && Login != string.Empty && Login !=null && Password != string.Empty && Password != null);
+                return (!repo.UsersRepo.UserExists(Login) && Login != string.Empty && Login != null && Password != string.Empty && Password != null);
             }
         }
 
@@ -166,6 +186,7 @@ namespace ScrumX.ViewModel
             LabeleContent = "Rejestracja";
             loginMode = false;
             IsVisibleLogin = true;
+            IsNotVisibleLogin = false;
             ClearTextBoxes();
             (OkComamnd as DelegateCommand<Window>).RaiseCanExecuteChanged();
         }
@@ -180,6 +201,7 @@ namespace ScrumX.ViewModel
             LabeleContent = "Logowanie";
             loginMode = true;
             IsVisibleLogin = false;
+            IsNotVisibleLogin = true;
 
             ClearTextBoxes();
             (OkComamnd as DelegateCommand<Window>).RaiseCanExecuteChanged();

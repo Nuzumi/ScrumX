@@ -120,7 +120,7 @@ namespace ScrumX.API.Logic
 
         public bool IsSprintOpen(Sprint sprint)
         {
-            return sprint.EndData.HasValue ? sprint.EndData.Value < DateTime.Today : false;
+            return sprint.EndData.HasValue ? sprint.EndData.Value >= DateTime.Today : false;
         }
     }
 }

@@ -51,6 +51,9 @@ namespace ScrumX.ViewModel
             }
         }
 
+        public List<int> PriorityValues { get; set; }
+        public List<int> StoryPointValues { get; set; }
+
         private ObservableCollection<Sprint> sprints;
         public ObservableCollection<Sprint> Sprints
         {
@@ -65,6 +68,28 @@ namespace ScrumX.ViewModel
             set
             {
                 SetProperty(ref taskSprint, value);
+                (AddTaskCommand as DelegateCommand<Window>).RaiseCanExecuteChanged();
+            }
+        }
+
+        private int selectedSP;
+        public int SelectedSP
+        {
+            get { return selectedSP; }
+            set
+            {
+                SetProperty(ref selectedSP, value);
+                (AddTaskCommand as DelegateCommand<Window>).RaiseCanExecuteChanged();
+            }
+        }
+
+        private int selectedPriority;
+        public int SelectedPriority
+        {
+            get { return selectedPriority; }
+            set
+            {
+                SetProperty(ref selectedPriority, value);
                 (AddTaskCommand as DelegateCommand<Window>).RaiseCanExecuteChanged();
             }
         }
@@ -90,6 +115,8 @@ namespace ScrumX.ViewModel
             repo = new EfRepository();
             Projects = new ObservableCollection<Project>(repo.ProjectsRepo.Projects);
             TaskDescription = "";
+            StoryPointValues = new List<int> { 1, 2, 3, 5, 8, 13, 20, 40, 100 };
+            PriorityValues = new List<int> { 1, 2, 3, 4, 5 };
         }
 
 
@@ -98,7 +125,9 @@ namespace ScrumX.ViewModel
 
         private void AddTaskCommandExecute(Window window)
         {
-            Job task = new Job { IdUser = logedUser.IdUser, IdSprint = TaskSprint.IdSprint, Title = TaskTitle, Desc = TaskDescription, IdProject = TaskProject.IdProject};
+            Job task = new Job { IdUser = logedUser.IdUser, IdSprint = 1,//TaskSprint.IdSprint,
+                Title = TaskTitle, Desc = TaskDescription, IdProject = TaskProject.IdProject,
+                SP = SelectedSP, Priority = SelectedPriority};
             repo.JobsRepo.AddJob(task);
             repo.SaveChanges();
             changeCanAddTaskToTrue.DynamicInvoke();
@@ -107,7 +136,7 @@ namespace ScrumX.ViewModel
 
         private bool AddTAskCommandCanExecute(Window dummy)
         {
-            return TaskTitle != null && TaskTitle != "" && TaskSprint != null;
+            return TaskTitle != null && TaskTitle != "";
         }
 
         private void CancleCommandExecute(Window window)
