@@ -19,7 +19,7 @@
                        WindowTitleBrush="{DynamicResource PrimaryHueMidBrush}"
         FontFamily="pack://application:,,,/MaterialDesignThemes.Wpf;component/Resources/Roboto/#Roboto"
        
-        Title="AddSprint" Height="150" Width="300" Name="Window" WindowStyle="None">
+        Title="AddSprint" Height="180" Width="300" Name="Window" WindowStyle="None">
     <Controls:MetroWindow.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
@@ -79,6 +79,7 @@
                     Style="{DynamicResource MaterialDesignRaisedAccentButton}"
                     BorderThickness="0"
                     Command="{Binding CancleCommand}"
+                    CommandParameter="{Binding ElementName=Window}"
                     Margin="2,0,2,0"
                     HorizontalAlignment="Center"
                     VerticalContentAlignment="Center"

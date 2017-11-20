@@ -20,7 +20,7 @@
                        WindowTitleBrush="{DynamicResource PrimaryHueMidBrush}"
         FontFamily="pack://application:,,,/MaterialDesignThemes.Wpf;component/Resources/Roboto/#Roboto"
        
-        Title="AddTask" Height="350" Width="300" Name="Window" WindowStyle="None">
+        Title="AddTask" Height="290" Width="300" Name="Window" WindowStyle="None">
     <Controls:MetroWindow.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
@@ -58,7 +58,6 @@
             <RowDefinition Height="auto"/>
             <RowDefinition Height="auto"/>
             <RowDefinition Height="auto"/>
-            <RowDefinition Height="auto"/>
         </Grid.RowDefinitions>
         <Label Content="Tytuł" Margin="10,6,10,6"/>
         <TextBox Grid.Column="1" Text="{Binding TaskTitle}" Height="25"/>
@@ -79,28 +78,12 @@
             </ComboBox.ItemTemplate>
         </ComboBox>
         <!--Dobinować SP do dodawanaego projekttu-->
-        <Label Content="Story points" Grid.Row="2"/>
+        
+        <Label Content="Priorytet" Grid.Row="2"/>
         <ComboBox 
             Grid.Column="1" 
             Grid.Row="2" 
-            SelectedItem="{Binding SelectedSP}"
-            ItemsSource="{Binding StoryPointValues}"  
-            Height="25"
-            Controls:TextBoxHelper.ClearTextButton="True"
-                          Controls:TextBoxHelper.UseFloatingWatermark="True"
-                          Controls:TextBoxHelper.Watermark="Story points..."
-                          IsEditable="True">
-            <ComboBox.ItemTemplate>
-                <DataTemplate>
-                    <Label Content="{Binding}" FontSize="12"/>
-                </DataTemplate>
-            </ComboBox.ItemTemplate>
-        </ComboBox>
-        <Label Content="Priorytet" Grid.Row="3"/>
-        <ComboBox 
-            Grid.Column="1" 
-            Grid.Row="3" 
-            SelectedItem="{Binding SelectedPriority}"
+            SelectedItem="{Binding SelectedPri4rity}"
             ItemsSource="{Binding PriorityValues}"  
             Height="25"
             Controls:TextBoxHelper.ClearTextButton="True"
@@ -113,9 +96,9 @@
                 </DataTemplate>
             </ComboBox.ItemTemplate>
         </ComboBox>
-        <Label Content="Opis" Grid.Row="4"  VerticalContentAlignment="Center"/>
-        <TextBox Grid.Column="1" Grid.Row="4" Text="{Binding TaskDescription}" TextWrapping="Wrap" Height="70" AcceptsReturn="True" AcceptsTab="True"/>
-        <Grid Grid.ColumnSpan="2" Grid.Row="5" Margin="5,5,5,0" HorizontalAlignment="Center">
+        <Label Content="Opis" Grid.Row="3"  VerticalContentAlignment="Center"/>
+        <TextBox Grid.Column="1" Grid.Row="3" Text="{Binding TaskDescription}" TextWrapping="Wrap" Height="70" AcceptsReturn="True" AcceptsTab="True"/>
+        <Grid Grid.ColumnSpan="2" Grid.Row="4" Margin="5,5,5,0" HorizontalAlignment="Center">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="auto"/>
                 <ColumnDefinition Width="*"/>
@@ -125,6 +108,7 @@
                     Style="{DynamicResource MaterialDesignRaisedAccentButton}"
                     BorderThickness="0"
                     Command="{Binding CancleCommand}"
+                CommandParameter="{Binding ElementName=Window}"
                     Margin="2,2,2,2"
                     HorizontalAlignment="Center"
                     VerticalContentAlignment="Center"

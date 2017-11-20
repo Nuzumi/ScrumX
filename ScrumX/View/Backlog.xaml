@@ -73,11 +73,15 @@
 
     <DockPanel>
         <DockPanel DockPanel.Dock="Left">
-            <TextBlock Text="ScrumX"  FontSize="35" Margin="7" DockPanel.Dock="Top"/>
-            <Separator BorderThickness="1" BorderBrush="Black" DockPanel.Dock="Top"/>
+            <Image
+                Source="scrum_img.png"
+                Height="120"
+                Width="120"
+                Margin="5"
+                DockPanel.Dock="Top"></Image>
+            <Separator Margin="0,5,0,0" BorderThickness="1" BorderBrush="Black" DockPanel.Dock="Top"/>
             <DockPanel Margin="0,1,0,1">
 
-                <Separator BorderBrush="Black" BorderThickness="1" DockPanel.Dock="Top"/>
                 <StackPanel DockPanel.Dock="Top">
                     <Label Content="Go to:" Margin="5" FontSize="20" FontWeight="Bold" HorizontalContentAlignment="Center"/>
                     <Button 

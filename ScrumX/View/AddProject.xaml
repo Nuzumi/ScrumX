@@ -56,6 +56,7 @@
                     Style="{DynamicResource MaterialDesignRaisedAccentButton}"
                     BorderThickness="0"
                     Command="{Binding CancleCommand}"
+                    CommandParameter="{Binding ElementName=Window}"
                     Margin="2,2,2,2"
                     HorizontalAlignment="Center"
                     VerticalContentAlignment="Center"
