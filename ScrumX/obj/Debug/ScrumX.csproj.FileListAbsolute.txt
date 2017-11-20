@@ -157,3 +157,14 @@ E:\Milena\V sem\NET\CopyScrum\Scrum\ScrumX\ScrumX\bin\Debug\MahApps.Metro.IconPa
 E:\Milena\V sem\NET\CopyScrum\Scrum\ScrumX\ScrumX\bin\Debug\MaterialDesignColors.dll
 E:\Milena\V sem\NET\CopyScrum\Scrum\ScrumX\ScrumX\bin\Debug\MaterialDesignThemes.MahApps.dll
 E:\Milena\V sem\NET\CopyScrum\Scrum\ScrumX\ScrumX\bin\Debug\MaterialDesignThemes.Wpf.dll
+D:\Nowy folder\Git\ScrumX\ScrumX\bin\Debug\MahApps.Metro.dll
+D:\Nowy folder\Git\ScrumX\ScrumX\bin\Debug\MahApps.Metro.IconPacks.Modern.dll
+D:\Nowy folder\Git\ScrumX\ScrumX\bin\Debug\MaterialDesignColors.dll
+D:\Nowy folder\Git\ScrumX\ScrumX\bin\Debug\MaterialDesignThemes.MahApps.dll
+D:\Nowy folder\Git\ScrumX\ScrumX\bin\Debug\MaterialDesignThemes.Wpf.dll
+D:\Nowy folder\Git\ScrumX\ScrumX\bin\Debug\MahApps.Metro.pdb
+D:\Nowy folder\Git\ScrumX\ScrumX\bin\Debug\MahApps.Metro.xml
+D:\Nowy folder\Git\ScrumX\ScrumX\bin\Debug\MahApps.Metro.IconPacks.Modern.pdb
+D:\Nowy folder\Git\ScrumX\ScrumX\bin\Debug\MahApps.Metro.IconPacks.Modern.xml
+D:\Nowy folder\Git\ScrumX\ScrumX\obj\Debug\View\JobDetails.g.cs
+D:\Nowy folder\Git\ScrumX\ScrumX\obj\Debug\View\JobDetails.baml

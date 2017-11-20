@@ -381,8 +381,11 @@
                   ItemsSource="{Binding Path=Jobs}"
                   RowHeaderWidth="20"
                   SelectionUnit="FullRow"
-                 
+                  SelectedItem="{Binding SelectedJob}"
                   GridLinesVisibility="All">
+                    <DataGrid.Resources>
+                        <helper:BindingProxy x:Key="proxy" Data="{Binding}"/>
+                    </DataGrid.Resources>
                     <DataGrid.InputBindings>
                         <MouseBinding Gesture="LeftDoubleClick" Command="{Binding ClickDataGridJob}" CommandParameter="{Binding ElementName=MetroDataGrid, Path=SelectedJob}" />
                     </DataGrid.InputBindings>

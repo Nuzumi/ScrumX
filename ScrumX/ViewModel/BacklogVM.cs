@@ -136,8 +136,10 @@ namespace ScrumX.ViewModel
             set
             {
                 SetProperty(ref selectedSP, value);
-                if(SelectedJob != null)
+                Console.WriteLine("a jednak");
+                if (SelectedJob != null)
                 {
+                    
                     repo.JobsRepo.ChangeJobSP(SelectedJob, value, logedUser);
                     Job tmp = SelectedJob;
                     SelectedJob = null;
