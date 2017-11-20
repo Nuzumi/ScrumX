@@ -29,8 +29,8 @@ namespace ScrumX.API.Model
 
         public string Title { get; set; }
         public string Desc { get; set; }
-        public int? Priority { get; set; }
-        public int? SP { get; set; }
+        public double? Priority { get; set; }
+        public double? SP { get; set; }
 
         [Index]
         public int BacklogStatus { get; set; } = 1;
