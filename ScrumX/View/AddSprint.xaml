@@ -19,7 +19,7 @@
                        WindowTitleBrush="{DynamicResource PrimaryHueMidBrush}"
         FontFamily="pack://application:,,,/MaterialDesignThemes.Wpf;component/Resources/Roboto/#Roboto"
        
-        Title="AddSprint" Height="150" Width="300" Name="Window" WindowStyle="None">
+        Title="AddSprint" MinHeight="175" Height="175" Width="300" Name="Window" ShowCloseButton="False">
     <Controls:MetroWindow.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
@@ -79,6 +79,7 @@
                     Style="{DynamicResource MaterialDesignRaisedAccentButton}"
                     BorderThickness="0"
                     Command="{Binding CancleCommand}"
+                    CommandParameter="{Binding ElementName=Window}"
                     Margin="2,0,2,0"
                     HorizontalAlignment="Center"
                     VerticalContentAlignment="Center"
@@ -105,6 +106,8 @@
                             HorizontalContentAlignment="Center"
                             VerticalContentAlignment="Center"
                             HorizontalAlignment="Right"
+                            Command="{Binding CancleCommand}"
+                    CommandParameter="{Binding ElementName=Window}"
                             Style="{DynamicResource MetroCircleButtonStyle}" BorderThickness="0">
                         <materialDesign:PackIcon HorizontalAlignment="Center" VerticalAlignment="Center" Width="20" Height="20" Kind="ExitToApp"/>
                     </Button>
@@ -116,6 +119,7 @@
                     Style="{DynamicResource MaterialDesignRaisedAccentButton}"
                     BorderThickness="0"
                     Command="{Binding AddSprintCommand}"
+                    CommandParameter="{Binding ElementName=Window}"
                     Margin="2,0,2,0"
                     HorizontalAlignment="Center"
                     VerticalContentAlignment="Center"
@@ -142,6 +146,8 @@
                             HorizontalContentAlignment="Center"
                             VerticalContentAlignment="Center"
                             HorizontalAlignment="Right"
+                            Command="{Binding AddSprintCommand}"
+                    CommandParameter="{Binding ElementName=Window}"
                             Style="{DynamicResource MetroCircleButtonStyle}" BorderThickness="0">
                         <materialDesign:PackIcon HorizontalAlignment="Center" VerticalAlignment="Center" Width="20" Height="20" Kind="AlarmPlus"/>
                     </Button>

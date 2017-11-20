@@ -20,7 +20,7 @@
                        WindowTitleBrush="{DynamicResource PrimaryHueMidBrush}"
         FontFamily="pack://application:,,,/MaterialDesignThemes.Wpf;component/Resources/Roboto/#Roboto"
        
-        Title="AddTask" Height="350" Width="300" Name="Window" WindowStyle="None">
+        Title="AddTask" Height="350" Width="300" Name="Window" WindowStyle="None" ShowCloseButton="False">
     <Controls:MetroWindow.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
@@ -125,6 +125,7 @@
                     Style="{DynamicResource MaterialDesignRaisedAccentButton}"
                     BorderThickness="0"
                     Command="{Binding CancleCommand}"
+                    CommandParameter="{Binding ElementName=Window}"
                     Margin="2,2,2,2"
                     HorizontalAlignment="Center"
                     VerticalContentAlignment="Center"
@@ -150,6 +151,8 @@
                             HorizontalContentAlignment="Center"
                             VerticalContentAlignment="Center"
                             HorizontalAlignment="Right"
+                            Command="{Binding CancleCommand}"
+                            CommandParameter="{Binding ElementName=Window}"
                             Style="{DynamicResource MetroCircleButtonStyle}" BorderThickness="0">
                         <materialDesign:PackIcon HorizontalAlignment="Center" VerticalAlignment="Center" Width="20" Height="20" Kind="ExitToApp"/>
                 </Button>
@@ -159,7 +162,8 @@
             <Button 
                     Style="{DynamicResource MaterialDesignRaisedAccentButton}"
                     BorderThickness="0"
-                    Command="{Binding CalcleCommand}"
+                    Command="{Binding AddTaskCommand}"
+                    CommandParameter="{Binding ElementName=Window}"
                     Margin="2,2,2,2"
                     HorizontalAlignment="Center"
                     VerticalContentAlignment="Center"
@@ -185,6 +189,8 @@
                             HorizontalContentAlignment="Center"
                             VerticalContentAlignment="Center"
                             HorizontalAlignment="Right"
+                            Command="{Binding AddTaskCommand}"
+                            CommandParameter="{Binding ElementName=Window}"
                             Style="{DynamicResource MetroCircleButtonStyle}" BorderThickness="0">
                         <materialDesign:PackIcon HorizontalAlignment="Center" VerticalAlignment="Center" Width="20" Height="20" Kind="NotePlusOutline"/>
                 </Button>
