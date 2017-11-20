@@ -4,16 +4,16 @@
 winexe
 C#
 .cs
-D:\Nowy folder\Git\ScrumX\ScrumX\obj\Debug\
+E:\Milena\V sem\NET\CopyScrum\ScrumX\ScrumX\obj\Debug\
 ScrumX
 none
 false
 DEBUG;TRACE
-D:\Nowy folder\Git\ScrumX\ScrumX\App.xaml
+E:\Milena\V sem\NET\CopyScrum\ScrumX\ScrumX\App.xaml
 71116714811
 
-28-568565349
-79-485082359
+281827411798
+82-1350753268
 View\AddProject.xaml;View\AddSprint.xaml;View\AddTask.xaml;View\JobDetails.xaml;View\LoginWindow.xaml;View\Backlog.xaml;View\Table.xaml;
 
 True

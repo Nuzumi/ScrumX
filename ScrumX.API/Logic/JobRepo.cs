@@ -164,7 +164,7 @@ namespace ScrumX.API.Logic
                 hj.Date = DateTime.Today;
                 hj.IdJob = obj.IdJob;
                 hj.IdUser = user.IdUser;
-                int? pr = obj.Priority.HasValue ? obj.Priority.Value : 0;
+                double? pr = obj.Priority.HasValue ? obj.Priority.Value : 0;
                 priority = priority > 10 ? 10 : priority;
                 hj.Comment = "Zmiana priorytetu zadania " + obj.Title + " z " + pr + " na " + priority + " przez " + user.Name;
                 obj.Priority = priority;

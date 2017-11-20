@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Data.Entity;
+using System.Data.Entity.ModelConfiguration.Conventions;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -10,13 +11,20 @@ namespace ScrumX.API.Context
 {
     public class EfDbContext : DbContext
     {
-        public static string connString = "Data Source=MICHAŁ-KOMPUTER\\SQLEXPRESS;Initial Catalog=Scrum;Integrated Security=True; App=EntityFramework";
+        //public static string connString = "Data Source=MICHAŁ-KOMPUTER\\SQLEXPRESS;Initial Catalog=Scrum;Integrated Security=True; App=EntityFramework";
         //public static string connString = "Data Source=LAPTOP-9BBKLGE9\\MILENA;Initial Catalog=Scrum;Integrated Security=True; App=EntityFramework";
 
         public EfDbContext()
-        : base(connString)
+        : base()
         {
         }
+
+        protected override void OnModelCreating(DbModelBuilder modelBuilder)
+        {
+            // Database does not pluralize table names
+            modelBuilder.Conventions.Remove<PluralizingTableNameConvention>();
+        }
+
 
         public virtual IDbSet<User> Users { get; set; }
         public virtual IDbSet<Job> Jobs { get; set; }
