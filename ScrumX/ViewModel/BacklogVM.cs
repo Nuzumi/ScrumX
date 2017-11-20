@@ -25,8 +25,8 @@ namespace ScrumX.ViewModel
         private EfRepository repo;
         #region Properties
 
-        public List<int> PriorityValues { get; set; }
-        public List<int> StoryPointValues { get; set; }
+        public List<double> PriorityValues { get; set; }
+        public List<double> StoryPointValues { get; set; }
         public string UserName { get; set; }
         public List<string> TypeList { get; set; }
         IDialogCoordinator _dialogCoordinator;
@@ -56,9 +56,12 @@ namespace ScrumX.ViewModel
             set
             {
                 SetProperty(ref selectedProject, value);
-                Jobs = new ObservableCollection<Job>(repo.JobsRepo.GetJobsInBacklog(SelectedProject, (int)selectedType));
-                IsDescVisible = false;
-                ActualSprint = repo.SprintsRepo.GetLastSprintForProject(SelectedProject.IdProject);
+                if(SelectedProject != null)
+                {
+                    Jobs = new ObservableCollection<Job>(repo.JobsRepo.GetJobsInBacklog(SelectedProject, (int)selectedType));
+                    IsDescVisible = false;
+                    ActualSprint = repo.SprintsRepo.GetLastSprintForProject(SelectedProject.IdProject);
+                }
             }
         }
 
@@ -129,34 +132,30 @@ namespace ScrumX.ViewModel
             }
         }
 
-        private int selectedSP;
-        public int SelectedSP
+        private double selectedSP;
+        public double SelectedSP
         {
             get { return selectedSP; }
             set
             {
                 SetProperty(ref selectedSP, value);
-                Console.WriteLine("a jednak");
                 if (SelectedJob != null)
                 {
                     
-                    repo.JobsRepo.ChangeJobSP(SelectedJob, value, logedUser);
+                    repo.JobsRepo.ChangeJobSP(SelectedJob, (int)value, logedUser);
                     Job tmp = SelectedJob;
                     SelectedJob = null;
                     SelectedJob = tmp;
+
                 }
             }
         }
 
 
-        public ICommand DeleteProjectCommand { get; set; }
-        public ICommand DeleteJobCommand { get; set; }
-        public ICommand EndJobCommand { get; set; }
 
-        private ICommand showMessageDialogCommand;
 
-        private int selectedPriority;
-        public int SelectedPriority
+        private double selectedPriority;
+        public double SelectedPriority
         {
             get { return selectedPriority; }
             set
@@ -164,10 +163,11 @@ namespace ScrumX.ViewModel
                 SetProperty(ref selectedPriority, value);
                 if(SelectedJob != null)
                 {
-                    repo.JobsRepo.ChangeJobPriority(SelectedJob, value, logedUser);
+                    repo.JobsRepo.ChangeJobPriority(SelectedJob,(int) value, logedUser);
                     Job tmp = SelectedJob;
                     SelectedJob = null;
                     SelectedJob = tmp;
+                    Jobs = new ObservableCollection<Job>(repo.JobsRepo.GetJobsInBacklog(SelectedProject, (int)selectedType));
                 }
             }
         }
@@ -185,6 +185,12 @@ namespace ScrumX.ViewModel
             get { return isDescVisible; }
             set { SetProperty(ref isDescVisible, value); }
         }
+
+        public ICommand DeleteProjectCommand { get; set; }
+        public ICommand DeleteJobCommand { get; set; }
+        public ICommand EndJobCommand { get; set; }
+
+        private ICommand showMessageDialogCommand;
 
         public ICommand SearchCommand { get; set; }
         public ICommand GoToTableCommand { get; set; }
@@ -209,8 +215,8 @@ namespace ScrumX.ViewModel
             LaunchNuzumiGT = new DelegateCommand(LaunchNuzumiGTExecute);
             LaunchGT = new DelegateCommand(LaunchGTExecute);
             TypeList = new List<string> { "All", "New", "Ready", "Scheduled", "Completed" };
-            StoryPointValues = new List<int> { 1, 2, 3, 5, 8, 13, 20, 40, 100 };
-            PriorityValues = new List<int> { 1, 2, 3, 4, 5 };
+            StoryPointValues = new List<double> { 1.0, 2.0, 3.0, 5.0, 8.0, 13.0, 20.0, 40.0, 100.0 };
+            PriorityValues = new List<double> { 1.0, 2.0, 3.0, 4.0, 5.0 };
             repo = new EfRepository();
             logedUser = user;
             UserName = user.Name;

@@ -114,6 +114,8 @@
                             HorizontalContentAlignment="Center"
                             VerticalContentAlignment="Center"
                             HorizontalAlignment="Right"
+                                    Command="{Binding GoToTableCommand}" 
+                    CommandParameter="{Binding ElementName=Window}"
                             Style="{DynamicResource MetroCircleButtonStyle}" BorderThickness="0">
                                 <materialDesign:PackIcon HorizontalAlignment="Center" VerticalAlignment="Center" Width="20" Height="20" Kind="CalendarToday"/>
                             </Button>
@@ -188,6 +190,7 @@
                             HorizontalContentAlignment="Center"
                             VerticalContentAlignment="Center"
                             HorizontalAlignment="Right"
+                                    Command="{Binding AddTaskCommand}"
                             Style="{DynamicResource MetroCircleButtonStyle}" BorderThickness="0">
                                 <materialDesign:PackIcon HorizontalAlignment="Center" VerticalAlignment="Center" Width="20" Height="20" Kind="NotePlusOutline"/>
                             </Button>
@@ -223,6 +226,7 @@
                             HorizontalContentAlignment="Center"
                             VerticalContentAlignment="Center"
                             HorizontalAlignment="Right"
+                                    Command="{Binding AddSprintCommand}"
                             Style="{DynamicResource MetroCircleButtonStyle}" BorderThickness="0">
                                 <materialDesign:PackIcon HorizontalAlignment="Center" VerticalAlignment="Center" Width="20" Height="20" Kind="AlarmPlus"/>
                             </Button>
@@ -258,6 +262,7 @@
                             HorizontalContentAlignment="Center"
                             VerticalContentAlignment="Center"
                             HorizontalAlignment="Right"
+                                     Command="{Binding AddProjectCommand}"
                             Style="{DynamicResource MetroCircleButtonStyle}" BorderThickness="0">
                                 <materialDesign:PackIcon HorizontalAlignment="Center" VerticalAlignment="Center" Width="20" Height="20" Kind="CalendarPlus"/>
                             </Button>
@@ -411,6 +416,12 @@
                             </Style.Triggers>
                         </Style>
                     </DataGrid.RowStyle>
+                    <DataGrid.ContextMenu>
+                        <ContextMenu>
+                            <MenuItem Header="usuń" Command="{Binding Data.DeleteJobCommand, Source={StaticResource proxy}}"/>
+                            <MenuItem Header="edytuj"/>
+                        </ContextMenu>
+                    </DataGrid.ContextMenu>
                 </DataGrid>
             </Grid>
             

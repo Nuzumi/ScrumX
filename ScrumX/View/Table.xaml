@@ -146,6 +146,8 @@
                             HorizontalContentAlignment="Center"
                             VerticalContentAlignment="Center"
                             HorizontalAlignment="Right"
+                                    Command="{Binding GoToBacklogCommand}" 
+                    CommandParameter="{Binding ElementName=Window}"
                             Style="{DynamicResource MetroCircleButtonStyle}" BorderThickness="0">
                                 <materialDesign:PackIcon Width="20" Height="20" Kind="CalendarText"/>
                             </Button>
@@ -185,6 +187,7 @@
                             HorizontalContentAlignment="Center"
                             VerticalContentAlignment="Center"
                             HorizontalAlignment="Right"
+                                     Command="{Binding AddTaskCommand}"
                             Style="{DynamicResource MetroCircleButtonStyle}" BorderThickness="0">
                                 <materialDesign:PackIcon Width="20" Height="20" Kind="NotePlusOutline"/>
                             </Button>
@@ -220,6 +223,7 @@
                             HorizontalContentAlignment="Center"
                             VerticalContentAlignment="Center"
                             HorizontalAlignment="Right"
+                                    Command="{Binding AddSprintCommand}"
                             Style="{DynamicResource MetroCircleButtonStyle}" BorderThickness="0">
                                 <materialDesign:PackIcon Width="20" Height="20" Kind="AlarmPlus"/>
                             </Button>
@@ -255,6 +259,7 @@
                             HorizontalContentAlignment="Center"
                             VerticalContentAlignment="Center"
                             HorizontalAlignment="Right"
+                                    Command="{Binding AddProjectCommand}"
                             Style="{DynamicResource MetroCircleButtonStyle}" BorderThickness="0">
                                 <materialDesign:PackIcon Width="20" Height="20" Kind="CalendarPlus"/>
                             </Button>

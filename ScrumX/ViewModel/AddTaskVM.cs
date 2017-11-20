@@ -46,7 +46,7 @@ namespace ScrumX.ViewModel
             set
             {
                 SetProperty(ref taskProject, value);
-                //(AddTaskCommand as DelegateCommand<Window>).RaiseCanExecuteChanged();
+                (AddTaskCommand as DelegateCommand<Window>).RaiseCanExecuteChanged();
                 Sprints = new ObservableCollection<Sprint>(repo.SprintsRepo.GetSprintsForProject(value.IdProject));
             }
         }
@@ -119,6 +119,7 @@ namespace ScrumX.ViewModel
             PriorityValues = new List<int> { 1, 2, 3, 4, 5 };
         }
 
+       
 
 
         #region Command Functions
@@ -136,7 +137,7 @@ namespace ScrumX.ViewModel
 
         private bool AddTAskCommandCanExecute(Window dummy)
         {
-            return TaskTitle != null && TaskTitle != "";
+            return TaskTitle != null && TaskTitle != "" && TaskProject != null;
         }
 
         private void CancleCommandExecute(Window window)

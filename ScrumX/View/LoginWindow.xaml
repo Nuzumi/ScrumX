@@ -197,6 +197,7 @@
                             VerticalAlignment="Center"
                             HorizontalContentAlignment="Center"
                             HorizontalAlignment="Right"
+                            Command="{Binding RegisterCommand}"
                             Style="{DynamicResource MetroCircleButtonStyle}" BorderThickness="0">
                         <materialDesign:PackIcon HorizontalAlignment="Center" VerticalAlignment="Center" Width="20" Height="20" Kind="AccountPlus"/>
                     </Button>
@@ -230,6 +231,8 @@
                             HorizontalContentAlignment="Center"
                             HorizontalAlignment="Right"
                             VerticalContentAlignment="Center"
+                            CommandParameter="{Binding ElementName=Window}"
+                    Command="{Binding OkComamnd}"
                             Style="{DynamicResource MetroCircleButtonStyle}" BorderThickness="0">
                         <materialDesign:PackIcon HorizontalAlignment="Center" VerticalAlignment="Center" Width="20" Height="20" Kind="ArrowRightBoldCircleOutline"/>
                     </Button>

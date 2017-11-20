@@ -82,3 +82,8 @@ E:\Milena\V sem\NET\CopyScrum\ScrumX\ScrumX.API\bin\Debug\EntityFramework.xml
 E:\Milena\V sem\NET\CopyScrum\ScrumX\ScrumX.API\bin\Debug\EntityFramework.SqlServer.xml
 E:\Milena\V sem\NET\CopyScrum\ScrumX\ScrumX.API\bin\Debug\Ninject.xml
 E:\Milena\V sem\NET\CopyScrum\ScrumX\ScrumX.API\bin\Debug\System.Data.SQLite.xml
+D:\Nowy folder\Git\ScrumX\ScrumX.API\bin\Debug\scrum.sqlite
+D:\Nowy folder\Git\ScrumX\ScrumX.API\bin\Debug\System.Data.SQLite.dll
+D:\Nowy folder\Git\ScrumX\ScrumX.API\bin\Debug\System.Data.SQLite.EF6.dll
+D:\Nowy folder\Git\ScrumX\ScrumX.API\bin\Debug\System.Data.SQLite.Linq.dll
+D:\Nowy folder\Git\ScrumX\ScrumX.API\bin\Debug\System.Data.SQLite.xml
