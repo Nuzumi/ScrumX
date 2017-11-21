@@ -189,6 +189,7 @@ namespace ScrumX.ViewModel
         public ICommand DeleteProjectCommand { get; set; }
         public ICommand DeleteJobCommand { get; set; }
         public ICommand EndJobCommand { get; set; }
+        public ICommand EditTaskCommand { get; set; }
 
         private ICommand showMessageDialogCommand;
 
@@ -214,6 +215,7 @@ namespace ScrumX.ViewModel
             LaunchRoennaGT = new DelegateCommand(LaunchRoennaGTExecute);
             LaunchNuzumiGT = new DelegateCommand(LaunchNuzumiGTExecute);
             LaunchGT = new DelegateCommand(LaunchGTExecute);
+            EditTaskCommand = new DelegateCommand(EditTaskCommandExecute);
             TypeList = new List<string> { "All", "New", "Ready", "Scheduled", "Completed" };
             StoryPointValues = new List<double> { 1.0, 2.0, 3.0, 5.0, 8.0, 13.0, 20.0, 40.0, 100.0 };
             PriorityValues = new List<double> { 1.0, 2.0, 3.0, 4.0, 5.0 };
@@ -336,6 +338,14 @@ namespace ScrumX.ViewModel
         private bool GoToTableCommandCanExecute(Window dummy)
         {
             return CanAddTask && CanAddProject && CanAddSprint;
+        }
+
+        private void EditTaskCommandExecute()
+        {
+            AddTaskVM dataContext = new AddTaskVM(changeCanAddTaskToTrue, logedUser, SelectedJob);
+            AddTask dialog = new AddTask();
+            dialog.DataContext = dataContext;
+            dialog.Show();
         }
 
         private void LaunchRoennaGTExecute()

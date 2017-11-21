@@ -415,7 +415,7 @@
                     <DataGrid.ContextMenu>
                         <ContextMenu>
                             <MenuItem Header="usuń" Command="{Binding Data.DeleteJobCommand, Source={StaticResource proxy}}"/>
-                            <MenuItem Header="edytuj"/>
+                            <MenuItem Header="edytuj" Command="{Binding Data.EditTaskCommand , Source={StaticResource proxy}}"/>
                         </ContextMenu>
                     </DataGrid.ContextMenu>
                 </DataGrid>

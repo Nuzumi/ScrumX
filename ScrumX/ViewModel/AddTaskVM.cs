@@ -18,6 +18,7 @@ namespace ScrumX.ViewModel
         private Action changeCanAddTaskToTrue;
         private User logedUser;
         private EfRepository repo;
+        private Job jobToEdit;
 
         #region Properties
 
@@ -45,14 +46,17 @@ namespace ScrumX.ViewModel
             get { return taskProject; }
             set
             {
-                SetProperty(ref taskProject, value);
-                (AddTaskCommand as DelegateCommand<Window>).RaiseCanExecuteChanged();
-                Sprints = new ObservableCollection<Sprint>(repo.SprintsRepo.GetSprintsForProject(value.IdProject));
+                if(value != null)
+                {
+                    SetProperty(ref taskProject, value);
+                    (AddTaskCommand as DelegateCommand<Window>).RaiseCanExecuteChanged();
+                    Sprints = new ObservableCollection<Sprint>(repo.SprintsRepo.GetSprintsForProject(value.IdProject));
+                }
             }
         }
 
-        public List<int> PriorityValues { get; set; }
-        public List<int> StoryPointValues { get; set; }
+        public List<double> PriorityValues { get; set; }
+        public List<double> StoryPointValues { get; set; }
 
         private ObservableCollection<Sprint> sprints;
         public ObservableCollection<Sprint> Sprints
@@ -72,8 +76,8 @@ namespace ScrumX.ViewModel
             }
         }
 
-        private int selectedSP;
-        public int SelectedSP
+        private double selectedSP;
+        public double SelectedSP
         {
             get { return selectedSP; }
             set
@@ -83,8 +87,8 @@ namespace ScrumX.ViewModel
             }
         }
 
-        private int selectedPriority;
-        public int SelectedPriority
+        private double selectedPriority;
+        public double SelectedPriority
         {
             get { return selectedPriority; }
             set
@@ -101,6 +105,17 @@ namespace ScrumX.ViewModel
             set{ SetProperty(ref taskDescription, value); }
         }
 
+        private int projectValue;
+        public int ProjectValue
+        {
+            get { return projectValue; }
+            set { SetProperty(ref projectValue, value);
+                Console.WriteLine(value);
+            }
+        }
+
+        public string AddTaskText { get; set; }
+
         public ICommand AddTaskCommand { get; set; }
         public ICommand CancleCommand { get; set; }
 
@@ -108,28 +123,74 @@ namespace ScrumX.ViewModel
 
         public AddTaskVM(Action changeCanAddTaskToTrue, User user)
         {
+            baseConstructor(changeCanAddTaskToTrue, user);
+            AddTaskText = "Dodaj zadanie";
+        }
+
+        public AddTaskVM(Action changeCanAddTaskToTrue, User user, Job job)
+        {
+            baseConstructor(changeCanAddTaskToTrue, user);
+            jobToEdit = job;
+            TaskTitle = job.Title;
+            TaskDescription = job.Desc;
+            SelectedPriority = job.Priority.Value;
+            if (job.SP.HasValue)
+            {
+                SelectedSP = job.SP.Value;
+            }
+            TaskProject = job.Project;
+            for(int i =0; i < Projects.Count; i++)
+            {
+                if(Projects[i] == TaskProject)
+                {
+                    ProjectValue = i;
+                }
+            }
+            AddTaskText = "zapisz";
+        }
+
+       private void baseConstructor(Action changeCanAddTaskToTrue, User user)
+        {
             logedUser = user;
-            AddTaskCommand = new DelegateCommand<Window>(AddTaskCommandExecute,AddTAskCommandCanExecute);
+            AddTaskCommand = new DelegateCommand<Window>(AddTaskCommandExecute, AddTAskCommandCanExecute);
             CancleCommand = new DelegateCommand<Window>(CancleCommandExecute);
             this.changeCanAddTaskToTrue = changeCanAddTaskToTrue;
             repo = new EfRepository();
             Projects = new ObservableCollection<Project>(repo.ProjectsRepo.Projects);
             TaskDescription = "";
-            StoryPointValues = new List<int> { 1, 2, 3, 5, 8, 13, 20, 40, 100 };
-            PriorityValues = new List<int> { 1, 2, 3, 4, 5 };
+            StoryPointValues = new List<double> { 1.0, 2.0, 3.0, 5.0, 8.0, 13.0, 20.0, 40.0, 100.0 };
+            PriorityValues = new List<double> { 1.0, 2.0, 3.0, 4.0, 5.0 };
         }
-
-       
 
 
         #region Command Functions
 
         private void AddTaskCommandExecute(Window window)
         {
-            Job task = new Job { IdUser = logedUser.IdUser, IdSprint = 1,//TaskSprint.IdSprint,
-                Title = TaskTitle, Desc = TaskDescription, IdProject = TaskProject.IdProject,
-                SP = SelectedSP, Priority = SelectedPriority};
-            repo.JobsRepo.AddJob(task);
+            if(jobToEdit == null)
+            {
+                Job task = new Job
+                {
+                    IdUser = logedUser.IdUser,
+                    IdSprint = 1,//TaskSprint.IdSprint,
+                    Title = TaskTitle,
+                    Desc = TaskDescription,
+                    IdProject = TaskProject.IdProject,
+                    SP = SelectedSP,
+                    Priority = SelectedPriority
+                };
+                repo.JobsRepo.AddJob(task);
+                
+            }
+            else
+            {
+                jobToEdit.Title = TaskTitle;
+                jobToEdit.Priority = SelectedPriority;
+                jobToEdit.SP = SelectedSP;
+                jobToEdit.Desc = TaskDescription;
+                jobToEdit.Project = TaskProject;
+                repo.JobsRepo.EditJob(jobToEdit);
+            }
             repo.SaveChanges();
             changeCanAddTaskToTrue.DynamicInvoke();
             window.Close();

@@ -65,8 +65,9 @@
         <Label Content="Projekt" Grid.Row="1" />
         <ComboBox Grid.Column="1" 
                   Grid.Row="1" 
-                  SelectedItem="{Binding TaskProject}" 
+                  SelectedItem="{Binding TaskProject,Mode=OneWayToSource}" 
                   ItemsSource="{Binding Projects}" 
+                  SelectedIndex="{Binding ProjectValue}"
                   MinHeight="25"
                   Controls:TextBoxHelper.ClearTextButton="True"
                           Controls:TextBoxHelper.UseFloatingWatermark="True"
@@ -84,7 +85,7 @@
             Grid.Column="1" 
             Grid.Row="2" 
             SelectedItem="{Binding SelectedSP}"
-            ItemsSource="{Binding StoryPointValues}"  
+            ItemsSource="{Binding StoryPointValues}"
             Height="25"
             Controls:TextBoxHelper.ClearTextButton="True"
                           Controls:TextBoxHelper.UseFloatingWatermark="True"
@@ -178,7 +179,7 @@
                     <ColumnDefinition Width="auto"/>
                     <ColumnDefinition Width="*"/>
                 </Grid.ColumnDefinitions>
-                <TextBlock Grid.Column="0" Text="Dodaj zadanie "
+                <TextBlock Grid.Column="0" Text="{Binding AddTaskText}"
                                FontSize="16"
                                VerticalAlignment="Center"
                               

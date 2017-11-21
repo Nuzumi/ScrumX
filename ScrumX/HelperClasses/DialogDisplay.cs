@@ -70,7 +70,7 @@ namespace ScrumX.HelperClasses
             CanAddProject = true;
         }
 
-        private void riseCanExecuteForDialog()
+        protected void riseCanExecuteForDialog()
         {
             (AddTaskCommand as DelegateCommand).RaiseCanExecuteChanged();
             (AddSprintCommand as DelegateCommand).RaiseCanExecuteChanged();
