@@ -343,7 +343,7 @@ namespace ScrumX.ViewModel
         private void EditTaskCommandExecute()
         {
             AddTaskVM dataContext = new AddTaskVM(changeCanAddTaskToTrue, logedUser, SelectedJob);
-            AddTask dialog = new AddTask();
+            EditTask dialog = new EditTask();
             dialog.DataContext = dataContext;
             dialog.Show();
         }

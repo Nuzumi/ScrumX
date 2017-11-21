@@ -114,6 +114,9 @@ namespace ScrumX.ViewModel
             }
         }
 
+        public int SPValue { get; set; }
+        public int PriorityValue { get; set; }
+
         public string AddTaskText { get; set; }
 
         public ICommand AddTaskCommand { get; set; }
@@ -133,10 +136,27 @@ namespace ScrumX.ViewModel
             jobToEdit = job;
             TaskTitle = job.Title;
             TaskDescription = job.Desc;
-            SelectedPriority = job.Priority.Value;
-            if (job.SP.HasValue)
+            if (job.Priority.HasValue)
             {
+                SelectedPriority = job.Priority.Value;
+                for(int i = 0; i < PriorityValues.Count; i++)
+                {
+                    if(PriorityValues[i] == SelectedPriority)
+                    {
+                        PriorityValue = i;
+                    }
+                }
+            }
+            if (job.SP.HasValue)
+            {     
                 SelectedSP = job.SP.Value;
+                for(int i =0;i < StoryPointValues.Count; i++)
+                {
+                    if(StoryPointValues[i] == SelectedSP)
+                    {
+                        SPValue = i;
+                    }
+                }
             }
             TaskProject = job.Project;
             for(int i =0; i < Projects.Count; i++)

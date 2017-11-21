@@ -234,3 +234,5 @@ D:\Nowy folder\Git\ScrumX\ScrumX\bin\Debug\MahApps.Metro.IconPacks.Modern.xml
 D:\Nowy folder\Git\ScrumX\ScrumX\bin\Debug\System.Data.SQLite.xml
 D:\Nowy folder\Git\ScrumX\ScrumX\obj\Debug\View\JobDetails.g.cs
 D:\Nowy folder\Git\ScrumX\ScrumX\obj\Debug\View\JobDetails.baml
+D:\Nowy folder\Git\ScrumX\ScrumX\obj\Debug\View\EditTask.g.cs
+D:\Nowy folder\Git\ScrumX\ScrumX\obj\Debug\View\EditTask.baml

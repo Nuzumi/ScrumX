@@ -399,10 +399,10 @@
                         <MouseBinding Gesture="LeftDoubleClick" Command="{Binding ClickDataGridJob}" CommandParameter="{Binding ElementName=MetroDataGrid, Path=SelectedJob}" />
                     </DataGrid.InputBindings>
                     <DataGrid.Columns>
-                        <DataGridTextColumn Width="3*" Header="Project" Binding="{Binding Sprint, Converter={StaticResource SprintToProjecTitleConverter}}" IsReadOnly="True"/>
-                        <DataGridTextColumn Width="3*" Header="Title" Binding="{Binding Title}" IsReadOnly="True"/>
-                        <DataGridComboBoxColumn Header="SP" Width="*" SelectedItemBinding="{Binding SP , Mode=OneTime}" SelectedValueBinding="{Binding Data.SelectedSP, Source={StaticResource proxy} , Mode=OneWayToSource}" ItemsSource="{Binding Data.StoryPointValues, Source={StaticResource proxy}}"/>
-                        <DataGridComboBoxColumn Header="Priority" Width="*" SelectedItemBinding="{Binding Priority, Mode=OneTime}" SelectedValueBinding="{Binding Data.SelectedPriority,Source={StaticResource proxy} , Mode=OneWayToSource}" ItemsSource="{Binding Data.PriorityValues, Source={StaticResource proxy}}"/>
+                        <DataGridTextColumn Width="5*" Header="Project" Binding="{Binding Sprint, Converter={StaticResource SprintToProjecTitleConverter}}" IsReadOnly="True"/>
+                        <DataGridTextColumn Width="5*" Header="Title" Binding="{Binding Title}" IsReadOnly="True"/>
+                        <DataGridComboBoxColumn Header="SP" Width="3*" SelectedItemBinding="{Binding SP , Mode=OneTime}" SelectedValueBinding="{Binding Data.SelectedSP, Source={StaticResource proxy} , Mode=OneWayToSource}" ItemsSource="{Binding Data.StoryPointValues, Source={StaticResource proxy}}"/>
+                        <DataGridComboBoxColumn Header="Priority" Width="3*" SelectedItemBinding="{Binding Priority, Mode=OneTime}" SelectedValueBinding="{Binding Data.SelectedPriority,Source={StaticResource proxy} , Mode=OneWayToSource}" ItemsSource="{Binding Data.PriorityValues, Source={StaticResource proxy}}"/>
                     </DataGrid.Columns>
                     <DataGrid.Style>
                         <Style BasedOn="{StaticResource MetroDataGrid}" TargetType="{x:Type DataGrid}">

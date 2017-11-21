@@ -147,6 +147,9 @@
     <Compile Include="View\AddTask.xaml.cs">
       <DependentUpon>AddTask.xaml</DependentUpon>
     </Compile>
+    <Compile Include="View\EditTask.xaml.cs">
+      <DependentUpon>EditTask.xaml</DependentUpon>
+    </Compile>
     <Compile Include="View\JobDetails.xaml.cs">
       <DependentUpon>JobDetails.xaml</DependentUpon>
     </Compile>
@@ -165,6 +168,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="View\AddTask.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\EditTask.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
