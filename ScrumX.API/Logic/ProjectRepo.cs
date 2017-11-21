@@ -65,5 +65,11 @@ namespace ScrumX.API.Logic
             }
         }
 
+        public void ChangeName(Project project, string name)
+        {
+            project.Name = name;
+            EditProject(project);
+        }
+
     }
 }

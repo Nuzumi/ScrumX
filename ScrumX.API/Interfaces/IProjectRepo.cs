@@ -25,5 +25,6 @@ namespace ScrumX.API.Logic
          void DeleteProject(Project obj);
 
          void EditProject(Project obj);
+        void ChangeName(Project project, string name);
     }
 }

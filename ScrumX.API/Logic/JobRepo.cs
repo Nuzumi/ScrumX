@@ -104,7 +104,7 @@ namespace ScrumX.API.Logic
         /// <param name="SP"></param>
         /// <param name="user"></param>
         /// <returns></returns>
-        public Job ChangeJobSP(Job obj, int SP, User user)
+        public Job ChangeJobSP(Job obj, double SP, User user)
         {
             //Jak nie jest completed
 
@@ -154,10 +154,10 @@ namespace ScrumX.API.Logic
         /// <param name="SP"></param>
         /// <param name="user"></param>
         /// <returns></returns>
-        public Job ChangeJobPriority(Job obj, int priority, User user)
+        public Job ChangeJobPriority(Job obj, double? priority, User user)
         {
             //Jak nie jest completed
-            if (obj.BacklogStatus != 3)
+            if (obj.BacklogStatus != 3 && priority.HasValue)
             {
                 //Edit zadania robi wpis w HJ
                 HistoryJob hj = new HistoryJob();
@@ -166,7 +166,7 @@ namespace ScrumX.API.Logic
                 hj.IdUser = user.IdUser;
                 double? pr = obj.Priority.HasValue ? obj.Priority.Value : 0;
                 priority = priority > 10 ? 10 : priority;
-                hj.Comment = "Zmiana priorytetu zadania " + obj.Title + " z " + pr + " na " + priority + " przez " + user.Name;
+                hj.Comment = "Zmiana priorytetu zadania " + obj.Title + " z " + pr + " na " + priority.Value + " przez " + user.Name;
                 obj.Priority = priority;
                 hjRepo.AddHistoryJob(hj);
                 EditJob(obj);
@@ -175,11 +175,37 @@ namespace ScrumX.API.Logic
             else
                 return null;
         }
+        
+
+        public void ChangeJobSPWithoutLog(Job actualJob, double? sp)
+        {
+            actualJob.SP = sp.Value;
+            EditJob(actualJob);
+        }
+
+        public void ChangeJobPrority(Job actualJob, double? prior)
+        {
+            actualJob.SP = prior.Value;
+            EditJob(actualJob);
+        }
+
+        public void ChangeJobDesc(Job actualJob, string desc)
+        {
+            actualJob.Desc = desc;
+            EditJob(actualJob);
+        }
+
 
 
         public void EndJob(Job job, User user)
         {
             ChangeJobTable(job, user, (int)typeTable.Done);
+            EditJob(job);
+        }
+
+        public void ChangeJobTitle(Job job, string title)
+        {
+            job.Title = title;
             EditJob(job);
         }
 
@@ -274,6 +300,11 @@ namespace ScrumX.API.Logic
                           .First()
                        .Select(r => r.Job)
                        .Distinct<Job>(); */
+        }
+
+        public void CloseSprint(Sprint sprint)
+        {
+            Jobs.Where(j => j.IdSprint == sprint.IdSprint).ToList().ForEach(j => { j.SP = null; j.IdSprint = null; });
         }
     }
     

@@ -196,7 +196,7 @@ namespace ScrumX.ViewModel
         public ICommand SearchCommand { get; set; }
         public ICommand GoToTableCommand { get; set; }
         public ICommand ClickDataGridJob { get; set; }
-
+        public ICommand EndSprint { get; set; }
         public ICommand LaunchGT { get; set; }
 
         public ICommand LaunchNuzumiGT { get; set; }
@@ -216,6 +216,7 @@ namespace ScrumX.ViewModel
             LaunchNuzumiGT = new DelegateCommand(LaunchNuzumiGTExecute);
             LaunchGT = new DelegateCommand(LaunchGTExecute);
             EditTaskCommand = new DelegateCommand(EditTaskCommandExecute);
+            EndSprint = new DelegateCommand(EndSprintExecute);
             TypeList = new List<string> { "All", "New", "Ready", "Scheduled", "Completed" };
             StoryPointValues = new List<double> { 1.0, 2.0, 3.0, 5.0, 8.0, 13.0, 20.0, 40.0, 100.0 };
             PriorityValues = new List<double> { 1.0, 2.0, 3.0, 4.0, 5.0 };
@@ -338,6 +339,12 @@ namespace ScrumX.ViewModel
         private bool GoToTableCommandCanExecute(Window dummy)
         {
             return CanAddTask && CanAddProject && CanAddSprint;
+        }
+
+        private void EndSprintExecute()
+        {
+            repo.JobsRepo.CloseSprint(ActualSprint);
+            repo.SprintsRepo.CloseSprint(ActualSprint);
         }
 
         private void EditTaskCommandExecute()

@@ -30,5 +30,7 @@ namespace ScrumX.API.Model
         {
             return Title;
         }
+
+        
     }
 }

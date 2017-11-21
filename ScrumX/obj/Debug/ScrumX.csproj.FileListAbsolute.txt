@@ -236,3 +236,5 @@ D:\Nowy folder\Git\ScrumX\ScrumX\obj\Debug\View\JobDetails.g.cs
 D:\Nowy folder\Git\ScrumX\ScrumX\obj\Debug\View\JobDetails.baml
 D:\Nowy folder\Git\ScrumX\ScrumX\obj\Debug\View\EditTask.g.cs
 D:\Nowy folder\Git\ScrumX\ScrumX\obj\Debug\View\EditTask.baml
+E:\Milena\V sem\NET\CopyScrum\ScrumX\ScrumX\obj\Debug\View\EditTask.g.cs
+E:\Milena\V sem\NET\CopyScrum\ScrumX\ScrumX\obj\Debug\View\EditTask.baml

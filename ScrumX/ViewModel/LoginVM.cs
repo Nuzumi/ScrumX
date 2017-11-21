@@ -119,6 +119,8 @@ namespace ScrumX.ViewModel
             LoginCorrect = true;
             PasswordCorrect = true;
             _dialogCoordinator = dialogCoordinator;
+            repo.CheckSprints(); 
+            //sprawdza czy jakies sprinty nie sa przedawnione -> zamyka je i resetuje SP w zadaniach
         }
 
         #region commanadFunction

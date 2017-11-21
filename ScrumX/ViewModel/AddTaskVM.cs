@@ -76,8 +76,8 @@ namespace ScrumX.ViewModel
             }
         }
 
-        private double selectedSP;
-        public double SelectedSP
+        private double? selectedSP;
+        public double? SelectedSP
         {
             get { return selectedSP; }
             set
@@ -87,8 +87,8 @@ namespace ScrumX.ViewModel
             }
         }
 
-        private double selectedPriority;
-        public double SelectedPriority
+        private double? selectedPriority;
+        public double? SelectedPriority
         {
             get { return selectedPriority; }
             set
@@ -114,8 +114,8 @@ namespace ScrumX.ViewModel
             }
         }
 
-        public int SPValue { get; set; }
-        public int PriorityValue { get; set; }
+        public int? SPValue { get; set; }
+        public int? PriorityValue { get; set; }
 
         public string AddTaskText { get; set; }
 
@@ -158,6 +158,11 @@ namespace ScrumX.ViewModel
                     }
                 }
             }
+            else
+            {
+                SelectedSP = null;
+                SPValue = null;
+            }
             TaskProject = job.Project;
             for(int i =0; i < Projects.Count; i++)
             {
@@ -166,7 +171,7 @@ namespace ScrumX.ViewModel
                     ProjectValue = i;
                 }
             }
-            AddTaskText = "zapisz";
+            AddTaskText = "Zapisz";
         }
 
        private void baseConstructor(Action changeCanAddTaskToTrue, User user)
@@ -202,14 +207,12 @@ namespace ScrumX.ViewModel
                 repo.JobsRepo.AddJob(task);
                 
             }
-            else
-            {
-                jobToEdit.Title = TaskTitle;
-                jobToEdit.Priority = SelectedPriority;
-                jobToEdit.SP = SelectedSP;
-                jobToEdit.Desc = TaskDescription;
-                jobToEdit.Project = TaskProject;
-                repo.JobsRepo.EditJob(jobToEdit);
+            else {
+                Job job = repo.JobsRepo.GetJobById(jobToEdit.IdJob);
+                repo.JobsRepo.ChangeJobTitle(job, TaskTitle);
+                repo.JobsRepo.ChangeJobDesc(job, TaskDescription);
+                if (SelectedPriority.HasValue) repo.JobsRepo.ChangeJobPriority(job, SelectedPriority.Value, logedUser);
+                if(SelectedSP.HasValue) repo.JobsRepo.ChangeJobSP(job, SelectedSP.Value, logedUser);
             }
             repo.SaveChanges();
             changeCanAddTaskToTrue.DynamicInvoke();
@@ -223,6 +226,16 @@ namespace ScrumX.ViewModel
 
         private void CancleCommandExecute(Window window)
         {
+            if(jobToEdit != null)
+            {
+                //to trzeba z powrotem przypisać
+                Job job = repo.JobsRepo.GetJobById(jobToEdit.IdJob);
+                job.Title = jobToEdit.Title;
+                job.Priority = jobToEdit.Priority;
+                job.SP = jobToEdit.SP;
+                job.Desc = jobToEdit.Desc;
+                repo.JobsRepo.EditJob(job);
+            }
             changeCanAddTaskToTrue.DynamicInvoke();
             window.Close();
         }

@@ -302,11 +302,12 @@
             <ComboBox Margin="5" Grid.Column="1" 
                       ItemsSource="{Binding Projects}" 
                       SelectedItem="{Binding SelectedProject}"
+                      FontSize="16" 
+                      Height="26"
+                      VerticalContentAlignment="Center"
                       Controls:TextBoxHelper.ClearTextButton="True"
-                          Controls:TextBoxHelper.Watermark="Projekt..."
-                          SelectedIndex="0"
-                      FontSize="16"
-                      Height="26">
+                          Controls:TextBoxHelper.Watermark="Kategoria..."
+                          SelectedIndex="0">
                 <ComboBox.Resources>
                     <helper:BindingProxy x:Key="proxy" Data="{Binding}"/>
                 </ComboBox.Resources>
@@ -317,7 +318,7 @@
                 </ComboBox.ContextMenu>
                 <ComboBox.ItemTemplate>
                     <DataTemplate>
-                        <Label Content="{Binding Name}" FontSize="12"/>
+                        <Label Content="{Binding Name}" FontSize="16"/>
                     </DataTemplate>
                 </ComboBox.ItemTemplate>
             </ComboBox>
@@ -331,6 +332,11 @@
                      FontSize="16"
                      Height="26"
                      >
+                <TextBox.ContextMenu>
+                    <ContextMenu>
+                        <MenuItem Header="Zamknij sprint" Command="{Binding EndSprint}"/>
+                    </ContextMenu>
+                </TextBox.ContextMenu>
             </TextBox>
             <TextBox Margin="5,5,0,5" Grid.Column="3"  
                      VerticalContentAlignment="Center" 
@@ -418,8 +424,9 @@
                     </DataGrid.RowStyle>
                     <DataGrid.ContextMenu>
                         <ContextMenu>
-                            <MenuItem Header="usuń" Command="{Binding Data.DeleteJobCommand, Source={StaticResource proxy}}"/>
-                            <MenuItem Header="edytuj" Command="{Binding Data.EditTaskCommand , Source={StaticResource proxy}}"/>
+                            <MenuItem Header="Edytuj" Command="{Binding Data.EditTaskCommand , Source={StaticResource proxy}}"/>
+                            <MenuItem Header="Usuń" Command="{Binding Data.DeleteJobCommand, Source={StaticResource proxy}}"/>
+                           
                         </ContextMenu>
                     </DataGrid.ContextMenu>
                 </DataGrid>

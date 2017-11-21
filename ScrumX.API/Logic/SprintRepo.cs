@@ -113,14 +113,23 @@ namespace ScrumX.API.Logic
                 .SingleOrDefault();
         }
 
+        
+
         public void CloseSprint(Sprint sprint)
         {
             sprint.EndData = DateTime.Today;
+            
         }
 
         public bool IsSprintOpen(Sprint sprint)
         {
             return sprint.EndData.HasValue ? sprint.EndData.Value >= DateTime.Today : false;
+        }
+
+        public void ChangeEndDate(Sprint sprint, DateTime end)
+        {
+            sprint.EndData = end;
+            EditSprint(sprint);
         }
     }
 }

@@ -6,6 +6,7 @@ using ScrumX.API.Model;
 using ScrumX.API.Ninject;
 using System;
 using System.Collections.Generic;
+using System.Data.Entity;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -38,5 +39,16 @@ namespace ScrumX.API.Repository
         {
             ctx.SaveChanges();
         }
+
+        public void CheckSprints()
+        {
+            SprintsRepo.Sprints.Where(s => s.EndData < DateTime.Today).ToList()
+                .ForEach(s =>
+                {
+                    SprintsRepo.CloseSprint(s);
+                    JobsRepo.CloseSprint(s);
+                });
+        }
+
     }
 }

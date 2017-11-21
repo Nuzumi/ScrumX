@@ -25,6 +25,6 @@ namespace ScrumX.API.Logic
         void CloseSprint(Sprint sprint);
         bool IsSprintOpen(Sprint sprint);
          void DeleteSprint(Sprint obj);
-
+        void ChangeEndDate(Sprint sprint, DateTime end);
     }
 }

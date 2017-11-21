@@ -69,6 +69,7 @@
                   ItemsSource="{Binding Projects}" 
                   SelectedIndex="{Binding ProjectValue, Mode=OneTime}"
                   MinHeight="25"
+                  IsEnabled="False"
                   Controls:TextBoxHelper.ClearTextButton="True"
                           Controls:TextBoxHelper.UseFloatingWatermark="True"
                           Controls:TextBoxHelper.Watermark="Priority..."
