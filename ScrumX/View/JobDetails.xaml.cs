@@ -17,7 +17,7 @@ namespace ScrumX.View
     /// <summary>
     /// Interaction logic for JobDetails.xaml
     /// </summary>
-    public partial class JobDetails : Window
+    public partial class JobDetails 
     {
         public JobDetails()
         {

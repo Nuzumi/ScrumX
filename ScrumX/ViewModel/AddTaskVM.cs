@@ -1,4 +1,6 @@
-﻿using Prism.Commands;
+﻿using MahApps.Metro.Controls;
+using MahApps.Metro.Controls.Dialogs;
+using Prism.Commands;
 using Prism.Mvvm;
 using ScrumX.API.Model;
 using ScrumX.API.Repository;
@@ -190,33 +192,42 @@ namespace ScrumX.ViewModel
 
         #region Command Functions
 
-        private void AddTaskCommandExecute(Window window)
+        private async void AddTaskCommandExecute(Window window)
         {
-            if(jobToEdit == null)
+            if (repo.SprintsRepo.GetLastSprintForProject(TaskProject.IdProject) != null)
             {
-                Job task = new Job
+                if (jobToEdit == null)
                 {
-                    IdUser = logedUser.IdUser,
-                    IdSprint = 1,//TaskSprint.IdSprint,
-                    Title = TaskTitle,
-                    Desc = TaskDescription,
-                    IdProject = TaskProject.IdProject,
-                    SP = SelectedSP,
-                    Priority = SelectedPriority
-                };
-                repo.JobsRepo.AddJob(task);
-                
+                    Job task = new Job
+                    {
+                        IdUser = logedUser.IdUser,
+                        IdSprint = 1,//TaskSprint.IdSprint,
+                        Title = TaskTitle,
+                        Desc = TaskDescription,
+                        IdProject = TaskProject.IdProject,
+                        SP = SelectedSP,
+                        Priority = SelectedPriority
+                    };
+                    repo.JobsRepo.AddJob(task);
+
+                }
+                else
+                {
+                    Job job = repo.JobsRepo.GetJobById(jobToEdit.IdJob);
+                    repo.JobsRepo.ChangeJobTitle(job, TaskTitle);
+                    repo.JobsRepo.ChangeJobDesc(job, TaskDescription);
+                    if (SelectedPriority.HasValue) repo.JobsRepo.ChangeJobPriority(job, SelectedPriority.Value, logedUser);
+                    if (SelectedSP.HasValue) repo.JobsRepo.ChangeJobSP(job, SelectedSP.Value, logedUser);
+                }
+                repo.SaveChanges();
+                changeCanAddTaskToTrue.DynamicInvoke();
+                window.Close();
             }
-            else {
-                Job job = repo.JobsRepo.GetJobById(jobToEdit.IdJob);
-                repo.JobsRepo.ChangeJobTitle(job, TaskTitle);
-                repo.JobsRepo.ChangeJobDesc(job, TaskDescription);
-                if (SelectedPriority.HasValue) repo.JobsRepo.ChangeJobPriority(job, SelectedPriority.Value, logedUser);
-                if(SelectedSP.HasValue) repo.JobsRepo.ChangeJobSP(job, SelectedSP.Value, logedUser);
+            else
+            {
+                var metroWindow = (Application.Current.MainWindow as MetroWindow);
+                await metroWindow.ShowMessageAsync("Ups!", "Brak aktualnego sprintu");
             }
-            repo.SaveChanges();
-            changeCanAddTaskToTrue.DynamicInvoke();
-            window.Close();
         }
 
         private bool AddTAskCommandCanExecute(Window dummy)

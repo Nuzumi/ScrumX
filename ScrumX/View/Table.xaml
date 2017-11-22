@@ -332,8 +332,9 @@
                     BorderThickness="1"
                     SelectedIndex="0"
                     Style="{StaticResource VirtualisedMetroListView}">
-                   
+                    
                     <ListView.View>
+                        
                         <GridView>
                             <GridViewColumn DisplayMemberBinding="{Binding Title}" Header="Tytuł" Width="100"/>
                             <GridViewColumn DisplayMemberBinding="{Binding User.Name}" Header="Stworzone" Width="100" />

@@ -48,6 +48,7 @@ namespace ScrumX.API.Logic
         /// <returns></returns>
         public int AddJob(Job job)
         {
+            
             job.SP = job.SP == 0 ? null : job.SP;
             job.IdSprint = sprintRepo.GetLastSprintForProject(job.IdProject).IdSprint;
             ctx.Set<Job>().Add(job);
@@ -107,8 +108,8 @@ namespace ScrumX.API.Logic
         public Job ChangeJobSP(Job obj, double SP, User user)
         {
             //Jak nie jest completed
-
-            if (obj.BacklogStatus != (int)typeBacklog.Completed)
+            //Albo nie zmieniamy na takie, co byly
+            if (obj.BacklogStatus != (int)typeBacklog.Completed && obj.SP != SP)
             {
                 //Edit zadania robi wpis w HJ
                 HistoryJob hj = new HistoryJob();

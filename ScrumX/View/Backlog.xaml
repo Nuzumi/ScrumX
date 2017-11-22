@@ -21,7 +21,7 @@
                        WindowTitleBrush="{DynamicResource PrimaryHueMidBrush}"
         FontFamily="pack://application:,,,/MaterialDesignThemes.Wpf;component/Resources/Roboto/#Roboto"
        
-        Title="Bakclog" Height="500" Width="1000" Name="Window">
+        Title="Bakclog" Height="600" Width="1000" Name="Window">
     <Controls:MetroWindow.Resources>
 
         <ResourceDictionary>
@@ -40,6 +40,7 @@
             <converters:ProjectToProjectNameConverter x:Key="projectToProjectName"/>
             <converters:UserToUserNameConverter x:Key="userToUserNameConverter"/>
             <converters:IntToDoubleConverter x:Key="intToDoubleConverter"/>
+            <converters:IntBacklogToStringConverter x:Key="intBacklogToStringConverter"/>
             <helper:BindingProxy x:Key="proxy" Data="{Binding}"/>
         </ResourceDictionary>
     </Controls:MetroWindow.Resources>
@@ -356,8 +357,6 @@
         <Separator DockPanel.Dock="Top" BorderThickness="1" BorderBrush="Black"/>
         <Grid Margin="8">
             <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="2*"/>
-                <!--lista : numerek,projekt, tytul, storyPointy, prioytet-->
                 <ColumnDefinition Width="*"/>
                 <!--details-->
             </Grid.ColumnDefinitions>
@@ -389,7 +388,6 @@
                         />
                 <DataGrid x:Name="MetroDataGrid"
                   Grid.Row="1"
-                  Grid.Column="1"
                   Margin="5"
                   AutoGenerateColumns="False"
                   HeadersVisibility="All"
@@ -401,14 +399,22 @@
                     <DataGrid.Resources>
                         <helper:BindingProxy x:Key="proxy" Data="{Binding}"/>
                     </DataGrid.Resources>
-                    <DataGrid.InputBindings>
-                        <MouseBinding Gesture="LeftDoubleClick" Command="{Binding ClickDataGridJob}" CommandParameter="{Binding ElementName=MetroDataGrid, Path=SelectedJob}" />
-                    </DataGrid.InputBindings>
+                    
                     <DataGrid.Columns>
-                        <DataGridTextColumn Width="5*" Header="Project" Binding="{Binding Sprint, Converter={StaticResource SprintToProjecTitleConverter}}" IsReadOnly="True"/>
-                        <DataGridTextColumn Width="5*" Header="Title" Binding="{Binding Title}" IsReadOnly="True"/>
-                        <DataGridComboBoxColumn Header="SP" Width="3*" SelectedItemBinding="{Binding SP , Mode=OneTime}" SelectedValueBinding="{Binding Data.SelectedSP, Source={StaticResource proxy} , Mode=OneWayToSource}" ItemsSource="{Binding Data.StoryPointValues, Source={StaticResource proxy}}"/>
-                        <DataGridComboBoxColumn Header="Priority" Width="3*" SelectedItemBinding="{Binding Priority, Mode=OneTime}" SelectedValueBinding="{Binding Data.SelectedPriority,Source={StaticResource proxy} , Mode=OneWayToSource}" ItemsSource="{Binding Data.PriorityValues, Source={StaticResource proxy}}"/>
+                        <DataGridTextColumn Width="3*" Header="Project" 
+                                            Binding="{Binding Sprint, Converter={StaticResource SprintToProjecTitleConverter}}" 
+                                            IsReadOnly="True"/>
+                        <DataGridTextColumn Width="3*" Header="Title" Binding="{Binding Title}" IsReadOnly="True"/>
+                        <DataGridComboBoxColumn Header="SP" Width="2*" 
+                                                SelectedItemBinding="{Binding SP , Mode=OneTime}" 
+                                                SelectedValueBinding="{Binding Data.SelectedSP, Source={StaticResource proxy} , Mode=OneWayToSource}" 
+                                                ItemsSource="{Binding Data.StoryPointValues, Source={StaticResource proxy}}"/>
+                        <DataGridComboBoxColumn Header="Priority" Width="2*" 
+                                                SelectedItemBinding="{Binding Priority, Mode=OneTime}" 
+                                                SelectedValueBinding="{Binding Data.SelectedPriority,Source={StaticResource proxy} , Mode=OneWayToSource}" 
+                                                ItemsSource="{Binding Data.PriorityValues, Source={StaticResource proxy}}"/>
+                        <DataGridTextColumn Width="2*" Header="Backlog" 
+                                            Binding="{Binding Data.BacklogStatus, Converter={StaticResource intBacklogToStringConverter}}" />
                     </DataGrid.Columns>
                     <DataGrid.Style>
                         <Style BasedOn="{StaticResource MetroDataGrid}" TargetType="{x:Type DataGrid}">
@@ -430,8 +436,103 @@
                         </ContextMenu>
                     </DataGrid.ContextMenu>
                 </DataGrid>
+           
+        <Controls:Flyout
+                        Controls:ControlsHelper.ContentCharacterCasing="Normal"
+                        AreAnimationsEnabled="True"
+                        Background="{DynamicResource {x:Static SystemColors.ActiveBorderBrushKey}}"
+                        Header="{Binding SelectedJob.Title}"
+                        IsOpen="{Binding Path=IsDescVisible, Mode=TwoWay}"
+                        Position="Right"
+                        RenderTransformOrigin="0.5,0.5" 
+                        Width="350"
+                        Margin="0,0,0,0.2">
+
+            <Grid  DataContext="{Binding SelectedJob}" Margin="10">
+                <Grid.Resources>
+                    <Style TargetType="Label">
+                        <Setter Property="Margin" Value="2"/>
+                        <Setter Property="VerticalContentAlignment" Value="Center"/>
+                        <Setter Property="Visibility" Value="Collapsed"/>
+                        <Style.Triggers>
+                            <DataTrigger Binding="{Binding Data.IsDescVisible, Source={StaticResource proxy}}" Value="True">
+                                <Setter Property="Visibility" Value="Visible"/>
+                            </DataTrigger>
+                        </Style.Triggers>
+                    </Style>
+                    <Style TargetType="TextBlock">
+                        <Setter Property="Margin" Value="2"/>
+                        <Setter Property="VerticalAlignment" Value="Center"/>
+                        <Setter Property="Visibility" Value="Collapsed"/>
+                        <Style.Triggers>
+                            <DataTrigger Binding="{Binding Data.IsDescVisible, Source={StaticResource proxy}}" Value="True">
+                                <Setter Property="Visibility" Value="Visible"/>
+                            </DataTrigger>
+                        </Style.Triggers>
+                    </Style>
+                    <Style TargetType="ListView">
+                        <Setter Property="Margin" Value="2"/>
+                        <Setter Property="VerticalAlignment" Value="Center"/>
+                        <Setter Property="Visibility" Value="Collapsed"/>
+                        <Style.Triggers>
+                            <DataTrigger Binding="{Binding Data.IsDescVisible, Source={StaticResource proxy}}" Value="True">
+                                <Setter Property="Visibility" Value="Visible"/>
+                            </DataTrigger>
+                        </Style.Triggers>
+                    </Style>
+                </Grid.Resources>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="auto"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                   
+                   
+                    <RowDefinition Height="auto"/>
+                    <!--utworzone przez-->
+                    <RowDefinition Height="auto"/>
+                    <!--opis-->
+                    <RowDefinition Height="auto"/>
+                    <!--logi-->
+                </Grid.RowDefinitions>
+                
+                
+                        <Label Content="Stworzone przez" Grid.Row="1" Padding="5" Margin="5"/>
+                <TextBlock Text="{Binding User, Converter={StaticResource userToUserNameConverter}}" 
+                           Grid.Column="1" Grid.Row="1" Padding="5" Margin="5"/>
+                        <Label Content="Opis" Grid.Row="2" Padding="5" Margin="5"/>
+                        <TextBox Grid.Column="1" Grid.Row="2" 
+                                 Text="{Binding Desc}" TextWrapping="Wrap" Height="70" 
+                                 AcceptsReturn="True" AcceptsTab="True"
+                                 Padding="5" Margin="5"/>
+                        <StackPanel Grid.Row="3" Grid.ColumnSpan="2"
+                                    Margin="5">
+                    <Label Content="Komentarze" HorizontalContentAlignment="Center"/>
+                    <ListView ItemsSource="{Binding JobsHistoryJob}" 
+                              Style="{StaticResource VirtualisedMetroListView}"
+                              HorizontalContentAlignment="Stretch"
+                              ScrollViewer.HorizontalScrollBarVisibility="Disabled">
+                                <ListView.ItemContainerStyle>
+                                    <Style TargetType="ListViewItem">
+                                        <Setter Property="Height" Value="40" />
+                                    </Style>
+                                </ListView.ItemContainerStyle>
+                                <ListView.View>
+                        <GridView>
+                            <GridViewColumn DisplayMemberBinding="{Binding Date}" 
+                                                        Header="Data" Width="60"/>
+                            <GridViewColumn DisplayMemberBinding="{Binding User, Converter={StaticResource userToUserNameConverter}}" 
+                                                        Header="Użytkownik" Width="80"/>
+                            <GridViewColumn DisplayMemberBinding="{Binding Comment}" 
+                                                        Header="Data" Width="170"/>
+                            
+                         </GridView>
+                    </ListView.View>
+                    </ListView>
+                </StackPanel>
             </Grid>
-            
+        </Controls:Flyout>
+        </Grid>
         </Grid>
     </DockPanel>
 </Controls:MetroWindow>

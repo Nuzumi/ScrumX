@@ -125,6 +125,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Converters\IntBacklogToStringConverter.cs" />
     <Compile Include="Converters\IntToDoubleConverter.cs" />
     <Compile Include="Converters\ProjectToProjectNameConverter.cs" />
     <Compile Include="Converters\SprintToProjectTitleConverter.cs" />

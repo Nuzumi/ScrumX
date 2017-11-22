@@ -38,6 +38,18 @@ namespace ScrumX.ViewModel
             set { SetProperty(ref projects, value); }
         }
 
+        private string isFlyoutOpen;
+        public string IsFlyoutOpen
+        {
+            get { return isFlyoutOpen; }
+            set
+            {
+                SetProperty(ref isFlyoutOpen, value);
+
+            }
+        }
+        
+
         private Sprint actualSprint;
         public Sprint ActualSprint
         {
