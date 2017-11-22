@@ -202,6 +202,7 @@ namespace ScrumX.ViewModel
         public ICommand DeleteJobCommand { get; set; }
         public ICommand EndJobCommand { get; set; }
         public ICommand EditTaskCommand { get; set; }
+        public ICommand EditProjectCommand { get; set; }
 
         private ICommand showMessageDialogCommand;
 
@@ -219,7 +220,7 @@ namespace ScrumX.ViewModel
         public BacklogVM(User user, IDialogCoordinator dialogCoordinator) :base(user)
         {
             GoToTableCommand = new DelegateCommand<Window>(GoToTableCommandExecute,GoToTableCommandCanExecute);
-            DeleteProjectCommand = new DelegateCommand(DeleteProjectCommandExecute);
+            DeleteProjectCommand = new DelegateCommand<Project>(DeleteProjectCommandExecute);
             DeleteJobCommand = new DelegateCommand(DeleteJobCommandExecute);
             EndJobCommand = new DelegateCommand(EndJobCommandExecute);
             SearchCommand = new DelegateCommand(SearchJobCommandExecute);
@@ -229,6 +230,7 @@ namespace ScrumX.ViewModel
             LaunchGT = new DelegateCommand(LaunchGTExecute);
             EditTaskCommand = new DelegateCommand(EditTaskCommandExecute);
             EndSprint = new DelegateCommand(EndSprintExecute);
+            EditProjectCommand = new DelegateCommand<Project>(EditProjectCommandExecute);
             TypeList = new List<string> { "All", "New", "Ready", "Scheduled", "Completed" };
             StoryPointValues = new List<double> { 1.0, 2.0, 3.0, 5.0, 8.0, 13.0, 20.0, 40.0, 100.0 };
             PriorityValues = new List<double> { 1.0, 2.0, 3.0, 4.0, 5.0 };
@@ -309,10 +311,10 @@ namespace ScrumX.ViewModel
             window.Close();
         }
 
-        private void DeleteProjectCommandExecute()
+        private void DeleteProjectCommandExecute(Project projectToDelete)
         {
             Console.WriteLine("Usuwam projekt");
-            repo.ProjectsRepo.DeleteProject(SelectedProject);
+            repo.ProjectsRepo.DeleteProject(projectToDelete);
             SetProperties();
         }
 
@@ -363,6 +365,14 @@ namespace ScrumX.ViewModel
         {
             AddTaskVM dataContext = new AddTaskVM(changeCanAddTaskToTrue, logedUser, SelectedJob);
             EditTask dialog = new EditTask();
+            dialog.DataContext = dataContext;
+            dialog.Show();
+        }
+
+        private void EditProjectCommandExecute(Project project)
+        {
+            AddProjectVM dataContext = new AddProjectVM(changeCanAddProjectToTrue, logedUser, project);
+            AddProject dialog = new AddProject();
             dialog.DataContext = dataContext;
             dialog.Show();
         }

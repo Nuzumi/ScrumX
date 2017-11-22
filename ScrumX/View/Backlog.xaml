@@ -42,6 +42,7 @@
             <converters:IntToDoubleConverter x:Key="intToDoubleConverter"/>
             <converters:IntBacklogToStringConverter x:Key="intBacklogToStringConverter"/>
             <helper:BindingProxy x:Key="proxy" Data="{Binding}"/>
+            <helper:BindingProxy x:Key="proxy2" Data="{Binding}"/>
         </ResourceDictionary>
     </Controls:MetroWindow.Resources>
     <Controls:MetroWindow.WindowButtonCommands>
@@ -300,6 +301,7 @@
                           Controls:TextBoxHelper.Watermark="Kategoria..."
                           SelectedIndex="0">
             </ComboBox>
+            <!--
             <ComboBox Margin="5" Grid.Column="1" 
                       ItemsSource="{Binding Projects}" 
                       SelectedItem="{Binding SelectedProject}"
@@ -323,6 +325,27 @@
                     </DataTemplate>
                 </ComboBox.ItemTemplate>
             </ComboBox>
+            -->
+            <ComboBox Grid.Column="1" ItemsSource="{Binding Projects}" SelectedItem="{Binding SelectedProject}" FontSize="16" Height="26" 
+                      VerticalContentAlignment="Center" Controls:TextBoxHelper.ClearTextButton="True" Controls:TextBoxHelper.Watermark="Kategoria..."
+                          SelectedIndex="0">
+                <ComboBox.Resources>
+                    <helper:BindingProxy x:Key="proxy" Data="{Binding}"/>
+                </ComboBox.Resources>
+                <ComboBox.ItemTemplate>
+                    <DataTemplate>
+                        <TextBlock Text="{Binding Name}">
+                            <TextBlock.ContextMenu>
+                                <ContextMenu>
+                                    <MenuItem Header="edytyj" Command="{Binding Data.EditProjectCommand , Source={StaticResource proxy}}" CommandParameter="{Binding}"/>
+                                    <MenuItem Header="Usuń projekt" Command="{Binding Data.DeleteProjectCommand, Source={StaticResource proxy}}" CommandParameter="{Binding}"/>
+                                </ContextMenu>
+                            </TextBlock.ContextMenu>
+                        </TextBlock>
+                    </DataTemplate>
+                </ComboBox.ItemTemplate>
+            </ComboBox>
+            
             
             <TextBox Margin="5,5,0,5" Grid.Column="2"  
                      VerticalContentAlignment="Center" 

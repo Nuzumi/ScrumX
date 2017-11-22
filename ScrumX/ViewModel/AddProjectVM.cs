@@ -17,8 +17,11 @@ namespace ScrumX.ViewModel
         private Action changeCanAddProjectToTrue;
         private EfRepository repo;
         private User logedUser;
+        private Project projectToEdit;
 
         #region Properties
+
+        public string ButtonText { get; set; }
 
         private string projectName;
         public string ProjectName
@@ -38,19 +41,41 @@ namespace ScrumX.ViewModel
 
         public AddProjectVM(Action changeCanAddProjectToTrue, User user)
         {
+            baseConstructor(changeCanAddProjectToTrue, user);
+            ButtonText = "Dodaj projekt";
+        }
+
+        public AddProjectVM(Action changeCanAddProjectToTrue,User user,Project projectToEdit)
+        {
+            baseConstructor(changeCanAddProjectToTrue, user);
+            projectName = projectToEdit.Name;
+            this.projectToEdit = projectToEdit;
+            ButtonText = "zapisz";
+        }
+        
+        private void baseConstructor(Action changeCanAddProjectToTrue,User user)
+        {
             logedUser = user;
-            AddProjectCommand = new DelegateCommand<Window>(AddProjectCommandExecute,AddProjectCommandCanExecute);
+            AddProjectCommand = new DelegateCommand<Window>(AddProjectCommandExecute, AddProjectCommandCanExecute);
             CancleCommand = new DelegateCommand<Window>(CancleCommandExecute);
             this.changeCanAddProjectToTrue = changeCanAddProjectToTrue;
             repo = new EfRepository();
         }
-        
 
         #region Command Functions
 
         private void AddProjectCommandExecute(Window window)
         {
-            repo.ProjectsRepo.AddProject(ProjectName);
+            if(projectToEdit == null)
+            {
+                repo.ProjectsRepo.AddProject(ProjectName);
+                
+            }
+            else
+            {
+                Project project = repo.ProjectsRepo.FindProjectByName(projectToEdit.Name);
+                repo.ProjectsRepo.ChangeName(project, ProjectName);
+            }
             repo.SaveChanges();
             changeCanAddProjectToTrue.DynamicInvoke();
             window.Close();
