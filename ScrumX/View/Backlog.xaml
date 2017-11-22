@@ -508,10 +508,13 @@
                         <StackPanel Grid.Row="3" Grid.ColumnSpan="2"
                                     Margin="5">
                     <Label Content="Komentarze" HorizontalContentAlignment="Center"/>
-                    <ListView ItemsSource="{Binding JobsHistoryJob}" 
+                            <ListView ItemsSource="{Binding JobsHistoryJob}" 
                               Style="{StaticResource VirtualisedMetroListView}"
                               HorizontalContentAlignment="Stretch"
-                              ScrollViewer.HorizontalScrollBarVisibility="Disabled">
+                              ScrollViewer.HorizontalScrollBarVisibility="Disabled"
+                              ScrollViewer.CanContentScroll="True"
+                              ScrollViewer.VerticalScrollBarVisibility="Visible"
+                                      Height="250">
                                 <ListView.ItemContainerStyle>
                                     <Style TargetType="ListViewItem">
                                         <Setter Property="Height" Value="40" />

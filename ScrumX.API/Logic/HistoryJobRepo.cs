@@ -38,7 +38,7 @@ namespace ScrumX.API.Repository
 
         public IEnumerable<HistoryJob> GetHistoryJobsForJob(int job)
         {
-            return HistoryJobs.Where(h => h.IdJob == job).OrderByDescending(h => h.Date).ToList();
+            return HistoryJobs.Where(h => h.IdJob == job).ToList();
         }
 
         public IEnumerable<HistoryJob> GetHistoryJobsForUser(User user)
