@@ -37,18 +37,7 @@ namespace ScrumX.ViewModel
             get { return projects; }
             set { SetProperty(ref projects, value); }
         }
-
-        private string isFlyoutOpen;
-        public string IsFlyoutOpen
-        {
-            get { return isFlyoutOpen; }
-            set
-            {
-                SetProperty(ref isFlyoutOpen, value);
-
-            }
-        }
-        
+                
 
         private Sprint actualSprint;
         public Sprint ActualSprint
@@ -139,8 +128,7 @@ namespace ScrumX.ViewModel
             set
             {
                 SetProperty(ref selectedJob, value);
-                IsDescVisible = true;
-                VisibilityFlyout = true;
+                IsDescVisible = false; 
             }
         }
 
@@ -183,19 +171,19 @@ namespace ScrumX.ViewModel
                 }
             }
         }
-
-        private bool visibilityFlyout;
-        public bool VisibilityFlyout
-        {
-            get { return visibilityFlyout; }
-            set { SetProperty(ref visibilityFlyout, value); }
-        }
-
+        
         private bool isDescVisible;
         public bool IsDescVisible
         {
             get { return isDescVisible; }
             set { SetProperty(ref isDescVisible, value); }
+        }
+
+        private bool showFlyout;
+        public bool ShowFlyout
+        {
+            get { return ShowFlyout; }
+            set { SetProperty(ref showFlyout, value); }
         }
 
         public ICommand DeleteProjectCommand { get; set; }
@@ -205,6 +193,7 @@ namespace ScrumX.ViewModel
         public ICommand EditProjectCommand { get; set; }
         public ICommand EditSprintCommand { get; set; }
 
+        public ICommand OpenDetails { get; set; }
         private ICommand showMessageDialogCommand;
 
         public ICommand SearchCommand { get; set; }
@@ -223,6 +212,7 @@ namespace ScrumX.ViewModel
             GoToTableCommand = new DelegateCommand<Window>(GoToTableCommandExecute,GoToTableCommandCanExecute);
             DeleteProjectCommand = new DelegateCommand<Project>(DeleteProjectCommandExecute);
             DeleteJobCommand = new DelegateCommand(DeleteJobCommandExecute);
+            OpenDetails = new DelegateCommand(OpenDetailsExecute);
             EndJobCommand = new DelegateCommand(EndJobCommandExecute);
             SearchCommand = new DelegateCommand(SearchJobCommandExecute);
             ClickDataGridJob = new DelegateCommand(ClickDataGridJobExecute);
@@ -239,6 +229,7 @@ namespace ScrumX.ViewModel
             repo = new EfRepository();
             logedUser = user;
             UserName = user.Name;
+            ShowFlyout = false;
             _dialogCoordinator = dialogCoordinator;
             SetProperties();
         }
@@ -355,6 +346,12 @@ namespace ScrumX.ViewModel
         private bool GoToTableCommandCanExecute(Window dummy)
         {
             return CanAddTask && CanAddProject && CanAddSprint;
+        }
+        
+        private void OpenDetailsExecute()
+        {
+            IsDescVisible = true;
+            ShowFlyout = true;
         }
 
         private void EndSprintExecute()

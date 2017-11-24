@@ -158,7 +158,7 @@ namespace ScrumX.API.Logic
         public Job ChangeJobPriority(Job obj, double? priority, User user)
         {
             //Jak nie jest completed
-            if (obj.BacklogStatus != 3 && priority.HasValue)
+            if (obj.BacklogStatus != 3 && priority.HasValue && priority.Value != obj.Priority.Value)
             {
                 //Edit zadania robi wpis w HJ
                 HistoryJob hj = new HistoryJob();

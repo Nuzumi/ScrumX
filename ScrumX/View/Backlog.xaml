@@ -5,6 +5,8 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:ScrumX"
         mc:Ignorable="d"
+        xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
+        xmlns:cmd="http://prismlibrary.com/"
         xmlns:Controls="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
         xmlns:iconPacks="http://metro.mahapps.com/winfx/xaml/iconpacks"
         xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
@@ -347,16 +349,19 @@
             </ComboBox>
             
             
+            
             <TextBlock Margin="5,5,0,5" Grid.Column="2"  
                      Text="{Binding ActualSprint, Converter={StaticResource SprintToProjecTitleConverter}}" 
                      FontSize="16"
                      Height="26"
                      >
+              
                 <TextBlock.ContextMenu>
                     <ContextMenu>
                         <MenuItem Header="Zamknij sprint" Command="{Binding EndSprint}"/>
                         <MenuItem Header="Edytuj sprint" Command="{Binding EditSprintCommand}"/>
                     </ContextMenu>
+              
                 </TextBlock.ContextMenu>
             </TextBlock>
             <TextBox Margin="5,5,0,5" Grid.Column="3"  
@@ -373,14 +378,17 @@
                     <KeyBinding Key="Enter" Command="{Binding SearchJobCommandExecute}"/>
                 </TextBox.InputBindings>
             </TextBox>
+
         </Grid>
         <Separator DockPanel.Dock="Top" BorderThickness="1" BorderBrush="Black"/>
-        <Grid Margin="8">
+  
+        <Grid Margin="8 8 0 8">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="*"/>
                 <!--details-->
             </Grid.ColumnDefinitions>
-            <Grid Margin="5">
+     
+            <Grid Margin="5 5 0 5">
                 <!--<DataGrid ItemsSource="{Binding Jobs}"  SelectedItem="{Binding SelectedJob}" Margin="6,3,6,3" AutoGenerateColumns="False" SelectionMode="Single" SelectionUnit="FullRow" CanUserAddRows="False" CanUserDeleteRows="False" CanUserSortColumns="False" CanUserReorderColumns="True" CanUserResizeColumns="False">
                     <DataGrid.Resources>
                         <helper:BindingProxy x:Key="proxy" Data="{Binding}"/>
@@ -403,17 +411,20 @@
 
                 <ContentControl Grid.Row="1"
                         Grid.Column="0"
-                        Margin="10 5 5 5"
+            
+                        Margin="10 5 10 5"
                         DataContext="{Binding ElementName=MetroDataGrid}"
                         />
                 <DataGrid x:Name="MetroDataGrid"
                   Grid.Row="1"
-                  Margin="5"
+              
+                  Margin="5 5 5 5"
                   AutoGenerateColumns="False"
                   HeadersVisibility="All"
                   ItemsSource="{Binding Path=Jobs}"
                   RowHeaderWidth="20"
                   SelectionUnit="FullRow"
+                  ToolTip="Kliknij mnie podwójnie!"
                   SelectedItem="{Binding SelectedJob}"
                   GridLinesVisibility="All">
                     <DataGrid.Resources>
@@ -436,6 +447,11 @@
                         <DataGridTextColumn Width="2*" Header="Backlog" 
                                             Binding="{Binding Data.BacklogStatus, Converter={StaticResource intBacklogToStringConverter}}" />
                     </DataGrid.Columns>
+
+                    <DataGrid.InputBindings>
+                        <MouseBinding Gesture="LeftDoubleClick" Command="{Binding OpenDetails}" />
+                    </DataGrid.InputBindings>
+
                     <DataGrid.Style>
                         <Style BasedOn="{StaticResource MetroDataGrid}" TargetType="{x:Type DataGrid}">
                             <Setter Property="AlternatingRowBackground" Value="{DynamicResource GrayBrush10}" />
@@ -464,9 +480,9 @@
                         Header="{Binding SelectedJob.Title}"
                         IsOpen="{Binding Path=IsDescVisible, Mode=TwoWay}"
                         Position="Right"
-                        RenderTransformOrigin="0.5,0.5" 
+                        RenderTransformOrigin="0,0" 
                         Width="350"
-                        Margin="0,0,0,0.2">
+                        Margin="0,0,0,0">
 
             <Grid  DataContext="{Binding SelectedJob}" Margin="10">
                 <Grid.Resources>
@@ -528,10 +544,14 @@
                         <StackPanel Grid.Row="3" Grid.ColumnSpan="2"
                                     Margin="5">
                     <Label Content="Komentarze" HorizontalContentAlignment="Center"/>
-                    <ListView ItemsSource="{Binding JobsHistoryJob}" 
+            
+                            <ListView ItemsSource="{Binding JobsHistoryJob}" 
                               Style="{StaticResource VirtualisedMetroListView}"
                               HorizontalContentAlignment="Stretch"
-                              ScrollViewer.HorizontalScrollBarVisibility="Disabled">
+                              ScrollViewer.HorizontalScrollBarVisibility="Visible"
+                              ScrollViewer.CanContentScroll="True"
+                              ScrollViewer.VerticalScrollBarVisibility="Visible"
+                                      Height="250">
                                 <ListView.ItemContainerStyle>
                                     <Style TargetType="ListViewItem">
                                         <Setter Property="Height" Value="40" />
