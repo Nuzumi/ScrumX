@@ -347,21 +347,18 @@
             </ComboBox>
             
             
-            <TextBox Margin="5,5,0,5" Grid.Column="2"  
-                     VerticalContentAlignment="Center" 
-                     HorizontalContentAlignment="Center" 
+            <TextBlock Margin="5,5,0,5" Grid.Column="2"  
                      Text="{Binding ActualSprint, Converter={StaticResource SprintToProjecTitleConverter}}" 
-                     AcceptsReturn="False"
-                     IsEnabled="False"
                      FontSize="16"
                      Height="26"
                      >
-                <TextBox.ContextMenu>
+                <TextBlock.ContextMenu>
                     <ContextMenu>
                         <MenuItem Header="Zamknij sprint" Command="{Binding EndSprint}"/>
+                        <MenuItem Header="Edytuj sprint" Command="{Binding EditSprintCommand}"/>
                     </ContextMenu>
-                </TextBox.ContextMenu>
-            </TextBox>
+                </TextBlock.ContextMenu>
+            </TextBlock>
             <TextBox Margin="5,5,0,5" Grid.Column="3"  
                      VerticalContentAlignment="Center" 
                      HorizontalContentAlignment="Center" 
