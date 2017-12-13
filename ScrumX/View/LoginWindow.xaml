@@ -25,7 +25,7 @@
                        WindowTitleBrush="{DynamicResource PrimaryHueMidBrush}"
         FontFamily="pack://application:,,,/MaterialDesignThemes.Wpf;component/Resources/Roboto/#Roboto"
        
-        Title="LoginWindow" Height="240" Width="250" MinHeight="220" MinWidth="200" Name="Window">
+        Title="Logowanie" Height="240" Width="250" MinHeight="220" MinWidth="200" Name="Window">
 
     <Controls:MetroWindow.Resources>
     <ResourceDictionary>

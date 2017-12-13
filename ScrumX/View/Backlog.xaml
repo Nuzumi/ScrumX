@@ -183,7 +183,7 @@
                                 <ColumnDefinition Width="90"/>
                                 <ColumnDefinition Width="*"/>
                             </Grid.ColumnDefinitions>
-                            <TextBlock Grid.Column="0" Text="Add Job" Margin="2,0,2,0"
+                            <TextBlock Grid.Column="0" Text="Add Task" Margin="2,0,2,0"
                                FontSize="16"
                                VerticalAlignment="Center"
                               
@@ -426,7 +426,8 @@
                   SelectionUnit="FullRow"
                   ToolTip="Kliknij mnie podwójnie!"
                   SelectedItem="{Binding SelectedJob}"
-                  GridLinesVisibility="All">
+                  GridLinesVisibility="All"
+                          CanUserAddRows="False">
                     <DataGrid.Resources>
                         <helper:BindingProxy x:Key="proxy" Data="{Binding}"/>
                     </DataGrid.Resources>
@@ -445,7 +446,7 @@
                                                 SelectedValueBinding="{Binding Data.SelectedPriority,Source={StaticResource proxy} , Mode=OneWayToSource}" 
                                                 ItemsSource="{Binding Data.PriorityValues, Source={StaticResource proxy}}"/>
                         <DataGridTextColumn Width="2*" Header="Backlog" 
-                                            Binding="{Binding Data.BacklogStatus, Converter={StaticResource intBacklogToStringConverter}}" />
+                                            Binding="{Binding BacklogStatus, Converter={StaticResource intBacklogToStringConverter}}" />
                     </DataGrid.Columns>
 
                     <DataGrid.InputBindings>
@@ -481,7 +482,7 @@
                         IsOpen="{Binding Path=IsDescVisible, Mode=TwoWay}"
                         Position="Right"
                         RenderTransformOrigin="0,0" 
-                        Width="350"
+                        Width="450"
                         Margin="0,0,0,0">
 
             <Grid  DataContext="{Binding SelectedJob}" Margin="10">
@@ -544,7 +545,6 @@
                         <StackPanel Grid.Row="3" Grid.ColumnSpan="2"
                                     Margin="5">
                     <Label Content="Komentarze" HorizontalContentAlignment="Center"/>
-            
                             <ListView ItemsSource="{Binding JobsHistoryJob}" 
                               Style="{StaticResource VirtualisedMetroListView}"
                               HorizontalContentAlignment="Stretch"
@@ -553,23 +553,37 @@
                               ScrollViewer.VerticalScrollBarVisibility="Visible"
                                       Height="250">
                                 <ListView.ItemContainerStyle>
-                                    <Style TargetType="ListViewItem">
+                                    <Style TargetType="{x:Type ListViewItem}">
                                         <Setter Property="Height" Value="40" />
                                     </Style>
                                 </ListView.ItemContainerStyle>
                                 <ListView.View>
-                        <GridView>
-                            <GridViewColumn DisplayMemberBinding="{Binding Date}" 
-                                                        Header="Data" Width="60"/>
-                            <GridViewColumn DisplayMemberBinding="{Binding User, Converter={StaticResource userToUserNameConverter}}" 
-                                                        Header="Użytkownik" Width="80"/>
-                            <GridViewColumn DisplayMemberBinding="{Binding Comment}" 
-                                                        Header="Data" Width="170"/>
-                            
-                         </GridView>
-                    </ListView.View>
-                    </ListView>
-                </StackPanel>
+                                    <GridView>
+                                        <GridViewColumn DisplayMemberBinding="{Binding Date}" 
+                                                        Header="Data" Width="85"/>
+                                        <GridViewColumn DisplayMemberBinding="{Binding User, Converter={StaticResource userToUserNameConverter}}" 
+                                                        Header="Użytkownik" Width="auto"/>
+                                        <GridViewColumn DisplayMemberBinding="{Binding Comment}" 
+                                                        Header="Data" Width="450">
+                                        </GridViewColumn>
+
+                                    </GridView>
+                                </ListView.View>
+                                
+                            </ListView>
+                            <Grid Visibility="Hidden">
+                                <Grid.ColumnDefinitions>
+                                    <!--Width is bound to width of the first GridViewColumn -->
+                                    <ColumnDefinition Width="{Binding ElementName=col1, Path=ActualWidth}"/>
+                                    <!--Width is set to "Fill"-->
+                                    <ColumnDefinition Width="*"/>
+                                    <!--Correction Width-->
+                                    <ColumnDefinition Width="10"/>
+                                </Grid.ColumnDefinitions>
+                                <!--This is the hidden helper Field which is used to bind to, using the "Fill" column of the helper grid-->
+                                <Grid Grid.Column="1" x:Name="helperField"/>
+                            </Grid>
+                        </StackPanel>
             </Grid>
         </Controls:Flyout>
         </Grid>
