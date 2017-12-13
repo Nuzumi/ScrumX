@@ -19,7 +19,7 @@
                        WindowTitleBrush="{DynamicResource PrimaryHueMidBrush}"
         FontFamily="pack://application:,,,/MaterialDesignThemes.Wpf;component/Resources/Roboto/#Roboto"
        
-        Title="AddSprint" Height="180" Width="300" Name="Window" WindowStyle="None">
+        Title="AddSprint" Height="180" Width="300" Name="Window" ShowCloseButton="False">
     <Controls:MetroWindow.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
@@ -50,6 +50,7 @@
                   Margin="10,6,10,6" 
                   ItemsSource="{Binding Projects}" 
                   SelectedItem="{Binding SelectedProject}"
+                  SelectedIndex="{Binding SelectedProjectIndex}"
                   Controls:TextBoxHelper.ClearTextButton="True"
                           Controls:TextBoxHelper.UseFloatingWatermark="True"
                           Controls:TextBoxHelper.Watermark="Projekt"

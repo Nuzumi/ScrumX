@@ -191,6 +191,7 @@ namespace ScrumX.ViewModel
         public ICommand EndJobCommand { get; set; }
         public ICommand EditTaskCommand { get; set; }
         public ICommand EditProjectCommand { get; set; }
+        public ICommand EditSprintCommand { get; set; }
 
         public ICommand OpenDetails { get; set; }
         private ICommand showMessageDialogCommand;
@@ -221,6 +222,7 @@ namespace ScrumX.ViewModel
             EditTaskCommand = new DelegateCommand(EditTaskCommandExecute);
             EndSprint = new DelegateCommand(EndSprintExecute);
             EditProjectCommand = new DelegateCommand<Project>(EditProjectCommandExecute);
+            EditSprintCommand = new DelegateCommand(EditSprintCommandExecute);
             TypeList = new List<string> { "All", "New", "Ready", "Scheduled", "Completed" };
             StoryPointValues = new List<double> { 1.0, 2.0, 3.0, 5.0, 8.0, 13.0, 20.0, 40.0, 100.0 };
             PriorityValues = new List<double> { 1.0, 2.0, 3.0, 4.0, 5.0 };
@@ -370,6 +372,14 @@ namespace ScrumX.ViewModel
         {
             AddProjectVM dataContext = new AddProjectVM(changeCanAddProjectToTrue, logedUser, project);
             AddProject dialog = new AddProject();
+            dialog.DataContext = dataContext;
+            dialog.Show();
+        }
+
+        private void EditSprintCommandExecute()
+        {
+            AddSprintVM dataContext = new AddSprintVM(changeCanAddSprintToTrue, logedUser, SelectedProject);
+            AddSprint dialog = new AddSprint();
             dialog.DataContext = dataContext;
             dialog.Show();
         }

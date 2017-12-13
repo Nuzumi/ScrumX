@@ -25,6 +25,13 @@ namespace ScrumX.ViewModel
 
         #region Properties
 
+        private string buttonText;
+        public string ButtonText
+        {
+            get { return buttonText; }
+            set { SetProperty(ref buttonText, value); }
+        }
+
         private string labelContent;
         public string LabeleContent
         {
@@ -40,7 +47,7 @@ namespace ScrumX.ViewModel
             {
                 SetProperty(ref isVisibleLogin, value);
                 (RegisterCommand as DelegateCommand).RaiseCanExecuteChanged();
-                (LoginCommand as DelegateCommand).RaiseCanExecuteChanged();
+               // (LoginCommand as DelegateCommand).RaiseCanExecuteChanged();
             }
         }
 
@@ -112,15 +119,21 @@ namespace ScrumX.ViewModel
         public LoginVM(IDialogCoordinator dialogCoordinator)
         {
             OkComamnd = new DelegateCommand<Window>(OkCommandExecute, OKCommandCanExecute);
-            RegisterCommand = new DelegateCommand(RegisterCommandExecute, RegisterCommandCanExecute);
-            LoginCommand = new DelegateCommand(LoginCommandExecute, LoginCommandCanExecute);
+            RegisterCommand = new DelegateCommand(RegisterCommandExecute);
+            //LoginCommand = new DelegateCommand(LoginCommandExecute, LoginCommandCanExecute);
             LabeleContent = "Logowanie";
             repo = new EfRepository();
             LoginCorrect = true;
             PasswordCorrect = true;
             _dialogCoordinator = dialogCoordinator;
-            repo.CheckSprints(); 
+            repo.CheckSprints();
+            ButtonText = "Rejestracja";
             //sprawdza czy jakies sprinty nie sa przedawnione -> zamyka je i resetuje SP w zadaniach
+        }
+
+        public void ClearTextBoxes()
+        {
+            Password = PasswordAgain = Login = "";
         }
 
         #region commanadFunction
@@ -157,7 +170,7 @@ namespace ScrumX.ViewModel
                 {
                     var metroWindow = (Application.Current.MainWindow as MetroWindow);
                     await metroWindow.ShowMessageAsync("Super!", "Zarejestrowano");
-                    LoginCommandExecute();
+                    RegisterCommandExecute();
                 }
                 else
                 {
@@ -176,34 +189,36 @@ namespace ScrumX.ViewModel
             }
             else
             {
-                //PasswordCorrect = (Password != string.Empty && Password != null);
                 LoginCorrect = !repo.UsersRepo.UserExists(Login);
-
-                return (!repo.UsersRepo.UserExists(Login) && Login != string.Empty && Login != null && Password != string.Empty && Password != null);
+                return (!repo.UsersRepo.UserExists(Login) && Login != string.Empty && Login != null && Password != string.Empty && Password != null && (Password == passwordAgain || Password == "" || Password == null));
             }
         }
 
         private void RegisterCommandExecute()
         {
-            LabeleContent = "Rejestracja";
-            loginMode = false;
-            IsVisibleLogin = true;
-            IsNotVisibleLogin = false;
+
+            if (loginMode)
+            {
+                LabeleContent = "Rejestracja";
+                ButtonText = "Logowanie";
+                IsVisibleLogin = true;
+                loginMode = false;
+            }
+            else
+            {
+                LabeleContent = "Logowanie";
+                ButtonText = "Rejestracja";
+                loginMode = true;
+                IsVisibleLogin = false;
+            }
             ClearTextBoxes();
             (OkComamnd as DelegateCommand<Window>).RaiseCanExecuteChanged();
-        }
-
-        private bool RegisterCommandCanExecute()
-        {
-            return loginMode;
         }
 
         private void LoginCommandExecute()
         {
             LabeleContent = "Logowanie";
             loginMode = true;
-            IsVisibleLogin = false;
-            IsNotVisibleLogin = true;
 
             ClearTextBoxes();
             (OkComamnd as DelegateCommand<Window>).RaiseCanExecuteChanged();
@@ -216,9 +231,6 @@ namespace ScrumX.ViewModel
 
         #endregion
 
-        public void ClearTextBoxes()
-        {
-            Password = PasswordAgain = Login = "";
-        }
+
     }
 }

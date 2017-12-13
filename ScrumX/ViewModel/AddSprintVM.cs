@@ -25,6 +25,7 @@ namespace ScrumX.ViewModel
         public ObservableCollection<Project> Projects { get; set; }
         public bool EnableProjectSelection { get; set; }
         public string ButtonText { get; set; }
+        public int? SelectedProjectIndex { get; set; }
 
         private Project selectedProject;
         public Project SelectedProject
@@ -58,15 +59,23 @@ namespace ScrumX.ViewModel
             baseConstructor(changeCanAddSprintToTrue, user);
             ButtonText = "Dodaj Sprint";
             EnableProjectSelection = true;
+            SelectedProjectIndex = null;
         }
 
-        public AddSprintVM(Action changeCanAddSprintToTrue,User user,Sprint sprint)
+        public AddSprintVM(Action changeCanAddSprintToTrue,User user,Project project)
         {
             baseConstructor(changeCanAddSprintToTrue, user);
             ButtonText = "zapisz";
             EnableProjectSelection = false;
-            sprintToEdit = sprint;
+            sprintToEdit = repo.SprintsRepo.GetLastSprintForProject(project);
             EndDate = sprintToEdit.EndData.Value;
+            for(int i = 0; i < Projects.Count; i++)
+            {
+                if(Projects[i].Name == project.Name)
+                {
+                    SelectedProjectIndex = i;
+                }
+            }
         }
 
         private void baseConstructor(Action changeCanAddSprintToTrue,User user)
@@ -90,8 +99,7 @@ namespace ScrumX.ViewModel
             }
             else
             {
-                //Sprint sprint = repo.SprintsRepo.g
-
+                repo.SprintsRepo.ChangeEndDate(sprintToEdit, EndDate);
             }
             changeCanAddSprintToTrue.DynamicInvoke();
             window.Close();
