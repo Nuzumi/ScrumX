@@ -67,7 +67,7 @@
     <DockPanel>
         <DockPanel DockPanel.Dock="Left">
             <Image
-                Source="scrum_img.png"
+                Source="/Resources/scrum_logo.png"
                 Height="120"
                 Width="140"
                 Margin="2"

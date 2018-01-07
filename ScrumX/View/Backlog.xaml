@@ -45,6 +45,7 @@
             <converters:IntBacklogToStringConverter x:Key="intBacklogToStringConverter"/>
             <helper:BindingProxy x:Key="proxy" Data="{Binding}"/>
             <helper:BindingProxy x:Key="proxy2" Data="{Binding}"/>
+            
         </ResourceDictionary>
     </Controls:MetroWindow.Resources>
     <Controls:MetroWindow.WindowButtonCommands>
@@ -78,7 +79,7 @@
     <DockPanel>
         <DockPanel DockPanel.Dock="Left">
             <Image
-                Source="scrum_img.png"
+                Source="/Resources/scrum_logo.png"
                 Height="120"
                 Width="140"
                 Margin="2"

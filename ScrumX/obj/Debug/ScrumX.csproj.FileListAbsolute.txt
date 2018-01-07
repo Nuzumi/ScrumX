@@ -216,8 +216,6 @@ E:\Milena\V sem\NET\CopyScrum\ScrumX\ScrumX\obj\Debug\View\LoginWindow.baml
 E:\Milena\V sem\NET\CopyScrum\ScrumX\ScrumX\obj\Debug\View\Backlog.baml
 E:\Milena\V sem\NET\CopyScrum\ScrumX\ScrumX\obj\Debug\View\Table.baml
 E:\Milena\V sem\NET\CopyScrum\ScrumX\ScrumX\obj\Debug\ScrumX.g.resources
-E:\Milena\V sem\NET\CopyScrum\ScrumX\ScrumX\obj\Debug\ScrumX.Properties.Resources.resources
-E:\Milena\V sem\NET\CopyScrum\ScrumX\ScrumX\obj\Debug\ScrumX.csproj.GenerateResource.Cache
 D:\Nowy folder\Git\ScrumX\ScrumX\bin\Debug\scrum.sqlite
 D:\Nowy folder\Git\ScrumX\ScrumX\bin\Debug\MahApps.Metro.dll
 D:\Nowy folder\Git\ScrumX\ScrumX\bin\Debug\MahApps.Metro.IconPacks.Modern.dll
