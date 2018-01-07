@@ -198,6 +198,8 @@ namespace ScrumX.ViewModel
             {
                 if (jobToEdit == null)
                 {
+
+
                     Job task = new Job
                     {
                         IdUser = logedUser.IdUser,
@@ -208,6 +210,11 @@ namespace ScrumX.ViewModel
                         SP = SelectedSP,
                         Priority = SelectedPriority
                     };
+                    if(task.SP != null && task.SP != 0)
+                    {
+                        task.BacklogStatus = 2;
+                        task.TableStatus = 1;
+                    }
                     repo.JobsRepo.AddJob(task);
 
                 }

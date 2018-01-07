@@ -564,7 +564,7 @@
                                         <GridViewColumn DisplayMemberBinding="{Binding User, Converter={StaticResource userToUserNameConverter}}" 
                                                         Header="Użytkownik" Width="auto"/>
                                         <GridViewColumn DisplayMemberBinding="{Binding Comment}" 
-                                                        Header="Data" Width="450">
+                                                        Header="Data" Width="650">
                                         </GridViewColumn>
 
                                     </GridView>
