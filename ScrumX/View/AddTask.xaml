@@ -20,7 +20,7 @@
                        WindowTitleBrush="{DynamicResource PrimaryHueMidBrush}"
         FontFamily="pack://application:,,,/MaterialDesignThemes.Wpf;component/Resources/Roboto/#Roboto"
        
-        Title="AddTask" Height="355" Width="300" Name="Window" ShowCloseButton="False">
+        Title="Dodaj zadanie" Height="355" Width="300" Name="Window" ShowCloseButton="False">
     <Controls:MetroWindow.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>

@@ -23,7 +23,7 @@
                        WindowTitleBrush="{DynamicResource PrimaryHueMidBrush}"
         FontFamily="pack://application:,,,/MaterialDesignThemes.Wpf;component/Resources/Roboto/#Roboto"
        
-        Title="Bakclog" Height="600" Width="1000" Name="Window">
+        Title="Backlog" Height="600" Width="1000" Name="Window">
     <Controls:MetroWindow.Resources>
 
         <ResourceDictionary>
@@ -80,8 +80,8 @@
             <Image
                 Source="scrum_img.png"
                 Height="120"
-                Width="120"
-                Margin="5"
+                Width="140"
+                Margin="2"
                 DockPanel.Dock="Top"></Image>
             <Separator Margin="0,5,0,0" BorderThickness="1" BorderBrush="Black" DockPanel.Dock="Top"/>
             <DockPanel Margin="0,1,0,1">
@@ -104,7 +104,7 @@
                               VerticalAlignment="Center"
                               Height="22">
                             <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="90"/>
+                                <ColumnDefinition Width="110"/>
                                 <ColumnDefinition Width="*"/>
                             </Grid.ColumnDefinitions>
                             <TextBlock Grid.Column="0" Text="Table" Margin="2,0,2,0"
@@ -141,7 +141,7 @@
                               VerticalAlignment="Center"
                               Height="22">
                             <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="90"/>
+                                <ColumnDefinition Width="110"/>
                                 <ColumnDefinition Width="*"/>
                             </Grid.ColumnDefinitions>
                             <TextBlock Grid.Column="0" Text="Backlog" Margin="2,0,2,0"
@@ -169,7 +169,7 @@
                     Style="{DynamicResource MaterialDesignToolButton}"
                     BorderThickness="0"
                     Command="{Binding AddTaskCommand}"
-                    Margin="2,2,2,2"
+                    Margin="0,2,2,2"
                     HorizontalAlignment="Center"
                     VerticalContentAlignment="Center"
                     HorizontalContentAlignment="Center"
@@ -180,10 +180,10 @@
                               VerticalAlignment="Center"
                               Height="22">
                             <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="90"/>
+                                <ColumnDefinition Width="110"/>
                                 <ColumnDefinition Width="*"/>
                             </Grid.ColumnDefinitions>
-                            <TextBlock Grid.Column="0" Text="Add Task" Margin="2,0,2,0"
+                            <TextBlock Grid.Column="0" Text="Dodaj zadanie" Margin="2,0,2,0"
                                FontSize="16"
                                VerticalAlignment="Center"
                               
@@ -216,10 +216,10 @@
                               VerticalAlignment="Center"
                               Height="22">
                             <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="90"/>
+                                <ColumnDefinition Width="110"/>
                                 <ColumnDefinition Width="*"/>
                             </Grid.ColumnDefinitions>
-                            <TextBlock Grid.Column="0" Text="Add Sprint" Margin="2,0,2,0"
+                            <TextBlock Grid.Column="0" Text="Dodaj sprint" Margin="2,0,2,0"
                                FontSize="16"
                                VerticalAlignment="Center"
                               
@@ -252,10 +252,10 @@
                               VerticalAlignment="Center"
                               Height="22">
                             <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="90"/>
+                                <ColumnDefinition Width="110"/>
                                 <ColumnDefinition Width="*"/>
                             </Grid.ColumnDefinitions>
-                            <TextBlock Grid.Column="0" Text="Add Project" Margin="2,0,2,0"
+                            <TextBlock Grid.Column="0" Text="Dodaj projekt" Margin="2,0,2,0"
                                FontSize="16"
                                VerticalAlignment="Center"
                               

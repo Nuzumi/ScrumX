@@ -19,7 +19,7 @@
                        WindowTitleBrush="{DynamicResource PrimaryHueMidBrush}"
         FontFamily="pack://application:,,,/MaterialDesignThemes.Wpf;component/Resources/Roboto/#Roboto"
        
-        Title="AddSprint" Height="180" Width="300" Name="Window" ShowCloseButton="False">
+        Title="Dodaj sprint" Height="170" Width="300" Name="Window" ShowCloseButton="False">
     <Controls:MetroWindow.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>

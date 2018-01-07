@@ -20,7 +20,7 @@
                        WindowTitleBrush="{DynamicResource PrimaryHueMidBrush}"
         FontFamily="pack://application:,,,/MaterialDesignThemes.Wpf;component/Resources/Roboto/#Roboto"
        
-        Title="EditTask" Height="345" Width="300" Name="Window" ShowCloseButton="False">
+        Title="Edytuj zadanie" Height="345" Width="300" Name="Window" ShowCloseButton="False">
     <Controls:MetroWindow.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
@@ -81,7 +81,7 @@
             </ComboBox.ItemTemplate>
         </ComboBox>
 
-        <Label Content="SP" Grid.Row="2" />
+        <Label Content="Story pointy" Grid.Row="2" />
         <ComboBox Grid.Column="1" 
                   Grid.Row="2" 
                   SelectedItem="{Binding SelectedSP, Mode=OneWayToSource}" 

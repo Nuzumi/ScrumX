@@ -64,19 +64,17 @@
         </Controls:WindowCommands>
     </Controls:MetroWindow.RightWindowCommands>
 
-
     <DockPanel>
         <DockPanel DockPanel.Dock="Left">
             <Image
                 Source="scrum_img.png"
                 Height="120"
-                Width="120"
-                Margin="5"
+                Width="140"
+                Margin="2"
                 DockPanel.Dock="Top"></Image>
             <Separator Margin="0,5,0,0" BorderThickness="1" BorderBrush="Black" DockPanel.Dock="Top"/>
             <DockPanel Margin="0,1,0,1">
 
-                <Separator BorderBrush="Black" BorderThickness="1" DockPanel.Dock="Top"/>
                 <StackPanel DockPanel.Dock="Top">
                     <Label Content="Go to:" Margin="5" FontSize="20" FontWeight="Bold" HorizontalContentAlignment="Center"/>
                     <Button 
@@ -95,7 +93,7 @@
                               VerticalAlignment="Center"
                               Height="22">
                             <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="90"/>
+                                <ColumnDefinition Width="110"/>
                                 <ColumnDefinition Width="*"/>
                             </Grid.ColumnDefinitions>
                             <TextBlock Grid.Column="0" Text="Table" Margin="2,0,2,0"
@@ -109,8 +107,10 @@
                             HorizontalContentAlignment="Center"
                             VerticalContentAlignment="Center"
                             HorizontalAlignment="Right"
+                                    Command="{Binding GoToTableCommand}" 
+                    CommandParameter="{Binding ElementName=Window}"
                             Style="{DynamicResource MetroCircleButtonStyle}" BorderThickness="0">
-                                <materialDesign:PackIcon Width="20" Height="20" Kind="CalendarToday"/>
+                                <materialDesign:PackIcon HorizontalAlignment="Center" VerticalAlignment="Center" Width="20" Height="20" Kind="CalendarToday"/>
                             </Button>
 
                         </Grid>
@@ -118,8 +118,6 @@
 
                     <Button 
                     Style="{DynamicResource MaterialDesignToolButton}"
-                        Command="{Binding GoToBacklogCommand}" 
-                    CommandParameter="{Binding ElementName=Window}"
                     BorderThickness="0"
                     Margin="2,2,2,2"
                     HorizontalAlignment="Center"
@@ -132,7 +130,7 @@
                               VerticalAlignment="Center"
                               Height="22">
                             <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="90"/>
+                                <ColumnDefinition Width="110"/>
                                 <ColumnDefinition Width="*"/>
                             </Grid.ColumnDefinitions>
                             <TextBlock Grid.Column="0" Text="Backlog" Margin="2,0,2,0"
@@ -146,10 +144,8 @@
                             HorizontalContentAlignment="Center"
                             VerticalContentAlignment="Center"
                             HorizontalAlignment="Right"
-                                    Command="{Binding GoToBacklogCommand}" 
-                    CommandParameter="{Binding ElementName=Window}"
                             Style="{DynamicResource MetroCircleButtonStyle}" BorderThickness="0">
-                                <materialDesign:PackIcon Width="20" Height="20" Kind="CalendarText"/>
+                                <materialDesign:PackIcon HorizontalAlignment="Center" VerticalAlignment="Center" Width="20" Height="20" Kind="CalendarText"/>
                             </Button>
 
                         </Grid>
@@ -162,7 +158,7 @@
                     Style="{DynamicResource MaterialDesignToolButton}"
                     BorderThickness="0"
                     Command="{Binding AddTaskCommand}"
-                    Margin="2,2,2,2"
+                    Margin="0,2,2,2"
                     HorizontalAlignment="Center"
                     VerticalContentAlignment="Center"
                     HorizontalContentAlignment="Center"
@@ -173,10 +169,10 @@
                               VerticalAlignment="Center"
                               Height="22">
                             <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="90"/>
+                                <ColumnDefinition Width="110"/>
                                 <ColumnDefinition Width="*"/>
                             </Grid.ColumnDefinitions>
-                            <TextBlock Grid.Column="0" Text="Add Job" Margin="2,0,2,0"
+                            <TextBlock Grid.Column="0" Text="Dodaj zadanie" Margin="2,0,2,0"
                                FontSize="16"
                                VerticalAlignment="Center"
                               
@@ -187,9 +183,9 @@
                             HorizontalContentAlignment="Center"
                             VerticalContentAlignment="Center"
                             HorizontalAlignment="Right"
-                                     Command="{Binding AddTaskCommand}"
+                                    Command="{Binding AddTaskCommand}"
                             Style="{DynamicResource MetroCircleButtonStyle}" BorderThickness="0">
-                                <materialDesign:PackIcon Width="20" Height="20" Kind="NotePlusOutline"/>
+                                <materialDesign:PackIcon HorizontalAlignment="Center" VerticalAlignment="Center" Width="20" Height="20" Kind="NotePlusOutline"/>
                             </Button>
 
                         </Grid>
@@ -209,10 +205,10 @@
                               VerticalAlignment="Center"
                               Height="22">
                             <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="90"/>
+                                <ColumnDefinition Width="110"/>
                                 <ColumnDefinition Width="*"/>
                             </Grid.ColumnDefinitions>
-                            <TextBlock Grid.Column="0" Text="Add Sprint" Margin="2,0,2,0"
+                            <TextBlock Grid.Column="0" Text="Dodaj sprint" Margin="2,0,2,0"
                                FontSize="16"
                                VerticalAlignment="Center"
                               
@@ -225,7 +221,7 @@
                             HorizontalAlignment="Right"
                                     Command="{Binding AddSprintCommand}"
                             Style="{DynamicResource MetroCircleButtonStyle}" BorderThickness="0">
-                                <materialDesign:PackIcon Width="20" Height="20" Kind="AlarmPlus"/>
+                                <materialDesign:PackIcon HorizontalAlignment="Center" VerticalAlignment="Center" Width="20" Height="20" Kind="AlarmPlus"/>
                             </Button>
 
                         </Grid>
@@ -245,10 +241,10 @@
                               VerticalAlignment="Center"
                               Height="22">
                             <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="90"/>
+                                <ColumnDefinition Width="110"/>
                                 <ColumnDefinition Width="*"/>
                             </Grid.ColumnDefinitions>
-                            <TextBlock Grid.Column="0" Text="Add Project" Margin="2,0,2,0"
+                            <TextBlock Grid.Column="0" Text="Dodaj projekt" Margin="2,0,2,0"
                                FontSize="16"
                                VerticalAlignment="Center"
                               
@@ -259,9 +255,9 @@
                             HorizontalContentAlignment="Center"
                             VerticalContentAlignment="Center"
                             HorizontalAlignment="Right"
-                                    Command="{Binding AddProjectCommand}"
+                                     Command="{Binding AddProjectCommand}"
                             Style="{DynamicResource MetroCircleButtonStyle}" BorderThickness="0">
-                                <materialDesign:PackIcon Width="20" Height="20" Kind="CalendarPlus"/>
+                                <materialDesign:PackIcon HorizontalAlignment="Center" VerticalAlignment="Center" Width="20" Height="20" Kind="CalendarPlus"/>
                             </Button>
 
                         </Grid>
@@ -302,7 +298,7 @@
             </ComboBox>
             <Border Grid.Column="2" BorderThickness="0.8" BorderBrush="Black" Margin="0,4,4,4"/>
             <Label Grid.Column="3" Content="Tylko moje zadania" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"/>
-            <ToggleButton 
+            <ToggleButton
                 Grid.Column="4" 
                 Margin="5,9,5,4" 
                 Style="{StaticResource MaterialDesignActionAccentToggleButton}"

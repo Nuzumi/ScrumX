@@ -24,6 +24,8 @@ namespace ScrumX.API.Model
         [Index]
         public int IdUser { get; set; }
 
+        public string FieldJeejeje { get; set; }
+
         public string Comment { get; set; }
         public DateTime Date { get; set; }
 

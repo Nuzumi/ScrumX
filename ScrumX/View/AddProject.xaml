@@ -19,7 +19,7 @@
                        WindowTitleBrush="{DynamicResource PrimaryHueMidBrush}"
         FontFamily="pack://application:,,,/MaterialDesignThemes.Wpf;component/Resources/Roboto/#Roboto"
        
-        Title="AddProject" Height="150" Width="300" Name="Window" WindowStyle="None" ShowCloseButton="False">
+        Title="Dodaj projekt" Height="120" Width="300" Name="Window" WindowStyle="None" ShowCloseButton="False">
     <Controls:MetroWindow.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>

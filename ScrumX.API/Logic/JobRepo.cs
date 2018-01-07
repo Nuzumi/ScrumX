@@ -164,7 +164,7 @@ namespace ScrumX.API.Logic
                 value = obj.Priority.Value;
             }
 
-            if (obj.BacklogStatus != 3 && priority.HasValue && priority.Value != value) // usunieto && priority.Value != obj.Priority.Value
+            if (obj.BacklogStatus != 4 && priority.HasValue && priority.Value != value) // usunieto && priority.Value != obj.Priority.Value
             {
                 //Edit zadania robi wpis w HJ
                 HistoryJob hj = new HistoryJob();
