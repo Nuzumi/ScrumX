@@ -129,6 +129,8 @@
 
                     <Button 
                     Style="{DynamicResource MaterialDesignToolButton}"
+                        Command="{Binding GoToBacklogCommand}" 
+                    CommandParameter="{Binding ElementName=Window}"
                     BorderThickness="0"
                     Margin="2,2,2,2"
                     HorizontalAlignment="Center"

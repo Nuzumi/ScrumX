@@ -20,7 +20,7 @@
         FontFamily="pack://application:,,,/MaterialDesignThemes.Wpf;component/Resources/Roboto/#Roboto"
        
         xmlns:dd="urn:gong-wpf-dragdrop"
-        Title="Tablica" Height="500" Width="1000" Name="Window">
+        Title="Tablica" Height="600" Width="1000" Name="Window">
 
     <Controls:MetroWindow.Resources>
         <ResourceDictionary>
@@ -119,6 +119,8 @@
                     <Button 
                     Style="{DynamicResource MaterialDesignToolButton}"
                     BorderThickness="0"
+                         Command="{Binding GoToBacklogCommand}" 
+                    CommandParameter="{Binding ElementName=Window}"
                     Margin="2,2,2,2"
                     HorizontalAlignment="Center"
                     VerticalContentAlignment="Center"
