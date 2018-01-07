@@ -124,15 +124,15 @@
             <RowDefinition Height="auto"/>
         </Grid.RowDefinitions>
         <Label Content="{Binding LabeleContent}" Grid.ColumnSpan="2" Margin="1" HorizontalContentAlignment="Center" FontSize="14"/>
-        <Label Content="Nazwa" Grid.Row="1"/>
+        <Label Content="Name" Grid.Row="1"/>
         <Label Content="Użytkownik istnieje w bazie" Style="{StaticResource login}" Grid.Row="2" Grid.ColumnSpan="2" HorizontalContentAlignment="Center"/>
-        <Label Content="Hasło" Grid.Row="3"/>
+        <Label Content="Password" Grid.Row="3"/>
         <Label Content="Niepoprawne hasło" Style="{StaticResource password}" Grid.Row="5" Grid.ColumnSpan="2" HorizontalContentAlignment="Center"/>
-        <TextBlock Text="Hasło ponownie" Grid.Row="4" Style="{StaticResource PasswordAgainTextBlock}" TextWrapping="Wrap" MaxWidth="80" Margin="4"/>
-        <TextBox Grid.Column="1" Grid.Row="4" Style="{StaticResource PasswordAgainTextBox}" Margin="5,9,5,9" Text="{Binding PasswordAgain}"/>
+        <TextBlock Text="Password again" Grid.Row="4" Style="{StaticResource PasswordAgainTextBlock}" TextWrapping="Wrap" MaxWidth="80" Margin="4"/>
+        <TextBox Grid.Column="1" Grid.Row="4" Style="{StaticResource PasswordAgainTextBox}" Margin="5,9,5,9" Text="{Binding PasswordAgain, UpdateSourceTrigger=PropertyChanged}"/>
         <TextBox Grid.Column="1"  Grid.Row="1"
                  Text="{Binding Login}"/>
-        <TextBox Grid.Column="1" Grid.Row="3" Text="{Binding Password}"/>
+        <TextBox Grid.Column="1" Grid.Row="3" Text="{Binding Password,UpdateSourceTrigger=PropertyChanged}"/>
         <Grid Grid.Row="6" Grid.ColumnSpan="2" Margin="0,5,0,0">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="auto"/>

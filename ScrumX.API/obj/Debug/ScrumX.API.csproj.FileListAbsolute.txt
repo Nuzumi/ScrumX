@@ -87,3 +87,25 @@ D:\Nowy folder\Git\ScrumX\ScrumX.API\bin\Debug\System.Data.SQLite.dll
 D:\Nowy folder\Git\ScrumX\ScrumX.API\bin\Debug\System.Data.SQLite.EF6.dll
 D:\Nowy folder\Git\ScrumX\ScrumX.API\bin\Debug\System.Data.SQLite.Linq.dll
 D:\Nowy folder\Git\ScrumX\ScrumX.API\bin\Debug\System.Data.SQLite.xml
+D:\Moje\Git\ScrumX\ScrumX.API\bin\Debug\scrum.sqlite
+D:\Moje\Git\ScrumX\ScrumX.API\bin\Debug\ScrumX.API.dll.config
+D:\Moje\Git\ScrumX\ScrumX.API\bin\Debug\ScrumX.API.dll
+D:\Moje\Git\ScrumX\ScrumX.API\bin\Debug\ScrumX.API.pdb
+D:\Moje\Git\ScrumX\ScrumX.API\bin\Debug\EntityFramework.dll
+D:\Moje\Git\ScrumX\ScrumX.API\bin\Debug\EntityFramework.SqlServer.dll
+D:\Moje\Git\ScrumX\ScrumX.API\bin\Debug\Ninject.dll
+D:\Moje\Git\ScrumX\ScrumX.API\bin\Debug\System.Data.SQLite.dll
+D:\Moje\Git\ScrumX\ScrumX.API\bin\Debug\System.Data.SQLite.EF6.dll
+D:\Moje\Git\ScrumX\ScrumX.API\bin\Debug\System.Data.SQLite.Linq.dll
+D:\Moje\Git\ScrumX\ScrumX.API\bin\Debug\EntityFramework.xml
+D:\Moje\Git\ScrumX\ScrumX.API\bin\Debug\EntityFramework.SqlServer.xml
+D:\Moje\Git\ScrumX\ScrumX.API\bin\Debug\Ninject.xml
+D:\Moje\Git\ScrumX\ScrumX.API\bin\Debug\System.Data.SQLite.xml
+D:\Moje\Git\ScrumX\ScrumX.API\obj\Debug\ScrumX.API.csprojResolveAssemblyReference.cache
+D:\Moje\Git\ScrumX\ScrumX.API\obj\Debug\ScrumX.API.Migrations.Add.resources
+D:\Moje\Git\ScrumX\ScrumX.API\obj\Debug\ScrumX.API.Migrations.Fix.resources
+D:\Moje\Git\ScrumX\ScrumX.API\obj\Debug\ScrumX.API.Migrations.AddfieldtoHistoryJob.resources
+D:\Moje\Git\ScrumX\ScrumX.API\obj\Debug\ScrumX.API.Migrations.AddProjecttoJob.resources
+D:\Moje\Git\ScrumX\ScrumX.API\obj\Debug\ScrumX.API.csproj.GenerateResource.Cache
+D:\Moje\Git\ScrumX\ScrumX.API\obj\Debug\ScrumX.API.dll
+D:\Moje\Git\ScrumX\ScrumX.API\obj\Debug\ScrumX.API.pdb

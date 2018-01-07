@@ -161,13 +161,17 @@ namespace ScrumX.ViewModel
             set
             {
                 SetProperty(ref selectedPriority, value);
-                if(SelectedJob != null)
+                if(value != -1)
                 {
-                    repo.JobsRepo.ChangeJobPriority(SelectedJob,(int) value, logedUser);
-                    Job tmp = SelectedJob;
-                    SelectedJob = null;
-                    SelectedJob = tmp;
-                    Jobs = new ObservableCollection<Job>(repo.JobsRepo.GetJobsInBacklog(SelectedProject, (int)selectedType));
+                    if (SelectedJob != null)
+                    {
+                        repo.JobsRepo.ChangeJobPriority(SelectedJob, (int)value, logedUser);
+                        Job tmp = SelectedJob;
+                        SelectedJob = null;
+                        SelectedJob = tmp;
+                        //Jobs = new ObservableCollection<Job>(repo.JobsRepo.GetJobsInBacklog(SelectedProject, (int)selectedType)); 
+                        SelectedPriority = -1;
+                    }
                 }
             }
         }

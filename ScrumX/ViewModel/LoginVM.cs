@@ -18,10 +18,11 @@ namespace ScrumX.ViewModel
 {
     class LoginVM : BindableBase
     {
-        private User user;
         private bool loginMode = true;
         private EfRepository repo;
         IDialogCoordinator _dialogCoordinator;
+        private string passwordCopy;
+        private string passwordCopyAgain;
 
         #region Properties
 
@@ -94,7 +95,19 @@ namespace ScrumX.ViewModel
             get { return password; }
             set
             {
-                SetProperty(ref password, value);
+                if (value.Count() == 0)
+                {
+                    SetProperty(ref passwordCopy, "");
+                }
+                else
+                {
+                    SetProperty(ref passwordCopy, passwordCopy + value.Substring(value.Count() - 1));
+                }
+                
+                int passwordLengt = value.Count();
+                StringBuilder builder = new StringBuilder();
+                builder.Append('*', passwordLengt);
+                password = builder.ToString();
                 (OkComamnd as DelegateCommand<Window>).RaiseCanExecuteChanged();
             }
         }
@@ -105,7 +118,19 @@ namespace ScrumX.ViewModel
             get { return passwordAgain; }
             set
             {
-                SetProperty(ref passwordAgain, value);
+                if (value.Count() == 0)
+                {
+                    SetProperty(ref passwordCopyAgain, "");
+                }
+                else
+                {
+                    SetProperty(ref passwordCopyAgain, passwordCopyAgain + value.Substring(value.Count() - 1));
+                }
+
+                int passwordLengt = value.Count();
+                StringBuilder builder = new StringBuilder();
+                builder.Append('*', passwordLengt);
+                passwordAgain = builder.ToString();
                 (OkComamnd as DelegateCommand<Window>).RaiseCanExecuteChanged();
             }
         }
@@ -133,7 +158,7 @@ namespace ScrumX.ViewModel
 
         public void ClearTextBoxes()
         {
-            Password = PasswordAgain = Login = "";
+            password = Password = PasswordAgain = Login = "";
         }
 
         #region commanadFunction
@@ -142,7 +167,7 @@ namespace ScrumX.ViewModel
         {
             if (loginMode)
             {
-                int log = repo.UsersRepo.UserLogin(Login, Password);
+                int log = repo.UsersRepo.UserLogin(Login, passwordCopy);
                 if (log == 1)
                 {
                     BacklogVM dataContext = new BacklogVM(repo.UsersRepo.GetUserByName(login), _dialogCoordinator);
@@ -161,12 +186,13 @@ namespace ScrumX.ViewModel
                 {
                     var metroWindow = (Application.Current.MainWindow as MetroWindow);
                         await metroWindow.ShowMessageAsync("Ups!", "Błędne hasło");
+
                     ClearTextBoxes();
                 }
             }
             else
             {
-                if (repo.UsersRepo.RegisterUser(Login, Password))
+                if (repo.UsersRepo.RegisterUser(Login, passwordCopy))
                 {
                     var metroWindow = (Application.Current.MainWindow as MetroWindow);
                     await metroWindow.ShowMessageAsync("Super!", "Zarejestrowano");
@@ -190,7 +216,7 @@ namespace ScrumX.ViewModel
             else
             {
                 LoginCorrect = !repo.UsersRepo.UserExists(Login);
-                return (!repo.UsersRepo.UserExists(Login) && Login != string.Empty && Login != null && Password != string.Empty && Password != null && (Password == passwordAgain || Password == "" || Password == null));
+                return (!repo.UsersRepo.UserExists(Login) && Login != string.Empty && Login != null && Password != string.Empty && Password != null && (passwordCopy == passwordCopyAgain || Password == "" || Password == null));
             }
         }
 
